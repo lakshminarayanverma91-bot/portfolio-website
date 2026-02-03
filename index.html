@@ -1,0 +1,1446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laxmi Narayan Verma - Premium Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #000;
+            color: #fff;
+            overflow-x: hidden;
+        }
+        
+        .font-display {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        /* Premium Gradient Backgrounds */
+        .premium-gradient {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #4facfe 75%, #00f2fe 100%);
+            background-size: 400% 400%;
+            animation: gradientFlow 15s ease infinite;
+        }
+        
+        @keyframes gradientFlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        /* Animated Grid Background */
+        .grid-background {
+            background-image: 
+                linear-gradient(rgba(124, 58, 237, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(124, 58, 237, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridMove 20s linear infinite;
+        }
+        
+        @keyframes gridMove {
+            0% { background-position: 0 0; }
+            100% { background-position: 50px 50px; }
+        }
+        
+        /* Floating Particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: radial-gradient(circle, rgba(124, 58, 237, 0.8), transparent);
+            border-radius: 50%;
+            animation: float 20s infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(100px);
+                opacity: 0;
+            }
+        }
+        
+        /* Premium Card Hover Effects */
+        .premium-card {
+            position: relative;
+            background: rgba(17, 24, 39, 0.8);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(124, 58, 237, 0.2);
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        
+        .premium-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: inherit;
+            padding: 2px;
+            background: linear-gradient(135deg, #667eea, #764ba2, #f093fb);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        
+        .premium-card:hover::before {
+            opacity: 1;
+        }
+        
+        .premium-card:hover {
+            transform: translateY(-20px) scale(1.02);
+            box-shadow: 0 30px 60px rgba(124, 58, 237, 0.4);
+        }
+        
+        /* Magnetic Button Effect */
+        .magnetic-btn {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        
+        .magnetic-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+        
+        .magnetic-btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+        
+        .magnetic-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 20px 40px rgba(124, 58, 237, 0.6);
+        }
+        
+        /* Text Reveal Animation */
+        .text-reveal {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .text-reveal span {
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(100%);
+            animation: revealText 0.8s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+        }
+        
+        @keyframes revealText {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Stagger animation for children */
+        .text-reveal span:nth-child(1) { animation-delay: 0.1s; }
+        .text-reveal span:nth-child(2) { animation-delay: 0.2s; }
+        .text-reveal span:nth-child(3) { animation-delay: 0.3s; }
+        .text-reveal span:nth-child(4) { animation-delay: 0.4s; }
+        .text-reveal span:nth-child(5) { animation-delay: 0.5s; }
+        
+        /* Premium Glow Effect */
+        .glow-text {
+            text-shadow: 
+                0 0 10px rgba(124, 58, 237, 0.5),
+                0 0 20px rgba(124, 58, 237, 0.3),
+                0 0 30px rgba(124, 58, 237, 0.2);
+            animation: glowPulse 3s ease-in-out infinite;
+        }
+        
+        @keyframes glowPulse {
+            0%, 100% {
+                text-shadow: 
+                    0 0 10px rgba(124, 58, 237, 0.5),
+                    0 0 20px rgba(124, 58, 237, 0.3),
+                    0 0 30px rgba(124, 58, 237, 0.2);
+            }
+            50% {
+                text-shadow: 
+                    0 0 20px rgba(124, 58, 237, 0.8),
+                    0 0 40px rgba(124, 58, 237, 0.6),
+                    0 0 60px rgba(124, 58, 237, 0.4);
+            }
+        }
+        
+        /* Smooth Scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #000;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 10px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, #764ba2, #f093fb);
+        }
+        
+        /* Navigation Blur Effect */
+        .nav-blur {
+            backdrop-filter: blur(20px) saturate(180%);
+            background: rgba(0, 0, 0, 0.8);
+            border-bottom: 1px solid rgba(124, 58, 237, 0.2);
+        }
+        
+        /* ===================================
+           NEW PROJECT CARD ANIMATION
+           =================================== */
+        
+        .project-card {
+            position: relative;
+            background: rgba(17, 24, 39, 0.8);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(124, 58, 237, 0.2);
+            border-radius: 1.5rem;
+            overflow: hidden;
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            cursor: pointer;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1), rgba(240, 147, 251, 0.1));
+            opacity: 0;
+            transition: opacity 0.6s ease;
+            z-index: 0;
+        }
+
+        .project-card:hover::before {
+            opacity: 1;
+        }
+
+        .project-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: inherit;
+            padding: 2px;
+            background: linear-gradient(135deg, #667eea, #764ba2, #f093fb);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.6s ease;
+            z-index: 1;
+        }
+
+        .project-card:hover::after {
+            opacity: 1;
+        }
+
+        .project-card:hover {
+            transform: translateY(-15px) scale(1.03);
+            box-shadow: 
+                0 30px 60px rgba(124, 58, 237, 0.4),
+                0 0 100px rgba(124, 58, 237, 0.2);
+        }
+
+        .project-content {
+            position: relative;
+            z-index: 2;
+            padding: 2rem;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            display: inline-block;
+        }
+
+        .project-card:hover .project-icon {
+            transform: scale(1.2) rotate(5deg);
+            filter: drop-shadow(0 0 20px rgba(124, 58, 237, 0.8));
+        }
+
+        .project-details {
+            position: relative;
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            margin-top: auto;
+        }
+
+        .project-card:hover .project-details {
+            max-height: 300px;
+            opacity: 1;
+            margin-top: 1.5rem;
+        }
+
+        .project-features {
+            list-style: none;
+            padding: 0;
+            margin: 1rem 0;
+        }
+
+        .project-features li {
+            padding: 0.5rem 0;
+            color: #d1d5db;
+            transform: translateX(-20px);
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .project-card:hover .project-features li {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        .project-card:hover .project-features li:nth-child(1) { transition-delay: 0.1s; }
+        .project-card:hover .project-features li:nth-child(2) { transition-delay: 0.2s; }
+        .project-card:hover .project-features li:nth-child(3) { transition-delay: 0.3s; }
+        .project-card:hover .project-features li:nth-child(4) { transition-delay: 0.4s; }
+
+        .project-shine {
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                45deg,
+                transparent,
+                rgba(255, 255, 255, 0.1),
+                transparent
+            );
+            transform: rotate(45deg);
+            transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+            pointer-events: none;
+            z-index: 3;
+        }
+
+        .project-card:hover .project-shine {
+            left: 100%;
+        }
+
+        /* View Project Button */
+        .view-project-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border-radius: 9999px;
+            font-weight: 600;
+            font-size: 0.875rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            margin-top: 1rem;
+            position: relative;
+            z-index: 4;
+        }
+
+        .view-project-btn:hover {
+            background: linear-gradient(135deg, #764ba2, #f093fb);
+            transform: translateX(5px);
+            box-shadow: 0 10px 20px rgba(124, 58, 237, 0.4);
+        }
+
+        .view-project-btn svg {
+            transition: transform 0.3s ease;
+        }
+
+        .view-project-btn:hover svg {
+            transform: translateX(5px);
+        }
+
+        
+        /* Typewriter Effect */
+        .typewriter {
+            overflow: hidden;
+            border-right: 3px solid #667eea;
+            white-space: nowrap;
+            animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+        }
+        
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+        
+        @keyframes blink-caret {
+            from, to { border-color: transparent; }
+            50% { border-color: #667eea; }
+        }
+        
+        /* Parallax Sections */
+        .parallax {
+            transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        
+        /* Skill Bar Animation */
+        .skill-bar {
+            position: relative;
+            height: 8px;
+            background: rgba(124, 58, 237, 0.2);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .skill-progress {
+            position: absolute;
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2, #f093fb);
+            border-radius: 10px;
+            animation: fillBar 2s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+            transform-origin: left;
+        }
+        
+        @keyframes fillBar {
+            from {
+                transform: scaleX(0);
+            }
+            to {
+                transform: scaleX(1);
+            }
+        }
+        
+        /* Ripple Effect */
+        .ripple {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ripple::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(124, 58, 237, 0.5);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+        
+        .ripple:hover::after {
+            width: 500px;
+            height: 500px;
+        }
+        
+        /* Glassmorphism */
+        .glass {
+            background: rgba(17, 24, 39, 0.4);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Neon Border Animation */
+        @keyframes neonBorder {
+            0%, 100% {
+                box-shadow: 
+                    0 0 5px rgba(124, 58, 237, 0.5),
+                    0 0 10px rgba(124, 58, 237, 0.3),
+                    inset 0 0 5px rgba(124, 58, 237, 0.2);
+            }
+            50% {
+                box-shadow: 
+                    0 0 20px rgba(124, 58, 237, 0.8),
+                    0 0 40px rgba(124, 58, 237, 0.6),
+                    inset 0 0 10px rgba(124, 58, 237, 0.4);
+            }
+        }
+        
+        .neon-border {
+            animation: neonBorder 2s ease-in-out infinite;
+        }
+        
+        /* Floating Animation */
+        @keyframes floating {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+            25% {
+                transform: translateY(-20px) rotate(2deg);
+            }
+            50% {
+                transform: translateY(-10px) rotate(-2deg);
+            }
+            75% {
+                transform: translateY(-15px) rotate(1deg);
+            }
+        }
+        
+        .floating {
+            animation: floating 6s ease-in-out infinite;
+        }
+        
+        /* Fade In Up */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(60px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .fade-in-up {
+            animation: fadeInUp 1s ease-out forwards;
+            opacity: 0;
+        }
+        
+        /* Scale In */
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        .scale-in {
+            animation: scaleIn 0.8s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+            opacity: 0;
+        }
+        
+        /* Slide animations */
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .slide-in-left {
+            animation: slideInLeft 1s ease-out forwards;
+            opacity: 0;
+        }
+        
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .slide-in-right {
+            animation: slideInRight 1s ease-out forwards;
+            opacity: 0;
+        }
+        
+        /* Stagger delays */
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
+        .delay-3 { animation-delay: 0.3s; }
+        .delay-4 { animation-delay: 0.4s; }
+        .delay-5 { animation-delay: 0.5s; }
+        .delay-6 { animation-delay: 0.6s; }
+        
+        /* Mouse Follow Effect */
+        .mouse-glow {
+            position: fixed;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(124, 58, 237, 0.15), transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: opacity 0.3s;
+        }
+    </style>
+</head>
+<body class="relative">
+    <!-- Mouse Follow Glow -->
+    <div class="mouse-glow" id="mouseGlow"></div>
+    
+    <!-- Animated Particles Background -->
+    <div class="particles" id="particles"></div>
+    
+    <!-- Navigation -->
+    <nav class="fixed w-full top-0 z-50 nav-blur">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="text-2xl font-display font-bold">
+                    <span class="glow-text bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent">
+                        LNV
+                    </span>
+                </div>
+                
+                <div class="hidden md:flex space-x-8">
+                    <a href="#home" class="nav-link relative text-gray-300 hover:text-white transition-colors group">
+                        Home
+                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-purple-500 to-pink-500 group-hover:w-full transition-all duration-300"></span>
+                    </a>
+                    <a href="#about" class="nav-link relative text-gray-300 hover:text-white transition-colors group">
+                        About
+                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-purple-500 to-pink-500 group-hover:w-full transition-all duration-300"></span>
+                    </a>
+                    <a href="#skills" class="nav-link relative text-gray-300 hover:text-white transition-colors group">
+                        Skills
+                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-purple-500 to-pink-500 group-hover:w-full transition-all duration-300"></span>
+                    </a>
+                    <a href="#experience" class="nav-link relative text-gray-300 hover:text-white transition-colors group">
+                        Experience
+                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-purple-500 to-pink-500 group-hover:w-full transition-all duration-300"></span>
+                    </a>
+                    <a href="#education" class="nav-link relative text-gray-300 hover:text-white transition-colors group">
+                        Education
+                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-purple-500 to-pink-500 group-hover:w-full transition-all duration-300"></span>
+                    </a>
+                    <a href="#contact" class="nav-link relative text-gray-300 hover:text-white transition-colors group">
+                        Contact
+                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-purple-500 to-pink-500 group-hover:w-full transition-all duration-300"></span>
+                    </a>
+                </div>
+                
+                <button class="md:hidden text-white" onclick="toggleMobileMenu()">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="hidden md:hidden glass">
+            <div class="px-6 py-4 space-y-3">
+                <a href="#home" class="block text-gray-300 hover:text-white transition-colors">Home</a>
+                <a href="#about" class="block text-gray-300 hover:text-white transition-colors">About</a>
+                <a href="#skills" class="block text-gray-300 hover:text-white transition-colors">Skills</a>
+                <a href="#experience" class="block text-gray-300 hover:text-white transition-colors">Experience</a>
+                <a href="#education" class="block text-gray-300 hover:text-white transition-colors">Education</a>
+                <a href="#contact" class="block text-gray-300 hover:text-white transition-colors">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative min-h-screen flex items-center justify-center overflow-hidden grid-background pt-20">
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-black/50 to-black"></div>
+        
+        <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 text-center py-16">
+            <div class="mb-12 floating">
+                <div class="w-40 h-40 mx-auto rounded-full bg-gradient-to-br from-purple-500 via-pink-500 to-blue-500 p-1 neon-border">
+                    <div class="w-full h-full rounded-full bg-black flex items-center justify-center overflow-hidden">
+                        <img src="https://lh3.googleusercontent.com/d/1zX9V2ADjNGTgS3pmwWPGobiSOgI0EOBr" 
+                            alt="Laxmi Narayan Verma"
+                            class="w-full h-full object-cover rounded-full"
+                            style="object-position: 50% 20%;">
+                    </div>
+                </div>
+            </div>
+            
+            <h1 class="text-6xl md:text-8xl font-display font-bold mb-6 fade-in-up">
+                <span class="block text-white mb-2">Hi, I'm</span>
+                <span class="block bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent glow-text">
+                    Laxmi Narayan Verma
+                </span>
+            </h1>
+            
+            <div class="mb-8 fade-in-up delay-2">
+                <p class="text-xl md:text-2xl text-gray-400 inline-block typewriter">
+                    &lt;Aspiring Software Developer/&gt;
+                </p>
+            </div>
+            
+            <p class="text-lg text-gray-500 mb-12 max-w-2xl mx-auto fade-in-up delay-3">
+                Passionate about building elegant solutions through code
+            </p>
+            
+            <div class="flex flex-col sm:flex-row justify-center gap-6 fade-in-up delay-4 px-4">
+                <a href="#experience" class="magnetic-btn relative px-10 py-4 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full font-semibold text-white shadow-lg hover:shadow-purple-500/50 transition-all duration-300">
+                    <span class="relative z-10 flex items-center justify-center gap-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
+                        </svg>
+                        Explore My Work
+                    </span>
+                </a>
+                <a href="#contact" class="magnetic-btn relative px-10 py-4 glass rounded-full font-semibold text-white border-2 border-purple-500/50 hover:border-purple-500 transition-all duration-300">
+                    <span class="relative z-10">Get In Touch</span>
+                </a>
+            </div>
+        </div>
+        
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2">
+            <div class="w-6 h-10 border-2 border-purple-500 rounded-full flex justify-center">
+                <div class="w-1 h-3 bg-purple-500 rounded-full mt-2 animate-bounce"></div>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="relative py-32 overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-b from-black via-purple-950/20 to-black"></div>
+        
+        <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="text-center mb-20">
+                <h2 class="text-5xl md:text-7xl font-display font-bold mb-6 scale-in">
+                    About <span class="bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent glow-text">Me</span>
+                </h2>
+                <div class="w-32 h-1 bg-gradient-to-r from-purple-500 via-pink-500 to-blue-500 mx-auto rounded-full neon-border"></div>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-16 items-center">
+                <div class="space-y-6 slide-in-left">
+                    <p class="text-xl text-gray-300 leading-relaxed">
+                        I'm an 18-year-old Computer Science student at <span class="text-purple-400 font-semibold">Acharya Narendra Dev College, University of Delhi</span>, with a passion for building practical solutions through code.
+                    </p>
+                    <p class="text-xl text-gray-300 leading-relaxed">
+                        My approach to learning focuses on <span class="text-pink-400 font-semibold">step-by-step conceptual understanding</span> and applying theoretical knowledge through hands-on projects.
+                    </p>
+                    <p class="text-xl text-gray-300 leading-relaxed">
+                        Beyond academics, I'm actively involved in various college societies, contributing to social causes while developing my professional skills.
+                    </p>
+                    
+                    <!-- Code Window -->
+                    <div class="premium-card rounded-2xl overflow-hidden mt-8 floating">
+                        <div class="bg-gradient-to-r from-purple-900/50 to-pink-900/50 px-6 py-4 flex items-center gap-2">
+                            <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                            <span class="ml-4 text-gray-400 text-sm font-mono">main.py</span>
+                        </div>
+                        <div class="p-6 bg-gradient-to-br from-gray-900 to-black font-mono text-sm leading-relaxed">
+                            <div class="text-gray-500"># Student Profile</div>
+                            <div class="mt-2"><span class="text-purple-400">class</span> <span class="text-yellow-400">Student</span>:</div>
+                            <div class="ml-4"><span class="text-purple-400">def</span> <span class="text-blue-400">__init__</span>(<span class="text-pink-400">self</span>):</div>
+                            <div class="ml-8"><span class="text-pink-400">self</span>.name = <span class="text-green-400">"CS Student"</span></div>
+                            <div class="ml-8"><span class="text-pink-400">self</span>.skills = [<span class="text-green-400">"Python"</span>, <span class="text-green-400">"C++"</span>]</div>
+                            <div class="ml-8"><span class="text-pink-400">self</span>.passion = <span class="text-green-400">"Problem Solving"</span></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="space-y-6 slide-in-right">
+                    <div class="premium-card p-8 rounded-2xl ripple">
+                        <div class="text-5xl mb-4">🎓</div>
+                        <h3 class="text-2xl font-display font-bold mb-3 text-purple-300">Academic Focus</h3>
+                        <p class="text-gray-400 leading-relaxed">Strong foundation in computer science fundamentals with practical application through coding challenges</p>
+                    </div>
+                    
+                    <div class="premium-card p-8 rounded-2xl ripple delay-1">
+                        <div class="text-5xl mb-4">💼</div>
+                        <h3 class="text-2xl font-display font-bold mb-3 text-pink-300">Professional Growth</h3>
+                        <p class="text-gray-400 leading-relaxed">Hands-on internship experience in Python development and sales operations</p>
+                    </div>
+                    
+                    <div class="premium-card p-8 rounded-2xl ripple delay-2">
+                        <div class="text-5xl mb-4">🌟</div>
+                        <h3 class="text-2xl font-display font-bold mb-3 text-blue-300">Community Service</h3>
+                        <p class="text-gray-400 leading-relaxed">Active participation in social initiatives through college societies</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="relative py-32 overflow-hidden grid-background">
+        <div class="absolute inset-0 bg-gradient-to-b from-black via-blue-950/20 to-black"></div>
+        
+        <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="text-center mb-20">
+                <h2 class="text-5xl md:text-7xl font-display font-bold mb-6 scale-in">
+                    Technical <span class="bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent glow-text">Skills</span>
+                </h2>
+                <div class="w-32 h-1 bg-gradient-to-r from-purple-500 via-pink-500 to-blue-500 mx-auto rounded-full neon-border"></div>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Programming Languages -->
+                <div class="premium-card p-10 rounded-3xl fade-in-up">
+                    <div class="text-6xl mb-6">💻</div>
+                    <h3 class="text-3xl font-display font-bold mb-6 text-white">Programming</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="text-purple-300">Python</span>
+                                <span class="text-gray-400">Advanced</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 85%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="text-purple-300">C++</span>
+                                <span class="text-gray-400">Learning</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 60%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Web Technologies -->
+                <div class="premium-card p-10 rounded-3xl fade-in-up delay-1">
+                    <div class="text-6xl mb-6">🌐</div>
+                    <h3 class="text-3xl font-display font-bold mb-6 text-white">Web Tech</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="text-blue-300">HTML/CSS</span>
+                                <span class="text-gray-400">Proficient</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 80%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="text-blue-300">Tailwind CSS</span>
+                                <span class="text-gray-400">Proficient</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 75%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Databases -->
+                <div class="premium-card p-10 rounded-3xl fade-in-up delay-2">
+                    <div class="text-6xl mb-6">🗄️</div>
+                    <h3 class="text-3xl font-display font-bold mb-6 text-white">Databases</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="text-pink-300">SQL</span>
+                                <span class="text-gray-400">Intermediate</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 70%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Libraries & Tools -->
+                <div class="premium-card p-10 rounded-3xl fade-in-up delay-3 md:col-span-2 lg:col-span-3">
+                    <div class="text-6xl mb-6">🛠️</div>
+                    <h3 class="text-3xl font-display font-bold mb-6 text-white">Libraries & Tools</h3>
+                    <div class="flex flex-wrap gap-4">
+                        <span class="px-6 py-3 glass rounded-full border-2 border-purple-500/50 hover:border-purple-500 transition-all duration-300 hover:scale-110 cursor-pointer">Matplotlib</span>
+                        <span class="px-6 py-3 glass rounded-full border-2 border-pink-500/50 hover:border-pink-500 transition-all duration-300 hover:scale-110 cursor-pointer">Seaborn</span>
+                        <span class="px-6 py-3 glass rounded-full border-2 border-blue-500/50 hover:border-blue-500 transition-all duration-300 hover:scale-110 cursor-pointer">NLTK</span>
+                        <span class="px-6 py-3 glass rounded-full border-2 border-purple-500/50 hover:border-purple-500 transition-all duration-300 hover:scale-110 cursor-pointer">FPDF</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="relative py-32 overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-b from-black via-pink-950/20 to-black"></div>
+        
+        <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="text-center mb-20">
+                <h2 class="text-5xl md:text-7xl font-display font-bold mb-6 scale-in">
+                    Experience & <span class="bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent glow-text">Projects</span>
+                </h2>
+                <div class="w-32 h-1 bg-gradient-to-r from-purple-500 via-pink-500 to-blue-500 mx-auto rounded-full neon-border"></div>
+            </div>
+            
+            <!-- Projects Grid -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
+                <!-- Project 1 -->
+                <div class="project-card fade-in-up">
+                    <div class="project-shine"></div>
+                    <div class="project-content">
+                        <div class="project-icon">📊</div>
+                        <h3 class="text-2xl font-display font-bold mb-4 text-white">Weather Data Viz</h3>
+                        <p class="text-gray-400 mb-4">Real-time weather data visualization using OpenWeatherMap API</p>
+                        
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 text-xs glass rounded-full border border-purple-500/50">Python</span>
+                            <span class="px-3 py-1 text-xs glass rounded-full border border-blue-500/50">Matplotlib</span>
+                        </div>
+
+                        <div class="project-details">
+                            <h4 class="text-lg font-bold mb-3 text-white">Key Features</h4>
+                            <ul class="project-features">
+                                <li>✓ Real-time API integration</li>
+                                <li>✓ Interactive visualizations</li>
+                                <li>✓ Data analysis with Seaborn</li>
+                                <li>✓ Clean data presentation</li>
+                            </ul>
+                            <a href="https://github.com/lakshminarayanverma91-bot/weather-dashboard" target="_blank" class="view-project-btn">
+                                View Project
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="project-card fade-in-up delay-1">
+                    <div class="project-shine"></div>
+                    <div class="project-content">
+                        <div class="project-icon">📄</div>
+                        <h3 class="text-2xl font-display font-bold mb-4 text-white">PDF Generator</h3>
+                        <p class="text-gray-400 mb-4">Automated PDF report generation with data analysis</p>
+                        
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 text-xs glass rounded-full border border-purple-500/50">Python</span>
+                            <span class="px-3 py-1 text-xs glass rounded-full border border-pink-500/50">FPDF</span>
+                        </div>
+
+                        <div class="project-details">
+                            <h4 class="text-lg font-bold mb-3 text-white">Key Features</h4>
+                            <ul class="project-features">
+                                <li>✓ File data processing</li>
+                                <li>✓ Professional formatting</li>
+                                <li>✓ Automated reporting</li>
+                                <li>✓ Custom layouts</li>
+                            </ul>
+                            <a href="https://github.com/lakshminarayanverma91-bot/sales_report" target="_blank" class="view-project-btn">
+                                View Project
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="project-card fade-in-up delay-2">
+                    <div class="project-shine"></div>
+                    <div class="project-content">
+                        <div class="project-icon">🤖</div>
+                        <h3 class="text-2xl font-display font-bold mb-4 text-white">NLP Chatbot</h3>
+                        <p class="text-gray-400 mb-4">Intelligent chatbot with natural language processing</p>
+                        
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 text-xs glass rounded-full border border-blue-500/50">Python</span>
+                            <span class="px-3 py-1 text-xs glass rounded-full border border-purple-500/50">NLTK</span>
+                        </div>
+
+                        <div class="project-details">
+                            <h4 class="text-lg font-bold mb-3 text-white">Key Features</h4>
+                            <ul class="project-features">
+                                <li>✓ NLP processing</li>
+                                <li>✓ Contextual responses</li>
+                                <li>✓ Learning capabilities</li>
+                                <li>✓ User-friendly interface</li>
+                            </ul>
+                            <a href="YOUR_PROJECT_LINK_HERE" target="_blank" class="view-project-btn">
+                                View Project
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            <!-- Project 4 -->
+            <div class="project-card fade-in-up delay-2">
+                <div class="project-shine"></div>
+                <div class="project-content">
+                    <div class="project-icon">🌐</div>
+                    <h3 class="text-2xl font-display font-bold mb-4 text-white">My Portfolio Website</h3>
+                    <p class="text-gray-400 mb-4">Personal portfolio website showcasing my skills, projects, and achievements</p>
+                                    
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="px-3 py-1 text-xs glass rounded-full border border-yellow-500/50">HTML</span>
+                        <span class="px-3 py-1 text-xs glass rounded-full border border-red-500/50">Tailwind CSS</span>
+                    </div>
+
+                    <div class="project-details">
+                        <h4 class="text-lg font-bold mb-3 text-white">Key Features</h4>
+                        <ul class="project-features">
+                            <li>✓ Responsive modern UI design</li>
+                            <li>✓ Interactive animations and transitions</li>
+                            <li>✓ Project showcase with live previews</li>
+                            <li>✓ Contact and social integration</li>
+                        </ul>
+                        <a href="YOUR_PROJECT_LINK_HERE" target="_blank" class="view-project-btn">
+                            View Project
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+            <!-- Internships -->
+            <div class="space-y-8 mb-20">
+                <div class="premium-card p-10 rounded-3xl fade-in-up">
+                    <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
+                        <div>
+                            <h3 class="text-3xl font-display font-bold mb-2 text-white">Python Development Intern</h3>
+                            <p class="text-xl text-purple-400 font-semibold">Cyber Defence Zone</p>
+                        </div>
+                        <span class="magnetic-btn mt-4 md:mt-0 px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full text-sm font-semibold text-white inline-block">
+                            Internship
+                        </span>
+                    </div>
+                    <p class="text-gray-400 text-lg leading-relaxed">
+                        Completed three comprehensive Python development projects involving API integration, data visualization, file processing, PDF generation, and NLP chatbot development.
+                    </p>
+                </div>
+
+                <div class="premium-card p-10 rounded-3xl fade-in-up delay-1">
+                    <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
+                        <div>
+                            <h3 class="text-3xl font-display font-bold mb-2 text-white">Sales Intern</h3>
+                            <p class="text-xl text-blue-400 font-semibold">BookwithUVA</p>
+                        </div>
+                        <span class="magnetic-btn mt-4 md:mt-0 px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full text-sm font-semibold text-white inline-block">
+                            Internship
+                        </span>
+                    </div>
+                    <p class="text-gray-400 text-lg leading-relaxed">
+                        Gained practical experience in sales operations, customer engagement, and business development strategies.
+                    </p>
+                </div>
+            </div>
+
+            <!-- College Societies -->
+            <div class="text-center mb-12">
+                <h3 class="text-4xl font-display font-bold mb-6 scale-in">
+                    College <span class="bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent">Involvement</span>
+                </h3>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="premium-card p-8 rounded-3xl fade-in-up ripple">
+                    <div class="text-5xl mb-6">📚</div>
+                    <h4 class="text-2xl font-display font-bold mb-4 text-white">Hindi Parishad</h4>
+                    <p class="text-gray-400 leading-relaxed">Promoting Hindi language and cultural initiatives across the country</p>
+                </div>
+                
+                <div class="premium-card p-8 rounded-3xl fade-in-up delay-1 ripple">
+                    <div class="text-5xl mb-6">🤝</div>
+                    <h4 class="text-2xl font-display font-bold mb-4 text-white">YUVA</h4>
+                    <p class="text-gray-400 leading-relaxed">National service activities and social welfare programs</p>
+                </div>
+                
+                <div class="premium-card p-8 rounded-3xl fade-in-up delay-2 ripple">
+                    <div class="text-5xl mb-6">💼</div>
+                    <h4 class="text-2xl font-display font-bold mb-4 text-white">Placement Cell</h4>
+                    <p class="text-gray-400 leading-relaxed">PR Assistant managing student-employer connections</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education" class="relative py-32 overflow-hidden grid-background">
+        <div class="absolute inset-0 bg-gradient-to-b from-black via-purple-950/20 to-black"></div>
+        
+        <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="text-center mb-20">
+                <h2 class="text-5xl md:text-7xl font-display font-bold mb-6 scale-in">
+                    Educational <span class="bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent glow-text">Journey</span>
+                </h2>
+                <div class="w-32 h-1 bg-gradient-to-r from-purple-500 via-pink-500 to-blue-500 mx-auto rounded-full neon-border"></div>
+            </div>
+            
+            <!-- Current Education -->
+            <div class="mb-20 fade-in-up">
+                <h3 class="text-4xl font-display font-bold text-center mb-12 text-white">
+                    Current <span class="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">Education</span>
+                </h3>
+                <div class="premium-card p-12 rounded-3xl max-w-4xl mx-auto neon-border">
+                    <div class="flex flex-col md:flex-row items-start gap-8">
+                        <div class="text-7xl">🎓</div>
+                        <div class="flex-1">
+                            <h3 class="text-3xl md:text-4xl font-display font-bold mb-3 text-white">B.Sc. (Hons) Computer Science</h3>
+                            <p class="text-2xl text-purple-300 font-semibold mb-2">Acharya Narendra Dev College</p>
+                            <p class="text-xl text-gray-400 mb-6">University of Delhi</p>
+                            <span class="inline-block px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full text-sm font-semibold text-white shadow-lg">
+                                Current
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- School Education Timeline -->
+            <div>
+                <h3 class="text-4xl font-display font-bold text-center mb-12 text-white">
+                    School <span class="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">Education</span>
+                </h3>
+                <div class="space-y-6 max-w-4xl mx-auto">
+                    <div class="premium-card p-8 rounded-2xl fade-in-up ripple">
+                        <div class="flex items-start gap-6">
+                            <div class="w-16 h-16 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-white font-bold text-xl flex-shrink-0 shadow-lg neon-border">
+                                12
+                            </div>
+                            <div>
+                                <h4 class="text-2xl font-display font-bold mb-2 text-white">Class 9 – Class 12</h4>
+                                <p class="text-xl text-purple-300 font-semibold">Amar Shahid Bhagat Singh Inter College</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="premium-card p-8 rounded-2xl fade-in-up delay-1 ripple">
+                        <div class="flex items-start gap-6">
+                            <div class="w-16 h-16 rounded-full bg-gradient-to-br from-pink-500 to-blue-500 flex items-center justify-center text-white font-bold text-xl flex-shrink-0 shadow-lg neon-border">
+                                8
+                            </div>
+                            <div>
+                                <h4 class="text-2xl font-display font-bold mb-2 text-white">Class 5 – Class 8</h4>
+                                <p class="text-xl text-pink-300 font-semibold">Oxford International School</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="premium-card p-8 rounded-2xl fade-in-up delay-2 ripple">
+                        <div class="flex items-start gap-6">
+                            <div class="w-16 h-16 rounded-full bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center text-white font-bold text-xl flex-shrink-0 shadow-lg neon-border">
+                                4
+                            </div>
+                            <div>
+                                <h4 class="text-2xl font-display font-bold mb-2 text-white">Nursery – Class 4</h4>
+                                <p class="text-xl text-blue-300 font-semibold">Assam Public School</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="relative py-32 overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-b from-black via-pink-950/20 to-black"></div>
+        
+        <!-- Floating Decorative Elements -->
+        <div class="absolute top-20 left-10 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl floating"></div>
+        <div class="absolute bottom-20 right-10 w-96 h-96 bg-pink-500/10 rounded-full blur-3xl floating" style="animation-delay: 2s;"></div>
+        
+        <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="text-center mb-20">
+                <h2 class="text-5xl md:text-7xl font-display font-bold mb-6 scale-in">
+                    Get In <span class="bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent glow-text">Touch</span>
+                </h2>
+                <div class="w-32 h-1 bg-gradient-to-r from-purple-500 via-pink-500 to-blue-500 mx-auto rounded-full neon-border mb-8"></div>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed fade-in-up">
+                    I'm always open to discussing new opportunities, collaborations, or just having a chat about technology and innovation!
+                </p>
+            </div>
+            
+            <div class="max-w-5xl mx-auto">
+                <!-- Contact Cards -->
+                <div class="grid md:grid-cols-3 gap-8 mb-16">
+                    <a href="mailto:lakshminarayanverma91@gmail.com" class="premium-card p-8 rounded-2xl text-center ripple fade-in-up">
+                        <div class="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center shadow-lg neon-border floating">
+                            <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 text-white">Email</h3>
+                        <p class="text-sm text-purple-400 break-all">lakshminarayanverma91@gmail.com</p>
+                    </a>
+
+                    <div class="premium-card p-8 rounded-2xl text-center fade-in-up delay-1">
+                        <div class="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-br from-pink-500 to-blue-500 flex items-center justify-center shadow-lg neon-border floating" style="animation-delay: 1s;">
+                            <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 text-white">Location</h3>
+                        <p class="text-sm text-pink-400">Delhi, India</p>
+                        <p class="text-xs text-gray-500 mt-1">University of Delhi</p>
+                    </div>
+
+                    <div class="premium-card p-8 rounded-2xl text-center fade-in-up delay-2">
+                        <div class="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center shadow-lg neon-border floating" style="animation-delay: 2s;">
+                            <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 text-white">Institution</h3>
+                        <p class="text-sm text-blue-400">Acharya Narendra Dev</p>
+                        <p class="text-xs text-gray-500 mt-1">CS Student</p>
+                    </div>
+                </div>
+
+                <!-- Social Links -->
+                <div class="premium-card p-12 rounded-3xl text-center neon-border fade-in-up delay-3">
+                    <h3 class="text-3xl font-display font-bold mb-8 text-white">Connect With Me</h3>
+                    <div class="flex justify-center gap-8 flex-wrap mb-12">
+                        <a href="https://www.linkedin.com/in/laxmi-narayan-verma-b91634379" target="_blank" class="group">
+                            <div class="w-20 h-20 bg-gradient-to-br from-blue-600 to-blue-700 rounded-2xl flex items-center justify-center shadow-lg hover:shadow-blue-500/50 transition-all duration-300 hover:scale-110 neon-border">
+                                <svg class="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                                </svg>
+                            </div>
+                            <p class="mt-3 text-sm text-gray-400 group-hover:text-blue-400 transition-colors">LinkedIn</p>
+                        </a>
+                        
+                        <a href="https://github.com/lakshminarayanverma91-bot/" target="_blank" class="group">
+                            <div class="w-20 h-20 bg-gradient-to-br from-gray-700 to-gray-800 rounded-2xl flex items-center justify-center shadow-lg hover:shadow-gray-500/50 transition-all duration-300 hover:scale-110 neon-border">
+                                <svg class="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                                </svg>
+                            </div>
+                            <p class="mt-3 text-sm text-gray-400 group-hover:text-gray-300 transition-colors">GitHub</p>
+                        </a>
+                        
+                        <a href="mailto:lakshminarayanverma91@gmail.com" class="group">
+                            <div class="w-20 h-20 bg-gradient-to-br from-purple-600 to-pink-600 rounded-2xl flex items-center justify-center shadow-lg hover:shadow-purple-500/50 transition-all duration-300 hover:scale-110 neon-border">
+                                <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                                </svg>
+                            </div>
+                            <p class="mt-3 text-sm text-gray-400 group-hover:text-purple-400 transition-colors">Email</p>
+                        </a>
+                    </div>
+
+                    <!-- CTA -->
+                    <div class="glass p-8 rounded-2xl border-2 border-purple-500/30">
+                        <h4 class="text-2xl font-display font-bold mb-4 text-white">Let's Build Something Amazing! 🚀</h4>
+                        <p class="text-gray-400 text-lg">
+                            Whether you have a project in mind, want to collaborate, or just want to connect, feel free to reach out!
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="relative py-12 border-t border-purple-500/20">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 text-center">
+            <div class="mb-6">
+                <div class="text-4xl font-display font-bold bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent glow-text">
+                    LNV
+                </div>
+            </div>
+            <p class="text-xl mb-2 text-gray-300">Laxmi Narayan Verma</p>
+            <p class="text-gray-500 mb-6">Computer Science Student | Aspiring Developer</p>
+            <div class="flex justify-center gap-6 mb-8">
+                <a href="https://www.linkedin.com/in/laxmi-narayan-verma-b91634379" target="_blank" class="text-gray-400 hover:text-purple-400 transition-colors transform hover:scale-110 duration-300">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                    </svg>
+                </a>
+                <a href="https://github.com/lakshminarayanverma91-bot/" target="_blank" class="text-gray-400 hover:text-purple-400 transition-colors transform hover:scale-110 duration-300">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                    </svg>
+                </a>
+                <a href="mailto:lakshminarayanverma91@gmail.com" class="text-gray-400 hover:text-purple-400 transition-colors transform hover:scale-110 duration-300">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                    </svg>
+                </a>
+            </div>
+            <p class="text-gray-600 text-sm">&copy; 2026 Laxmi Narayan Verma. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Close mobile menu on link click
+        document.querySelectorAll('#mobileMenu a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('mobileMenu').classList.add('hidden');
+            });
+        });
+
+        // Mouse Follow Glow Effect
+        const mouseGlow = document.getElementById('mouseGlow');
+        let mouseX = 0, mouseY = 0;
+        let glowX = 0, glowY = 0;
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+
+        function animateGlow() {
+            glowX += (mouseX - glowX) * 0.1;
+            glowY += (mouseY - glowY) * 0.1;
+            
+            mouseGlow.style.left = glowX + 'px';
+            mouseGlow.style.top = glowY + 'px';
+            
+            requestAnimationFrame(animateGlow);
+        }
+        animateGlow();
+
+        // Create Floating Particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 50;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 20 + 's';
+                particle.style.animationDuration = (Math.random() * 10 + 15) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+        createParticles();
+
+        // Intersection Observer for Scroll Animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0) translateX(0) scale(1)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all animated elements
+        document.querySelectorAll('.fade-in-up, .slide-in-left, .slide-in-right, .scale-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Parallax Effect on Scroll
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const parallaxElements = document.querySelectorAll('.parallax');
+            
+            parallaxElements.forEach(el => {
+                const speed = el.dataset.speed || 0.5;
+                el.style.transform = `translateY(${scrolled * speed}px)`;
+            });
+        });
+
+        // Smooth Scroll for Navigation Links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add active state to navigation based on scroll position
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section[id]');
+            const scrollY = window.pageYOffset;
+
+            sections.forEach(section => {
+                const sectionHeight = section.offsetHeight;
+                const sectionTop = section.offsetTop - 100;
+                const sectionId = section.getAttribute('id');
+                const navLink = document.querySelector(`.nav-link[href="#${sectionId}"]`);
+
+                if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
+                    navLink?.classList.add('text-purple-400');
+                } else {
+                    navLink?.classList.remove('text-purple-400');
+                }
+            });
+        });
+
+        // Add loading animation
+        window.addEventListener('load', () => {
+            document.body.style.opacity = '0';
+            setTimeout(() => {
+                document.body.style.transition = 'opacity 1s ease';
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+    </script>
+</body>
+</html>
