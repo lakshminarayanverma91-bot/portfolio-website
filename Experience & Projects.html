@@ -1,0 +1,1397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects & Experience - Laxmi Narayan Verma</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #000;
+            color: #fff;
+            overflow-x: hidden;
+        }
+        
+        .font-display {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        /* Premium Gradient Backgrounds */
+        .premium-gradient {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #4facfe 75%, #00f2fe 100%);
+            background-size: 400% 400%;
+            animation: gradientFlow 15s ease infinite;
+        }
+        
+        @keyframes gradientFlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        /* Animated Grid Background */
+        .grid-background {
+            background-image: 
+                linear-gradient(rgba(124, 58, 237, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(124, 58, 237, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridMove 20s linear infinite;
+        }
+        
+        @keyframes gridMove {
+            0% { background-position: 0 0; }
+            100% { background-position: 50px 50px; }
+        }
+        
+        /* Floating Particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: radial-gradient(circle, rgba(124, 58, 237, 0.8), transparent);
+            border-radius: 50%;
+            animation: float 20s infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(100px);
+                opacity: 0;
+            }
+        }
+        
+        /* Mouse Follow Effect */
+        .mouse-glow {
+            position: fixed;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(124, 58, 237, 0.15), transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: opacity 0.3s;
+        }
+        
+        /* Navigation Blur Effect */
+        .nav-blur {
+            backdrop-filter: blur(20px) saturate(180%);
+            background: rgba(0, 0, 0, 0.8);
+            border-bottom: 1px solid rgba(124, 58, 237, 0.2);
+        }
+        
+        /* Premium Glow Effect */
+        .glow-text {
+            text-shadow: 
+                0 0 10px rgba(124, 58, 237, 0.5),
+                0 0 20px rgba(124, 58, 237, 0.3),
+                0 0 30px rgba(124, 58, 237, 0.2);
+            animation: glowPulse 3s ease-in-out infinite;
+        }
+        
+        @keyframes glowPulse {
+            0%, 100% {
+                text-shadow: 
+                    0 0 10px rgba(124, 58, 237, 0.5),
+                    0 0 20px rgba(124, 58, 237, 0.3),
+                    0 0 30px rgba(124, 58, 237, 0.2);
+            }
+            50% {
+                text-shadow: 
+                    0 0 20px rgba(124, 58, 237, 0.8),
+                    0 0 40px rgba(124, 58, 237, 0.6),
+                    0 0 60px rgba(124, 58, 237, 0.4);
+            }
+        }
+        
+        /* Neon Border Animation */
+        @keyframes neonBorder {
+            0%, 100% {
+                box-shadow: 
+                    0 0 5px rgba(124, 58, 237, 0.5),
+                    0 0 10px rgba(124, 58, 237, 0.3),
+                    inset 0 0 5px rgba(124, 58, 237, 0.2);
+            }
+            50% {
+                box-shadow: 
+                    0 0 20px rgba(124, 58, 237, 0.8),
+                    0 0 40px rgba(124, 58, 237, 0.6),
+                    inset 0 0 10px rgba(124, 58, 237, 0.4);
+            }
+        }
+        
+        .neon-border {
+            animation: neonBorder 2s ease-in-out infinite;
+        }
+        
+        /* Glassmorphism */
+        .glass {
+            background: rgba(17, 24, 39, 0.4);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Premium Card */
+        .premium-card {
+            position: relative;
+            background: rgba(17, 24, 39, 0.8);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(124, 58, 237, 0.2);
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        
+        /* Enhanced Project Card with 3D Effects */
+        .project-card {
+            position: relative;
+            background: rgba(17, 24, 39, 0.8);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(124, 58, 237, 0.2);
+            border-radius: 1.5rem;
+            overflow: hidden;
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            cursor: pointer;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1), rgba(240, 147, 251, 0.1));
+            opacity: 0;
+            transition: opacity 0.6s ease;
+            z-index: 0;
+        }
+
+        .project-card:hover::before {
+            opacity: 1;
+        }
+
+        .project-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: inherit;
+            padding: 2px;
+            background: linear-gradient(135deg, #667eea, #764ba2, #f093fb);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.6s ease;
+            z-index: 1;
+        }
+
+        .project-card:hover::after {
+            opacity: 1;
+        }
+
+        .project-card:hover {
+            transform: translateY(-15px) scale(1.03) rotateX(2deg);
+            box-shadow: 
+                0 30px 60px rgba(124, 58, 237, 0.4),
+                0 0 100px rgba(124, 58, 237, 0.2);
+        }
+
+        .project-content {
+            position: relative;
+            z-index: 2;
+            padding: 2rem;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            display: inline-block;
+            filter: drop-shadow(0 0 10px rgba(124, 58, 237, 0.3));
+        }
+
+        .project-card:hover .project-icon {
+            transform: scale(1.2) rotate(5deg);
+            filter: drop-shadow(0 0 20px rgba(124, 58, 237, 0.8));
+        }
+
+        .project-details {
+            position: relative;
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            margin-top: auto;
+        }
+
+        .project-card:hover .project-details {
+            max-height: 400px;
+            opacity: 1;
+            margin-top: 1.5rem;
+        }
+
+        .project-features {
+            list-style: none;
+            padding: 0;
+            margin: 1rem 0;
+        }
+
+        .project-features li {
+            padding: 0.5rem 0;
+            color: #d1d5db;
+            transform: translateX(-20px);
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .project-card:hover .project-features li {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        .project-card:hover .project-features li:nth-child(1) { transition-delay: 0.1s; }
+        .project-card:hover .project-features li:nth-child(2) { transition-delay: 0.2s; }
+        .project-card:hover .project-features li:nth-child(3) { transition-delay: 0.3s; }
+        .project-card:hover .project-features li:nth-child(4) { transition-delay: 0.4s; }
+
+        .project-shine {
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                45deg,
+                transparent,
+                rgba(255, 255, 255, 0.1),
+                transparent
+            );
+            transform: rotate(45deg);
+            transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+            pointer-events: none;
+            z-index: 3;
+        }
+
+        .project-card:hover .project-shine {
+            left: 100%;
+        }
+
+        /* View Project Button */
+        .view-project-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border-radius: 9999px;
+            font-weight: 600;
+            font-size: 0.875rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            margin-top: 1rem;
+            position: relative;
+            z-index: 4;
+        }
+
+        .view-project-btn:hover {
+            background: linear-gradient(135deg, #764ba2, #f093fb);
+            transform: translateX(5px);
+            box-shadow: 0 10px 20px rgba(124, 58, 237, 0.4);
+        }
+
+        .view-project-btn svg {
+            transition: transform 0.3s ease;
+        }
+
+        .view-project-btn:hover svg {
+            transform: translateX(5px);
+        }
+
+        /* Filter Buttons */
+        .filter-btn {
+            position: relative;
+            padding: 0.75rem 2rem;
+            border-radius: 9999px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        .filter-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(124, 58, 237, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .filter-btn:hover::before,
+        .filter-btn.active::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .filter-btn.active {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            box-shadow: 0 10px 30px rgba(124, 58, 237, 0.4);
+        }
+
+        /* Internship Card */
+        .internship-card {
+            position: relative;
+            background: rgba(17, 24, 39, 0.8);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(124, 58, 237, 0.2);
+            border-radius: 2rem;
+            padding: 2.5rem;
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            overflow: hidden;
+        }
+
+        .internship-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(180deg, #667eea, #764ba2, #f093fb);
+            transform: scaleY(0);
+            transform-origin: bottom;
+            transition: transform 0.5s ease;
+        }
+
+        .internship-card:hover::before {
+            transform: scaleY(1);
+            transform-origin: top;
+        }
+
+        .internship-card:hover {
+            transform: translateX(10px);
+            box-shadow: 0 20px 40px rgba(124, 58, 237, 0.3);
+            border-color: rgba(124, 58, 237, 0.5);
+        }
+
+        /* Society Card */
+        .society-card {
+            position: relative;
+            background: rgba(17, 24, 39, 0.8);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(124, 58, 237, 0.2);
+            border-radius: 1.5rem;
+            padding: 2rem;
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            overflow: hidden;
+        }
+
+        .society-card::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(124, 58, 237, 0.1), transparent 70%);
+            transform: scale(0);
+            transition: transform 0.6s ease;
+        }
+
+        .society-card:hover::after {
+            transform: scale(1);
+        }
+
+        .society-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(124, 58, 237, 0.3);
+        }
+
+        /* Smooth Scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #000;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 10px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, #764ba2, #f093fb);
+        }
+
+        /* Fade In Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(60px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .fade-in-up {
+            animation: fadeInUp 1s ease-out forwards;
+            opacity: 0;
+        }
+
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
+        .delay-3 { animation-delay: 0.3s; }
+        .delay-4 { animation-delay: 0.4s; }
+        .delay-5 { animation-delay: 0.5s; }
+        .delay-6 { animation-delay: 0.6s; }
+
+        /* Scale In */
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        .scale-in {
+            animation: scaleIn 0.8s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+            opacity: 0;
+        }
+
+        /* Project Stats Counter */
+        .stat-counter {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #667eea, #764ba2, #f093fb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Timeline Connector */
+        .timeline-connector {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, transparent, #667eea, #764ba2, #f093fb, transparent);
+        }
+
+        /* Floating Animation */
+        @keyframes floating {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+        
+        .floating {
+            animation: floating 6s ease-in-out infinite;
+        }
+
+        /* Project Category Badge */
+        .category-badge {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            background: rgba(124, 58, 237, 0.1);
+            border: 1px solid rgba(124, 58, 237, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .category-badge:hover {
+            background: rgba(124, 58, 237, 0.2);
+            transform: scale(1.05);
+        }
+
+        /* Hidden class for filtering */
+        .hidden-filter {
+            display: none !important;
+        }
+
+        /* Search Bar */
+        .search-bar {
+            position: relative;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 1rem 3rem 1rem 1.5rem;
+            background: rgba(17, 24, 39, 0.8);
+            border: 1px solid rgba(124, 58, 237, 0.3);
+            border-radius: 9999px;
+            color: white;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .search-bar input:focus {
+            outline: none;
+            border-color: rgba(124, 58, 237, 0.6);
+            box-shadow: 0 0 20px rgba(124, 58, 237, 0.3);
+        }
+
+        .search-bar input::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        /* Magnetic Button Effect */
+        .magnetic-btn {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        
+        .magnetic-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+        
+        .magnetic-btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+        
+        .magnetic-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 20px 40px rgba(124, 58, 237, 0.6);
+        }
+    </style>
+</head>
+<body class="relative">
+    <!-- Mouse Follow Glow -->
+    <div class="mouse-glow" id="mouseGlow"></div>
+    
+    <!-- Animated Particles Background -->
+    <div class="particles" id="particles"></div>
+    
+    <!-- Navigation -->
+    <nav class="fixed w-full top-0 z-50 nav-blur">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <a href="index.html" class="text-2xl font-display font-bold">
+                    <span class="glow-text bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent">
+                        LNV
+                    </span>
+                </a>
+                
+                <div class="flex items-center gap-6">
+                    <a href="index.html#home" class="text-gray-300 hover:text-white transition-colors">Home</a>
+                    <a href="index.html#about" class="text-gray-300 hover:text-white transition-colors">About</a>
+                    <a href="index.html#contact" class="magnetic-btn px-6 py-2 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full font-semibold text-white text-sm">
+                        Contact
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-[50vh] flex items-center justify-center overflow-hidden grid-background pt-32 pb-16">
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-black/50 to-black"></div>
+        
+        <!-- Floating Decorative Elements -->
+        <div class="absolute top-20 left-10 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl floating"></div>
+        <div class="absolute bottom-20 right-10 w-96 h-96 bg-pink-500/10 rounded-full blur-3xl floating" style="animation-delay: 2s;"></div>
+        
+        <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 text-center">
+            <div class="inline-block mb-6 px-6 py-2 glass rounded-full border border-purple-500/50 fade-in-up">
+                <span class="text-purple-400 font-semibold">💼 Portfolio Showcase</span>
+            </div>
+            
+            <h1 class="text-6xl md:text-8xl font-display font-bold mb-6 fade-in-up delay-1">
+                <span class="bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent glow-text">
+                    Projects & Experience
+                </span>
+            </h1>
+            
+            <p class="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto mb-12 fade-in-up delay-2">
+                Explore my journey through innovative projects, professional internships, and community involvement
+            </p>
+
+            <!-- Stats Counter -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto fade-in-up delay-3">
+                <div class="glass p-6 rounded-2xl border border-purple-500/30">
+                    <div class="stat-counter" data-target="5">0</div>
+                    <p class="text-gray-400 mt-2">Projects</p>
+                </div>
+                <div class="glass p-6 rounded-2xl border border-pink-500/30">
+                    <div class="stat-counter" data-target="2">0</div>
+                    <p class="text-gray-400 mt-2">Internships</p>
+                </div>
+                <div class="glass p-6 rounded-2xl border border-blue-500/30">
+                    <div class="stat-counter" data-target="6">0</div>
+                    <p class="text-gray-400 mt-2">Technologies</p>
+                </div>
+                <div class="glass p-6 rounded-2xl border border-purple-500/30">
+                    <div class="stat-counter" data-target="3">0</div>
+                    <p class="text-gray-400 mt-2">Societies</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Filter & Search Section -->
+    <section class="relative py-16 overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-b from-black via-purple-950/10 to-black"></div>
+        
+        <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-8">
+            <!-- Search Bar -->
+            <div class="search-bar mb-12 fade-in-up">
+                <input 
+                    type="text" 
+                    id="searchInput" 
+                    placeholder="🔍 Search projects by name or technology..."
+                    class="w-full"
+                >
+            </div>
+
+            <!-- Filter Buttons -->
+            <div class="flex flex-wrap justify-center gap-4 fade-in-up delay-1">
+                <button class="filter-btn glass active" data-filter="all">
+                    <span class="relative z-10">All Projects</span>
+                </button>
+                <button class="filter-btn glass" data-filter="python">
+                    <span class="relative z-10">Python</span>
+                </button>
+                <button class="filter-btn glass" data-filter="web">
+                    <span class="relative z-10">Web Development</span>
+                </button>
+                <button class="filter-btn glass" data-filter="data">
+                    <span class="relative z-10">Data Science</span>
+                </button>
+                <button class="filter-btn glass" data-filter="ai">
+                    <span class="relative z-10">AI/ML</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Grid -->
+    <section class="relative py-16 overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-b from-black via-pink-950/20 to-black"></div>
+        
+        <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-6xl font-display font-bold mb-6 scale-in">
+                    Featured <span class="bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent glow-text">Projects</span>
+                </h2>
+                <div class="w-32 h-1 bg-gradient-to-r from-purple-500 via-pink-500 to-blue-500 mx-auto rounded-full neon-border"></div>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="projectsGrid">
+                <!-- Project 1: Weather Data Viz -->
+                <div class="project-card fade-in-up" data-category="python data">
+                    <div class="project-shine"></div>
+                    <div class="project-content">
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="project-icon">📊</div>
+                            <span class="category-badge">Data Science</span>
+                        </div>
+                        <h3 class="text-2xl font-display font-bold mb-4 text-white">Weather Data Visualization</h3>
+                        <p class="text-gray-400 mb-4">Real-time weather data visualization dashboard using OpenWeatherMap API with interactive charts and graphs</p>
+                        
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 text-xs glass rounded-full border border-purple-500/50">Python</span>
+                            <span class="px-3 py-1 text-xs glass rounded-full border border-blue-500/50">Matplotlib</span>
+                            <span class="px-3 py-1 text-xs glass rounded-full border border-pink-500/50">Seaborn</span>
+                            <span class="px-3 py-1 text-xs glass rounded-full border border-purple-500/50">API</span>
+                        </div>
+
+                        <div class="project-details">
+                            <h4 class="text-lg font-bold mb-3 text-white">Key Features</h4>
+                            <ul class="project-features">
+                                <li>✓ Real-time weather API integration</li>
+                                <li>✓ Interactive data visualizations</li>
+                                <li>✓ Statistical analysis with Seaborn</li>
+                                <li>✓ Clean and intuitive UI</li>
+                            </ul>
+                            <a href="https://github.com/lakshminarayanverma91-bot/weather-dashboard" target="_blank" class="view-project-btn">
+                                View on GitHub
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 2: PDF Generator -->
+                <div class="project-card fade-in-up delay-1" data-category="python">
+                    <div class="project-shine"></div>
+                    <div class="project-content">
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="project-icon">📄</div>
+                            <span class="category-badge">Automation</span>
+                        </div>
+                        <h3 class="text-2xl font-display font-bold mb-4 text-white">PDF Report Generator</h3>
+                        <p class="text-gray-400 mb-4">Automated PDF report generation system with data processing and professional formatting</p>
+                        
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 text-xs glass rounded-full border border-purple-500/50">Python</span>
+                            <span class="px-3 py-1 text-xs glass rounded-full border border-pink-500/50">FPDF</span>
+                            <span class="px-3 py-1 text-xs glass rounded-full border border-blue-500/50">Pandas</span>
+                        </div>
+
+                        <div class="project-details">
+                            <h4 class="text-lg font-bold mb-3 text-white">Key Features</h4>
+                            <ul class="project-features">
+                                <li>✓ File data processing & analysis</li>
+                                <li>✓ Professional PDF formatting</li>
+                                <li>✓ Automated reporting system</li>
+                                <li>✓ Custom layout templates</li>
+                            </ul>
+                            <a href="https://github.com/lakshminarayanverma91-bot/sales_report" target="_blank" class="view-project-btn">
+                                View on GitHub
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 3: NLP Chatbot -->
+                <div class="project-card fade-in-up delay-2" data-category="python ai">
+                    <div class="project-shine"></div>
+                    <div class="project-content">
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="project-icon">🤖</div>
+                            <span class="category-badge">AI/ML</span>
+                        </div>
+                        <h3 class="text-2xl font-display font-bold mb-4 text-white">NLP Chatbot</h3>
+                        <p class="text-gray-400 mb-4">Intelligent conversational AI chatbot with natural language processing capabilities</p>
+                        
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 text-xs glass rounded-full border border-blue-500/50">Python</span>
+                            <span class="px-3 py-1 text-xs glass rounded-full border border-purple-500/50">NLTK</span>
+                            <span class="px-3 py-1 text-xs glass rounded-full border border-pink-500/50">NLP</span>
+                        </div>
+
+                        <div class="project-details">
+                            <h4 class="text-lg font-bold mb-3 text-white">Key Features</h4>
+                            <ul class="project-features">
+                                <li>✓ Natural language processing</li>
+                                <li>✓ Contextual understanding</li>
+                                <li>✓ Machine learning integration</li>
+                                <li>✓ User-friendly interface</li>
+                            </ul>
+                            <a href="#" target="_blank" class="view-project-btn">
+                                View on GitHub
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 4: Portfolio Website -->
+                <div class="project-card fade-in-up delay-3" data-category="web">
+                    <div class="project-shine"></div>
+                    <div class="project-content">
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="project-icon">🌐</div>
+                            <span class="category-badge">Web Dev</span>
+                        </div>
+                        <h3 class="text-2xl font-display font-bold mb-4 text-white">Portfolio Website</h3>
+                        <p class="text-gray-400 mb-4">Modern, responsive portfolio website with premium animations and interactive design</p>
+                        
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 text-xs glass rounded-full border border-yellow-500/50">HTML5</span>
+                            <span class="px-3 py-1 text-xs glass rounded-full border border-red-500/50">Tailwind CSS</span>
+                            <span class="px-3 py-1 text-xs glass rounded-full border border-blue-500/50">JavaScript</span>
+                        </div>
+
+                        <div class="project-details">
+                            <h4 class="text-lg font-bold mb-3 text-white">Key Features</h4>
+                            <ul class="project-features">
+                                <li>✓ Responsive modern design</li>
+                                <li>✓ Premium animations & effects</li>
+                                <li>✓ Interactive project showcase</li>
+                                <li>✓ Contact & social integration</li>
+                            </ul>
+                            <a href="#" target="_blank" class="view-project-btn">
+                                Go to Website
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 5: E-Commerce Website -->
+                <div class="project-card fade-in-up delay-4" data-category="web">
+                    <div class="project-shine"></div>
+                    <div class="project-content">
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="project-icon">🎁</div>
+                            <span class="category-badge">E-Commerce</span>
+                        </div>
+                        <h3 class="text-2xl font-display font-bold mb-4 text-white">Opulence & Co. Gift Shop</h3>
+                        <p class="text-gray-400 mb-4">Premium luxury gift shop e-commerce platform with personalized gifting options</p>
+                        
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 text-xs glass rounded-full border border-purple-500/50">HTML5</span>
+                            <span class="px-3 py-1 text-xs glass rounded-full border border-pink-500/50">Tailwind CSS</span>
+                            <span class="px-3 py-1 text-xs glass rounded-full border border-blue-500/50">JavaScript</span>
+                        </div>
+
+                        <div class="project-details">
+                            <h4 class="text-lg font-bold mb-3 text-white">Key Features</h4>
+                            <ul class="project-features">
+                                <li>✓ Premium luxury UI design</li>
+                                <li>✓ Product showcase & collections</li>
+                                <li>✓ Personalized gifting system</li>
+                                <li>✓ Responsive modern layout</li>
+                            </ul>
+                            <a href="https://opulenceco.netlify.app/" target="_blank" class="view-project-btn">
+                                Go to Website
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- View All Projects CTA -->
+            <div class="text-center mt-16 fade-in-up delay-5">
+                <a href="projects.html"
+                   class="inline-flex items-center gap-3 magnetic-btn px-10 py-4 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full font-semibold text-white shadow-lg">
+                    <!-- <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                    </svg> -->
+                    🚀 See All Products ->
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Internships Section -->
+    <section class="relative py-32 overflow-hidden grid-background">
+        <div class="absolute inset-0 bg-gradient-to-b from-black via-blue-950/20 to-black"></div>
+        
+        <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="text-center mb-20">
+                <h2 class="text-4xl md:text-6xl font-display font-bold mb-6 scale-in">
+                    Professional <span class="bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent glow-text">Experience</span>
+                </h2>
+                <div class="w-32 h-1 bg-gradient-to-r from-purple-500 via-pink-500 to-blue-500 mx-auto rounded-full neon-border"></div>
+            </div>
+            
+            <div class="space-y-8 max-w-5xl mx-auto">
+                <!-- Internship 1 -->
+                <div class="internship-card fade-in-up">
+                    <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-6">
+                        <div class="flex-1">
+                            <div class="flex items-center gap-4 mb-4">
+                                <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center shadow-lg neon-border floating">
+                                    <span class="text-3xl">💻</span>
+                                </div>
+                                <div>
+                                    <h3 class="text-3xl font-display font-bold text-white">Python Development Intern</h3>
+                                    <p class="text-xl text-purple-400 font-semibold">Cyber Defence Zone</p>
+                                </div>
+                            </div>
+                            
+                            <div class="glass p-6 rounded-2xl mb-6">
+                                <p class="text-gray-300 text-lg leading-relaxed mb-4">
+                                    Completed comprehensive Python development projects involving real-world applications and modern technologies.
+                                </p>
+                                <div class="grid md:grid-cols-3 gap-4 mt-4">
+                                    <div class="glass p-4 rounded-xl border border-purple-500/30">
+                                        <div class="text-2xl mb-2">🌦️</div>
+                                        <h4 class="font-semibold text-white mb-1">API Integration</h4>
+                                        <p class="text-sm text-gray-400">Weather data visualization</p>
+                                    </div>
+                                    <div class="glass p-4 rounded-xl border border-pink-500/30">
+                                        <div class="text-2xl mb-2">📄</div>
+                                        <h4 class="font-semibold text-white mb-1">PDF Generation</h4>
+                                        <p class="text-sm text-gray-400">Report automation</p>
+                                    </div>
+                                    <div class="glass p-4 rounded-xl border border-blue-500/30">
+                                        <div class="text-2xl mb-2">🤖</div>
+                                        <h4 class="font-semibold text-white mb-1">NLP Chatbot</h4>
+                                        <p class="text-sm text-gray-400">AI development</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="flex flex-wrap gap-3">
+                                <span class="px-4 py-2 glass rounded-full border border-purple-500/50 text-sm">Python</span>
+                                <span class="px-4 py-2 glass rounded-full border border-pink-500/50 text-sm">API Integration</span>
+                                <span class="px-4 py-2 glass rounded-full border border-blue-500/50 text-sm">Data Analysis</span>
+                                <span class="px-4 py-2 glass rounded-full border border-purple-500/50 text-sm">NLP</span>
+                            </div>
+                        </div>
+                        
+                        <span class="magnetic-btn px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full text-sm font-semibold text-white inline-block whitespace-nowrap">
+                            Development
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Internship 2 -->
+                <div class="internship-card fade-in-up delay-1">
+                    <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-6">
+                        <div class="flex-1">
+                            <div class="flex items-center gap-4 mb-4">
+                                <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center shadow-lg neon-border floating" style="animation-delay: 1s;">
+                                    <span class="text-3xl">📈</span>
+                                </div>
+                                <div>
+                                    <h3 class="text-3xl font-display font-bold text-white">Sales Intern</h3>
+                                    <p class="text-xl text-blue-400 font-semibold">BookwithUVA</p>
+                                </div>
+                            </div>
+                            
+                            <div class="glass p-6 rounded-2xl mb-6">
+                                <p class="text-gray-300 text-lg leading-relaxed mb-4">
+                                    Gained hands-on experience in sales operations, customer relationship management, and business development strategies.
+                                </p>
+                                <div class="grid md:grid-cols-3 gap-4 mt-4">
+                                    <div class="glass p-4 rounded-xl border border-blue-500/30">
+                                        <div class="text-2xl mb-2">🎯</div>
+                                        <h4 class="font-semibold text-white mb-1">Sales Strategy</h4>
+                                        <p class="text-sm text-gray-400">Customer acquisition</p>
+                                    </div>
+                                    <div class="glass p-4 rounded-xl border border-purple-500/30">
+                                        <div class="text-2xl mb-2">🤝</div>
+                                        <h4 class="font-semibold text-white mb-1">Client Relations</h4>
+                                        <p class="text-sm text-gray-400">Engagement & support</p>
+                                    </div>
+                                    <div class="glass p-4 rounded-xl border border-pink-500/30">
+                                        <div class="text-2xl mb-2">💼</div>
+                                        <h4 class="font-semibold text-white mb-1">Business Dev</h4>
+                                        <p class="text-sm text-gray-400">Growth strategies</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="flex flex-wrap gap-3">
+                                <span class="px-4 py-2 glass rounded-full border border-blue-500/50 text-sm">Sales Operations</span>
+                                <span class="px-4 py-2 glass rounded-full border border-purple-500/50 text-sm">Customer Engagement</span>
+                                <span class="px-4 py-2 glass rounded-full border border-pink-500/50 text-sm">Business Development</span>
+                            </div>
+                        </div>
+                        
+                        <span class="magnetic-btn px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full text-sm font-semibold text-white inline-block whitespace-nowrap">
+                            Sales & Marketing
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- College Societies Section -->
+    <section class="relative py-32 overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-b from-black via-purple-950/20 to-black"></div>
+        
+        <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="text-center mb-20">
+                <h2 class="text-4xl md:text-6xl font-display font-bold mb-6 scale-in">
+                    Community <span class="bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent glow-text">Involvement</span>
+                </h2>
+                <div class="w-32 h-1 bg-gradient-to-r from-purple-500 via-pink-500 to-blue-500 mx-auto rounded-full neon-border"></div>
+                <p class="text-xl text-gray-300 mt-6 max-w-3xl mx-auto">
+                    Active participation in college societies, contributing to social causes and developing leadership skills
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Society 1 -->
+                <div class="society-card fade-in-up">
+                    <div class="text-center">
+                        <div class="w-24 h-24 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center shadow-lg neon-border floating">
+                            <span class="text-5xl">📚</span>
+                        </div>
+                        <h4 class="text-2xl font-display font-bold mb-3 text-white">Hindi Parishad</h4>
+                        <div class="w-16 h-1 bg-gradient-to-r from-purple-500 to-pink-500 mx-auto rounded-full mb-4"></div>
+                        <p class="text-gray-400 leading-relaxed mb-6">
+                            Actively promoting Hindi language and cultural initiatives across educational institutions nationwide
+                        </p>
+                        <div class="glass p-4 rounded-xl">
+                            <div class="text-sm text-purple-400 font-semibold mb-2">Key Activities</div>
+                            <div class="text-xs text-gray-400 space-y-1">
+                                <p>• Cultural event organization</p>
+                                <p>• Language workshops</p>
+                                <p>• Literary programs</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Society 2 -->
+                <div class="society-card fade-in-up delay-1">
+                    <div class="text-center">
+                        <div class="w-24 h-24 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-pink-500 to-blue-500 flex items-center justify-center shadow-lg neon-border floating" style="animation-delay: 1s;">
+                            <span class="text-5xl">🤝</span>
+                        </div>
+                        <h4 class="text-2xl font-display font-bold mb-3 text-white">YUVA</h4>
+                        <div class="w-16 h-1 bg-gradient-to-r from-pink-500 to-blue-500 mx-auto rounded-full mb-4"></div>
+                        <p class="text-gray-400 leading-relaxed mb-6">
+                            Contributing to national service activities and social welfare programs for community development
+                        </p>
+                        <div class="glass p-4 rounded-xl">
+                            <div class="text-sm text-pink-400 font-semibold mb-2">Key Activities</div>
+                            <div class="text-xs text-gray-400 space-y-1">
+                                <p>• Community service</p>
+                                <p>• Social welfare programs</p>
+                                <p>• Youth empowerment</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Society 3 -->
+                <div class="society-card fade-in-up delay-2">
+                    <div class="text-center">
+                        <div class="w-24 h-24 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center shadow-lg neon-border floating" style="animation-delay: 2s;">
+                            <span class="text-5xl">💼</span>
+                        </div>
+                        <h4 class="text-2xl font-display font-bold mb-3 text-white">Placement Cell</h4>
+                        <div class="w-16 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto rounded-full mb-4"></div>
+                        <p class="text-gray-400 leading-relaxed mb-6">
+                            PR Assistant managing student-employer connections and facilitating career opportunities
+                        </p>
+                        <div class="glass p-4 rounded-xl">
+                            <div class="text-sm text-blue-400 font-semibold mb-2">Key Responsibilities</div>
+                            <div class="text-xs text-gray-400 space-y-1">
+                                <p>• Student-employer liaison</p>
+                                <p>• Career guidance</p>
+                                <p>• Event coordination</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="relative py-32 overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-b from-black via-pink-950/20 to-black"></div>
+        
+        <!-- Floating Decorative Elements -->
+        <div class="absolute top-20 left-10 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl floating"></div>
+        <div class="absolute bottom-20 right-10 w-96 h-96 bg-pink-500/10 rounded-full blur-3xl floating" style="animation-delay: 2s;"></div>
+        
+        <div class="relative z-10 max-w-4xl mx-auto px-6 lg:px-8 text-center">
+            <div class="glass p-12 rounded-3xl border-2 border-purple-500/30 neon-border">
+                <div class="text-6xl mb-6 floating">🚀</div>
+                <h2 class="text-4xl md:text-6xl font-display font-bold mb-6">
+                    <span class="bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent glow-text">
+                        Let's Build Something Amazing!
+                    </span>
+                </h2>
+                <p class="text-xl text-gray-300 mb-10 leading-relaxed">
+                    Interested in collaborating on a project or discussing innovative ideas? I'm always excited to connect with fellow developers and creators.
+                </p>
+                <div class="flex flex-col sm:flex-row justify-center gap-6">
+                    <a href="index.html#contact" class="magnetic-btn px-10 py-4 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full font-semibold text-white shadow-lg inline-flex items-center justify-center gap-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                        </svg>
+                        Get In Touch
+                    </a>
+                    <a href="https://github.com/lakshminarayanverma91-bot" target="_blank" class="magnetic-btn px-10 py-4 glass rounded-full font-semibold text-white border-2 border-purple-500/50 hover:border-purple-500 inline-flex items-center justify-center gap-2">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                        </svg>
+                        View GitHub Profile
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="relative py-12 border-t border-purple-500/20">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="grid md:grid-cols-3 gap-8 mb-8">
+                <div>
+                    <div class="text-3xl font-display font-bold bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent glow-text mb-4">
+                        LNV
+                    </div>
+                    <p class="text-gray-400 mb-4">Building innovative solutions through code</p>
+                    <div class="flex gap-4">
+                        <a href="https://www.linkedin.com/in/laxmi-narayan-verma-b91634379" target="_blank" class="text-gray-400 hover:text-purple-400 transition-colors transform hover:scale-110 duration-300">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                            </svg>
+                        </a>
+                        <a href="https://github.com/lakshminarayanverma91-bot/" target="_blank" class="text-gray-400 hover:text-purple-400 transition-colors transform hover:scale-110 duration-300">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                            </svg>
+                        </a>
+                        <a href="mailto:lakshminarayanverma91@gmail.com" class="text-gray-400 hover:text-purple-400 transition-colors transform hover:scale-110 duration-300">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="text-white font-bold mb-4">Quick Links</h4>
+                    <div class="space-y-2">
+                        <a href="index.html#home" class="block text-gray-400 hover:text-purple-400 transition-colors">Home</a>
+                        <a href="index.html#about" class="block text-gray-400 hover:text-purple-400 transition-colors">About</a>
+                        <a href="index.html#skills" class="block text-gray-400 hover:text-purple-400 transition-colors">Skills</a>
+                        <a href="index.html#contact" class="block text-gray-400 hover:text-purple-400 transition-colors">Contact</a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="text-white font-bold mb-4">Education</h4>
+                    <p class="text-gray-400 mb-2">B.Sc. (Hons) Computer Science</p>
+                    <p class="text-sm text-gray-500">Acharya Narendra Dev College</p>
+                    <p class="text-sm text-gray-500">University of Delhi</p>
+                </div>
+            </div>
+            
+            <div class="border-t border-purple-500/20 pt-8 text-center">
+                <p class="text-gray-600 text-sm">&copy; 2026 Laxmi Narayan Verma. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Mouse Follow Glow Effect
+        const mouseGlow = document.getElementById('mouseGlow');
+        let mouseX = 0, mouseY = 0;
+        let glowX = 0, glowY = 0;
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+
+        function animateGlow() {
+            glowX += (mouseX - glowX) * 0.1;
+            glowY += (mouseY - glowY) * 0.1;
+            
+            mouseGlow.style.left = glowX + 'px';
+            mouseGlow.style.top = glowY + 'px';
+            
+            requestAnimationFrame(animateGlow);
+        }
+        animateGlow();
+
+        // Create Floating Particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 50;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 20 + 's';
+                particle.style.animationDuration = (Math.random() * 10 + 15) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+        createParticles();
+
+        // Stats Counter Animation
+        function animateCounter(element) {
+            const target = parseInt(element.getAttribute('data-target'));
+            const duration = 2000; // 2 seconds
+            const increment = target / (duration / 16); // 60fps
+            let current = 0;
+
+            const updateCounter = () => {
+                current += increment;
+                if (current < target) {
+                    element.textContent = Math.floor(current);
+                    requestAnimationFrame(updateCounter);
+                } else {
+                    element.textContent = target;
+                }
+            };
+
+            updateCounter();
+        }
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0) translateX(0) scale(1)';
+                    
+                    // Animate counters when visible
+                    if (entry.target.classList.contains('stat-counter')) {
+                        animateCounter(entry.target);
+                    }
+                }
+            });
+        }, observerOptions);
+
+        // Observe all animated elements
+        document.querySelectorAll('.fade-in-up, .scale-in, .stat-counter').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Filter functionality
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const projectCards = document.querySelectorAll('.project-card');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active class from all buttons
+                filterBtns.forEach(b => b.classList.remove('active'));
+                // Add active class to clicked button
+                btn.classList.add('active');
+
+                const filter = btn.getAttribute('data-filter');
+
+                projectCards.forEach(card => {
+                    if (filter === 'all') {
+                        card.classList.remove('hidden-filter');
+                    } else {
+                        const categories = card.getAttribute('data-category');
+                        if (categories.includes(filter)) {
+                            card.classList.remove('hidden-filter');
+                        } else {
+                            card.classList.add('hidden-filter');
+                        }
+                    }
+                });
+            });
+        });
+
+        // Search functionality
+        const searchInput = document.getElementById('searchInput');
+
+        searchInput.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+
+            projectCards.forEach(card => {
+                const title = card.querySelector('h3').textContent.toLowerCase();
+                const tags = Array.from(card.querySelectorAll('.px-3')).map(tag => tag.textContent.toLowerCase());
+                const allText = [title, ...tags].join(' ');
+
+                if (allText.includes(searchTerm)) {
+                    card.classList.remove('hidden-filter');
+                } else {
+                    card.classList.add('hidden-filter');
+                }
+            });
+        });
+
+        // Smooth Scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add loading animation
+        window.addEventListener('load', () => {
+            document.body.style.opacity = '0';
+            setTimeout(() => {
+                document.body.style.transition = 'opacity 1s ease';
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+    </script>
+</body>
+</html>
