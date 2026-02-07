@@ -4,7 +4,6 @@ This project is my personal portfolio website created to showcase my projects, s
 
 # Technologies Used
 - HTML
-- CSS
 - Tailwind CSS
 - JavaScript
 - Static Website Files (No backend)
