@@ -1,0 +1,1188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LNV — Digital Presence</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=DM+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --purple: #7c3aed;
+            --pink: #f093fb;
+            --blue: #4facfe;
+            --dark: #000;
+            --card-bg: rgba(17, 24, 39, 0.75);
+            --border: rgba(124, 58, 237, 0.25);
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: #000;
+            color: #fff;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* ─── CUSTOM SCROLLBAR ─── */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #000; }
+        ::-webkit-scrollbar-thumb { background: linear-gradient(180deg, #667eea, #f093fb); border-radius: 10px; }
+
+        /* ─── NOISE OVERLAY ─── */
+        body::before {
+            content: '';
+            position: fixed; inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+            pointer-events: none; z-index: 9999; opacity: 0.4;
+        }
+
+        /* ─── MOUSE GLOW ─── */
+        #cursor-glow {
+            position: fixed;
+            width: 400px; height: 400px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(124,58,237,0.12) 0%, transparent 70%);
+            pointer-events: none; z-index: 1;
+            transform: translate(-50%,-50%);
+            transition: opacity .3s;
+        }
+
+        /* ─── ANIMATED BACKGROUND ─── */
+        .bg-canvas { position: fixed; inset: 0; background: #000; z-index: 0; }
+        .bg-canvas canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+        /* ─── SIDE DECORATIONS ─── */
+        .side-decor {
+            position: fixed; top: 0; bottom: 0; width: 80px;
+            display: flex; flex-direction: column; align-items: center;
+            justify-content: center; gap: 12px; z-index: 10; pointer-events: none;
+        }
+        .side-decor.left  { left: 0;  padding-left: 16px; }
+        .side-decor.right { right: 0; padding-right: 16px; align-items: flex-end; }
+
+        .side-line {
+            width: 1px; height: 120px;
+            background: linear-gradient(180deg, transparent, rgba(124,58,237,0.6), transparent);
+            animation: sidePulse 3s ease-in-out infinite;
+        }
+        .side-line:nth-child(2) { animation-delay: 1s; height: 80px; }
+        .side-line:nth-child(3) { animation-delay: 2s; height: 60px; }
+
+        @keyframes sidePulse {
+            0%, 100% { opacity: 0.3; transform: scaleY(1); }
+            50%       { opacity: 1;   transform: scaleY(1.2); }
+        }
+
+        .side-text {
+            font-family: 'Space Mono', monospace; font-size: 10px;
+            letter-spacing: 4px; color: rgba(124,58,237,0.5);
+            writing-mode: vertical-rl; text-orientation: mixed;
+            animation: fadeOsc 4s ease-in-out infinite;
+        }
+        .side-text:nth-child(odd) { animation-delay: 2s; }
+
+        @keyframes fadeOsc {
+            0%, 100% { opacity: 0.3; }
+            50%       { opacity: 0.7; }
+        }
+
+        .side-dot {
+            width: 6px; height: 6px; border-radius: 50%;
+            background: linear-gradient(135deg, #667eea, #f093fb);
+            box-shadow: 0 0 10px rgba(124,58,237,0.8);
+            animation: dotPulse 2s ease-in-out infinite;
+        }
+        .side-dot:nth-child(2n) { animation-delay: 1s; background: linear-gradient(135deg, #f093fb, #4facfe); }
+
+        @keyframes dotPulse {
+            0%, 100% { transform: scale(1);   opacity: 0.5; }
+            50%       { transform: scale(1.5); opacity: 1;   }
+        }
+
+        /* ─── NAV ─── */
+        nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+            backdrop-filter: blur(20px) saturate(180%);
+            background: rgba(0,0,0,0.8);
+            border-bottom: 1px solid rgba(124,58,237,0.2);
+            padding: 0 2rem; height: 72px;
+            display: flex; align-items: center; justify-content: space-between;
+        }
+
+        .nav-brand {
+            font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700;
+            background: linear-gradient(135deg, #a78bfa, #f093fb, #60a5fa);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+            filter: drop-shadow(0 0 8px rgba(124,58,237,0.4));
+        }
+
+        .nav-back {
+            display: flex; align-items: center; gap: 8px;
+            font-size: 0.85rem; color: rgba(255,255,255,0.5);
+            text-decoration: none; transition: color .3s;
+            font-family: 'Space Mono', monospace; letter-spacing: 1px;
+        }
+        .nav-back:hover { color: #a78bfa; }
+        .nav-back svg { transition: transform .3s; }
+        .nav-back:hover svg { transform: translateX(-4px); }
+
+        .nav-status {
+            display: flex; align-items: center; gap: 8px;
+            font-family: 'Space Mono', monospace; font-size: 0.75rem; color: rgba(255,255,255,0.4);
+        }
+        .status-dot {
+            width: 8px; height: 8px; border-radius: 50%; background: #4ade80;
+            box-shadow: 0 0 10px #4ade80; animation: statusBlink 2s ease-in-out infinite;
+        }
+        @keyframes statusBlink { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+        /* ─── MAIN WRAPPER ─── */
+        main {
+            position: relative; z-index: 5;
+            padding: 120px 100px 80px;
+            max-width: 1400px; margin: 0 auto;
+        }
+
+        /* ─── HERO HEADER ─── */
+        .hero-header { text-align: center; margin-bottom: 80px; position: relative; }
+
+        .orbit-container { position: relative; display: inline-block; margin-bottom: 32px; }
+
+        .orbit-ring {
+            position: absolute; top: 50%; left: 50%;
+            transform: translate(-50%, -50%); border-radius: 50%;
+            border: 1px solid transparent;
+            border-top-color: rgba(124,58,237,0.4); border-right-color: rgba(240,147,251,0.2);
+            animation: spin linear infinite;
+        }
+        .orbit-ring:nth-child(1) { width: 320px; height: 320px; animation-duration: 20s; }
+        .orbit-ring:nth-child(2) { width: 280px; height: 280px; animation-duration: 15s; animation-direction: reverse; border-top-color: rgba(240,147,251,0.4); }
+        .orbit-ring:nth-child(3) { width: 240px; height: 240px; animation-duration: 25s; border-top-color: rgba(79,172,254,0.3); }
+
+        @keyframes spin {
+            from { transform: translate(-50%,-50%) rotate(0deg); }
+            to   { transform: translate(-50%,-50%) rotate(360deg); }
+        }
+
+        .orbit-dot {
+            position: absolute; width: 8px; height: 8px; border-radius: 50%;
+            background: linear-gradient(135deg, #667eea, #f093fb);
+            box-shadow: 0 0 12px rgba(124,58,237,0.9);
+            top: 0; left: 50%; transform: translateX(-50%) translateY(-50%);
+        }
+
+        .hero-title-wrap { position: relative; z-index: 2; display: inline-block; padding: 32px 60px; }
+
+        .hero-eyebrow {
+            font-family: 'Space Mono', monospace; font-size: 0.75rem;
+            letter-spacing: 6px; color: rgba(167,139,250,0.7);
+            text-transform: uppercase; margin-bottom: 16px;
+            animation: fadeInDown 1s ease forwards;
+        }
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', serif; font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 900; line-height: 1; letter-spacing: -2px;
+        }
+        .title-line-1 {
+            display: block;
+            background: linear-gradient(135deg, #fff 0%, rgba(255,255,255,0.7) 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+            animation: slideUp 0.8s cubic-bezier(0.23,1,0.32,1) 0.2s both;
+        }
+        .title-line-2 {
+            display: block;
+            background: linear-gradient(135deg, #a78bfa, #f093fb, #60a5fa);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+            filter: drop-shadow(0 0 30px rgba(167,139,250,0.5));
+            animation: slideUp 0.8s cubic-bezier(0.23,1,0.32,1) 0.4s both;
+        }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        .hero-desc {
+            font-size: 1.1rem; color: rgba(255,255,255,0.45); margin-top: 20px;
+            letter-spacing: 1px; animation: slideUp 0.8s cubic-bezier(0.23,1,0.32,1) 0.6s both;
+        }
+
+        /* ─── SIGNAL WAVE ─── */
+        .signal-wave {
+            display: flex; justify-content: center; align-items: flex-end;
+            gap: 4px; height: 32px; margin-top: 24px;
+            animation: slideUp 0.8s 0.8s both;
+        }
+        .wave-bar {
+            width: 3px; border-radius: 2px;
+            background: linear-gradient(180deg, #a78bfa, #f093fb);
+            animation: waveBeat 1.2s ease-in-out infinite;
+        }
+        .wave-bar:nth-child(1)  { height: 8px;  animation-delay: 0s;   }
+        .wave-bar:nth-child(2)  { height: 16px; animation-delay: .1s;  }
+        .wave-bar:nth-child(3)  { height: 24px; animation-delay: .2s;  }
+        .wave-bar:nth-child(4)  { height: 32px; animation-delay: .3s;  }
+        .wave-bar:nth-child(5)  { height: 20px; animation-delay: .4s;  }
+        .wave-bar:nth-child(6)  { height: 28px; animation-delay: .5s;  }
+        .wave-bar:nth-child(7)  { height: 14px; animation-delay: .6s;  }
+        .wave-bar:nth-child(8)  { height: 24px; animation-delay: .7s;  }
+        .wave-bar:nth-child(9)  { height: 32px; animation-delay: .8s;  }
+        .wave-bar:nth-child(10) { height: 18px; animation-delay: .9s;  }
+        .wave-bar:nth-child(11) { height: 12px; animation-delay: 1.0s; }
+        .wave-bar:nth-child(12) { height: 24px; animation-delay: 1.1s; }
+        .wave-bar:nth-child(13) { height: 8px;  animation-delay: 1.2s; }
+
+        @keyframes waveBeat {
+            0%, 100% { transform: scaleY(0.4); opacity: 0.4; }
+            50%       { transform: scaleY(1);   opacity: 1;   }
+        }
+
+        /* ─── STATS RIBBON ─── */
+        .stats-ribbon {
+            display: flex; align-items: stretch; gap: 1px;
+            background: rgba(124,58,237,0.15); border: 1px solid rgba(124,58,237,0.2);
+            border-radius: 20px; overflow: hidden; margin: 0 auto 80px; max-width: 900px;
+            animation: slideUp 0.8s cubic-bezier(0.23,1,0.32,1) 0.9s both;
+        }
+        .stat-item {
+            flex: 1; padding: 28px 20px; text-align: center;
+            background: rgba(0,0,0,0.3); transition: background .3s;
+        }
+        .stat-item:hover { background: rgba(124,58,237,0.1); }
+        .stat-num {
+            font-family: 'Playfair Display', serif; font-size: 2.2rem; font-weight: 900;
+            background: linear-gradient(135deg, #a78bfa, #f093fb);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+            display: block;
+        }
+        .stat-label {
+            font-family: 'Space Mono', monospace; font-size: 0.65rem;
+            letter-spacing: 3px; color: rgba(255,255,255,0.3);
+            text-transform: uppercase; margin-top: 6px; display: block;
+        }
+        .stat-divider { width: 1px; background: rgba(124,58,237,0.3); flex-shrink: 0; }
+
+        /* ─── GRID LAYOUT ─── */
+        .links-grid {
+            display: grid; grid-template-columns: repeat(3, 1fr);
+            gap: 20px; max-width: 1100px; margin: 0 auto 80px;
+        }
+
+        /* ─── SOCIAL CARD ─── */
+        .s-card {
+            position: relative;
+            background: var(--card-bg); backdrop-filter: blur(20px);
+            border: 1px solid var(--border); border-radius: 24px;
+            overflow: hidden; cursor: pointer; text-decoration: none;
+            color: inherit; display: block;
+            transition: all 0.5s cubic-bezier(0.23,1,0.32,1);
+            animation: cardEntrance 0.8s cubic-bezier(0.23,1,0.32,1) both;
+        }
+        @keyframes cardEntrance {
+            from { opacity: 0; transform: translateY(50px) scale(0.95); }
+            to   { opacity: 1; transform: translateY(0)    scale(1);    }
+        }
+        .s-card:nth-child(1)  { animation-delay: 0.1s; }
+        .s-card:nth-child(2)  { animation-delay: 0.2s; }
+        .s-card:nth-child(3)  { animation-delay: 0.3s; }
+        .s-card:nth-child(4)  { animation-delay: 0.4s; }
+        .s-card:nth-child(5)  { animation-delay: 0.5s; }
+        .s-card:nth-child(6)  { animation-delay: 0.6s; }
+        .s-card:nth-child(7)  { animation-delay: 0.7s; }
+        .s-card:nth-child(8)  { animation-delay: 0.8s; }
+        .s-card:nth-child(9)  { animation-delay: 0.9s; }
+        .s-card:nth-child(10) { animation-delay: 1.0s; }
+
+        /* glowing border */
+        .s-card::before {
+            content: ''; position: absolute; inset: 0; border-radius: 24px; padding: 1px;
+            background: var(--card-accent, linear-gradient(135deg, #667eea, #f093fb));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor; mask-composite: exclude;
+            opacity: 0; transition: opacity 0.5s;
+        }
+        .s-card:hover::before { opacity: 1; }
+
+        /* spotlight sweep */
+        .s-card::after {
+            content: ''; position: absolute; top: 0; left: -100%;
+            width: 60%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent);
+            transform: skewX(-20deg); transition: left 0.8s cubic-bezier(0.23,1,0.32,1);
+        }
+        .s-card:hover::after { left: 150%; }
+
+        .s-card:hover { transform: translateY(-12px) scale(1.02); border-color: transparent; }
+
+        .card-inner { padding: 28px; display: flex; flex-direction: column; height: 100%; }
+
+        .card-icon-wrap { position: relative; width: 64px; height: 64px; margin-bottom: 20px; }
+
+        .card-icon-bg { position: absolute; inset: 0; border-radius: 18px; opacity: 0.15; transition: opacity .4s; }
+        .s-card:hover .card-icon-bg { opacity: 0.3; }
+
+        .card-icon-svg {
+            position: relative; z-index: 1; width: 64px; height: 64px; border-radius: 18px;
+            display: flex; align-items: center; justify-content: center;
+            transition: all 0.4s cubic-bezier(0.23,1,0.32,1);
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+        .s-card:hover .card-icon-svg { transform: scale(1.1) rotate(-4deg); }
+        .card-icon-svg svg { width: 28px; height: 28px; }
+
+        .ping-ring {
+            position: absolute; inset: 0; border-radius: 18px;
+            border: 2px solid currentColor; opacity: 0;
+            animation: pingRing 3s ease-out infinite;
+        }
+        .ping-ring:nth-child(2) { animation-delay: 1s; }
+
+        @keyframes pingRing {
+            0%   { transform: scale(1);   opacity: 0.6; }
+            100% { transform: scale(1.8); opacity: 0;   }
+        }
+
+        .card-platform {
+            font-family: 'Space Mono', monospace; font-size: 0.65rem;
+            letter-spacing: 3px; text-transform: uppercase;
+            color: rgba(255,255,255,0.3); margin-bottom: 6px;
+        }
+        .card-name {
+            font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700;
+            color: #fff; margin-bottom: 8px;
+        }
+        .card-handle {
+            font-family: 'Space Mono', monospace; font-size: 0.78rem;
+            color: rgba(255,255,255,0.4); word-break: break-all; flex: 1;
+        }
+        .card-arrow { margin-top: 20px; display: flex; align-items: center; justify-content: space-between; }
+        .arrow-btn {
+            display: flex; align-items: center; gap: 8px;
+            font-size: 0.78rem; font-family: 'Space Mono', monospace;
+            letter-spacing: 1px; color: rgba(255,255,255,0.5); transition: all .3s;
+        }
+        .s-card:hover .arrow-btn { color: #fff; gap: 12px; }
+        .arrow-icon {
+            width: 32px; height: 32px; border-radius: 50%;
+            border: 1px solid rgba(255,255,255,0.15);
+            display: flex; align-items: center; justify-content: center; transition: all .4s;
+        }
+        .s-card:hover .arrow-icon {
+            border-color: rgba(255,255,255,0.5); background: rgba(255,255,255,0.08);
+            transform: rotate(45deg);
+        }
+        .arrow-icon svg { width: 14px; height: 14px; }
+
+        /* ─── FEATURED CARD ─── */
+        .s-card.featured { grid-column: span 2; }
+        .s-card.featured .card-inner { flex-direction: row; align-items: center; gap: 32px; }
+        .s-card.featured .card-desc { font-size: 0.95rem; color: rgba(255,255,255,0.45); line-height: 1.7; margin-top: 4px; }
+        .s-card.featured .card-info { flex: 1; }
+
+        /* ─── QUOTE STRIP ─── */
+        .quote-strip {
+            text-align: center; padding: 60px 20px; position: relative;
+            max-width: 800px; margin: 0 auto 80px;
+        }
+        .quote-strip::before, .quote-strip::after {
+            content: ''; position: absolute; left: 50%; transform: translateX(-50%);
+            width: 1px; height: 60px;
+            background: linear-gradient(180deg, transparent, rgba(124,58,237,0.5), transparent);
+        }
+        .quote-strip::before { top: 0; }
+        .quote-strip::after  { bottom: 0; }
+        .quote-text {
+            font-family: 'Playfair Display', serif; font-size: 1.5rem; font-style: italic;
+            color: rgba(255,255,255,0.5); line-height: 1.6;
+        }
+        .quote-text em {
+            font-style: normal;
+            background: linear-gradient(135deg, #a78bfa, #f093fb);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+        }
+
+        /* ════════════════════════════════════
+           STYLISH FOOTER
+        ════════════════════════════════════ */
+
+        /* ── Back to Top Button ── */
+        .back-to-top {
+            display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 0; width: 100%;
+            padding: 40px 0 0;
+            position: relative; z-index: 5;
+        }
+        .btt-btn {
+            display: inline-flex; flex-direction: column; align-items: center; gap: 6px;
+            background: none; border: none; cursor: pointer;
+            font-family: 'Space Mono', monospace; font-size: 0.65rem;
+            letter-spacing: 4px; color: rgba(255,255,255,0.3);
+            text-transform: uppercase; transition: color .3s;
+            text-decoration: none;
+        }
+        .btt-btn:hover { color: #a78bfa; }
+        .btt-circle {
+            width: 48px; height: 48px; border-radius: 50%;
+            border: 1px solid rgba(124,58,237,0.3);
+            display: flex; align-items: center; justify-content: center;
+            transition: all .4s cubic-bezier(0.23,1,0.32,1);
+            background: rgba(124,58,237,0.05);
+        }
+        .btt-btn:hover .btt-circle {
+            border-color: #a78bfa;
+            background: rgba(124,58,237,0.15);
+            transform: translateY(-4px);
+            box-shadow: 0 0 20px rgba(124,58,237,0.4);
+        }
+        .btt-circle svg { width: 18px; height: 18px; }
+
+        /* ── Footer Wave Divider ── */
+        .footer-wave-wrap {
+            position: relative; z-index: 5;
+            margin-top: 40px; overflow: hidden; line-height: 0;
+        }
+        .footer-wave-wrap svg { display: block; width: 100%; }
+
+        /* ── Main Footer ── */
+        footer {
+            position: relative; z-index: 5;
+            background: rgba(5, 3, 15, 0.98);
+            border-top: 1px solid rgba(124,58,237,0.2);
+            overflow: hidden;
+        }
+
+        /* Subtle footer bg glow */
+        footer::before {
+            content: '';
+            position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+            width: 600px; height: 300px;
+            background: radial-gradient(ellipse, rgba(124,58,237,0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .footer-inner {
+            position: relative; z-index: 2;
+            max-width: 1100px; margin: 0 auto;
+            padding: 64px 40px 0;
+        }
+
+        /* ── Footer Top: Brand + Nav ── */
+        .footer-top {
+            display: grid; grid-template-columns: 1fr auto 1fr;
+            align-items: start; gap: 40px; margin-bottom: 56px;
+        }
+
+        .footer-left { display: flex; flex-direction: column; gap: 16px; }
+
+        .footer-logo-mark {
+            font-family: 'Playfair Display', serif; font-size: 3.5rem; font-weight: 900;
+            line-height: 1; letter-spacing: -2px;
+            background: linear-gradient(135deg, #a78bfa 0%, #f093fb 50%, #60a5fa 100%);
+            background-size: 200% 200%;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-clip: text;
+            filter: drop-shadow(0 0 24px rgba(167,139,250,0.5));
+            animation: logoShimmer 4s ease-in-out infinite;
+        }
+        @keyframes logoShimmer {
+            0%,100% { background-position: 0% 50%; filter: drop-shadow(0 0 24px rgba(167,139,250,0.4)); }
+            50%      { background-position: 100% 50%; filter: drop-shadow(0 0 40px rgba(167,139,250,0.8)); }
+        }
+
+        .footer-tagline {
+            font-family: 'Space Mono', monospace; font-size: 0.7rem;
+            letter-spacing: 4px; color: rgba(255,255,255,0.25);
+            text-transform: uppercase;
+        }
+
+        .footer-desc {
+            font-size: 0.92rem; color: rgba(255,255,255,0.35);
+            line-height: 1.7; max-width: 280px;
+        }
+
+        /* Center divider */
+        .footer-center-divider {
+            display: flex; flex-direction: column; align-items: center; gap: 0;
+            padding-top: 8px;
+        }
+        .fcd-line {
+            width: 1px; height: 80px;
+            background: linear-gradient(180deg, transparent, rgba(124,58,237,0.5), transparent);
+            animation: sidePulse 3s ease-in-out infinite;
+        }
+        .fcd-gem {
+            width: 10px; height: 10px; border-radius: 2px;
+            background: linear-gradient(135deg, #a78bfa, #f093fb);
+            transform: rotate(45deg);
+            box-shadow: 0 0 16px rgba(167,139,250,0.8);
+            animation: gemPulse 2s ease-in-out infinite;
+        }
+        @keyframes gemPulse {
+            0%,100% { transform: rotate(45deg) scale(1);   box-shadow: 0 0 16px rgba(167,139,250,0.6); }
+            50%      { transform: rotate(45deg) scale(1.3); box-shadow: 0 0 28px rgba(167,139,250,1);   }
+        }
+
+        .footer-right {
+            display: flex; flex-direction: column; align-items: flex-end; gap: 20px;
+        }
+
+        /* Nav links group */
+        .footer-nav-group { display: flex; flex-direction: column; gap: 12px; text-align: right; }
+        .footer-nav-label {
+            font-family: 'Space Mono', monospace; font-size: 0.6rem;
+            letter-spacing: 4px; color: rgba(124,58,237,0.6); text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+        .footer-nav-link {
+            font-size: 0.88rem; color: rgba(255,255,255,0.4); text-decoration: none;
+            transition: all .3s; font-family: 'DM Sans', sans-serif;
+            display: flex; align-items: center; justify-content: flex-end; gap: 8px;
+        }
+        .footer-nav-link::after {
+            content: '→'; font-size: 0.75rem;
+            opacity: 0; transform: translateX(-6px);
+            transition: all .3s; color: #a78bfa;
+        }
+        .footer-nav-link:hover { color: #fff; }
+        .footer-nav-link:hover::after { opacity: 1; transform: translateX(0); }
+
+        /* ── Footer Middle: Social Mini Icons ── */
+        .footer-socials {
+            display: flex; align-items: center; justify-content: center;
+            gap: 12px; margin-bottom: 48px;
+            flex-wrap: wrap;
+        }
+
+        .footer-social-icon {
+            width: 40px; height: 40px; border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            transition: all .3s cubic-bezier(0.23,1,0.32,1);
+            text-decoration: none; flex-shrink: 0;
+        }
+        .footer-social-icon svg { width: 16px; height: 16px; }
+        .footer-social-icon:hover {
+            transform: translateY(-4px) scale(1.1);
+            border-color: rgba(167,139,250,0.5);
+            box-shadow: 0 8px 24px rgba(124,58,237,0.3);
+            background: rgba(124,58,237,0.12);
+        }
+
+        /* ── Footer Divider Line ── */
+        .footer-hr {
+            height: 1px; margin: 0 0 28px;
+            background: linear-gradient(90deg, transparent, rgba(124,58,237,0.3) 30%, rgba(240,147,251,0.3) 70%, transparent);
+        }
+
+        /* ── Footer Bottom Bar ── */
+        .footer-bottom {
+            display: flex; align-items: center; justify-content: space-between;
+            padding-bottom: 32px; flex-wrap: wrap; gap: 16px;
+        }
+
+        .footer-copyright {
+            font-family: 'Space Mono', monospace; font-size: 0.65rem;
+            color: rgba(255,255,255,0.18); letter-spacing: 1px;
+        }
+        .footer-copyright span {
+            background: linear-gradient(135deg, #a78bfa, #f093fb);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+        }
+
+        .footer-status {
+            display: flex; align-items: center; gap: 8px;
+            font-family: 'Space Mono', monospace; font-size: 0.6rem;
+            color: rgba(255,255,255,0.2); letter-spacing: 2px; text-transform: uppercase;
+        }
+        .footer-status-dot {
+            width: 6px; height: 6px; border-radius: 50%; background: #4ade80;
+            box-shadow: 0 0 8px #4ade80; animation: statusBlink 2s ease-in-out infinite;
+        }
+
+        .footer-made {
+            font-family: 'Space Mono', monospace; font-size: 0.6rem;
+            color: rgba(255,255,255,0.15); letter-spacing: 1px;
+        }
+        .footer-made span { color: #f093fb; }
+
+        /* ── Responsive Footer ── */
+        @media (max-width: 768px) {
+            .footer-top { grid-template-columns: 1fr; text-align: center; }
+            .footer-center-divider { display: none; }
+            .footer-right { align-items: center; }
+            .footer-nav-group { text-align: center; }
+            .footer-nav-link { justify-content: center; }
+            .footer-nav-link::after { display: none; }
+            .footer-desc { max-width: 100%; text-align: center; }
+            .footer-bottom { justify-content: center; text-align: center; }
+            .footer-inner { padding: 48px 20px 0; }
+        }
+
+        /* ─── PLATFORM ACCENT COLORS ─── */
+        .linkedin  { --card-accent: linear-gradient(135deg, #0077b5, #00a0dc); }
+        .github    { --card-accent: linear-gradient(135deg, #6e5494, #8b5cf6); }
+        .email     { --card-accent: linear-gradient(135deg, #667eea, #f093fb); }
+        .twitter   { --card-accent: linear-gradient(135deg, #1da1f2, #00c6ff); }
+        .instagram { --card-accent: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
+        .whatsapp  { --card-accent: linear-gradient(135deg, #25d366, #128c7e); }
+        .leetcode  { --card-accent: linear-gradient(135deg, #ffa116, #f7941d); }
+        .facebook  { --card-accent: linear-gradient(135deg, #1877f2, #42a5f5); }
+        .telegram  { --card-accent: linear-gradient(135deg, #26a5e4, #0088cc); }
+        .blogspot  { --card-accent: linear-gradient(135deg, #ff8c00, #f57c00); }
+
+        /* ─── SCAN LINE ─── */
+        @keyframes scanline { from { transform: translateY(-100%); } to { transform: translateY(100vh); } }
+        .scanline {
+            position: fixed; top: 0; left: 0; right: 0; height: 4px;
+            background: linear-gradient(180deg, transparent, rgba(124,58,237,0.08), transparent);
+            animation: scanline 8s linear infinite; pointer-events: none; z-index: 2;
+        }
+
+        /* ─── FLOATING ORBS ─── */
+        .orb { position: fixed; border-radius: 50%; filter: blur(80px); pointer-events: none; z-index: 1; animation: orbFloat 12s ease-in-out infinite; }
+        .orb-1 { width: 500px; height: 500px; background: radial-gradient(circle, rgba(124,58,237,0.12), transparent); top: -150px; left: -150px; }
+        .orb-2 { width: 400px; height: 400px; background: radial-gradient(circle, rgba(240,147,251,0.08), transparent); bottom: -100px; right: -100px; animation-delay: 4s; }
+        .orb-3 { width: 350px; height: 350px; background: radial-gradient(circle, rgba(79,172,254,0.08), transparent); top: 40%; right: 10%; animation-delay: 8s; }
+
+        @keyframes orbFloat {
+            0%, 100% { transform: translate(0, 0); }
+            33%       { transform: translate(30px, -20px); }
+            66%       { transform: translate(-20px, 30px); }
+        }
+
+        /* ─── RESPONSIVE ─── */
+        @media (max-width: 900px) {
+            main { padding: 100px 20px 80px; }
+            .links-grid { grid-template-columns: 1fr 1fr; }
+            .s-card.featured { grid-column: span 2; }
+            .side-decor { display: none; }
+        }
+        @media (max-width: 600px) {
+            .links-grid { grid-template-columns: 1fr; }
+            .s-card.featured { grid-column: span 1; }
+            .s-card.featured .card-inner { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ── Background & Decorative Layer ── -->
+    <div id="cursor-glow"></div>
+    <div class="scanline"></div>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+    <div class="bg-canvas"><canvas id="constellation"></canvas></div>
+
+    <!-- ── Side Decorations ── -->
+    <div class="side-decor left">
+        <div class="side-dot"></div>
+        <div class="side-line"></div>
+        <div class="side-text">DIGITAL PRESENCE</div>
+        <div class="side-line"></div>
+        <div class="side-dot"></div>
+        <div class="side-line" style="height:60px"></div>
+        <div class="side-text">LNV 2026</div>
+        <div class="side-line"></div>
+        <div class="side-dot"></div>
+    </div>
+    <div class="side-decor right">
+        <div class="side-dot"></div>
+        <div class="side-line"></div>
+        <div class="side-text">CONNECT</div>
+        <div class="side-line"></div>
+        <div class="side-dot"></div>
+        <div class="side-line" style="height:60px"></div>
+        <div class="side-text">COLLABORATE</div>
+        <div class="side-line"></div>
+        <div class="side-dot"></div>
+    </div>
+
+    <!-- ── Navigation ── -->
+    <nav>
+        <a href="index.html" class="nav-back">
+            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 12H5M12 5l-7 7 7 7"/>
+            </svg>
+            Back to Portfolio
+        </a>
+        <div class="nav-brand">LNV</div>
+        <div class="nav-status">
+            <div class="status-dot"></div>
+            OPEN TO CONNECT
+        </div>
+    </nav>
+
+    <main>
+
+        <!-- ══════════════ HERO HEADER ══════════════ -->
+        <div class="hero-header">
+            <div class="orbit-container">
+                <div class="orbit-ring"><div class="orbit-dot"></div></div>
+                <div class="orbit-ring"><div class="orbit-dot"></div></div>
+                <div class="orbit-ring"><div class="orbit-dot"></div></div>
+                <div class="hero-title-wrap">
+                    <div class="hero-eyebrow">// digital footprint</div>
+                    <h1 class="hero-title">
+                        <span class="title-line-1">My Social</span>
+                        <span class="title-line-2">Universe</span>
+                    </h1>
+                    <p class="hero-desc">Every platform &nbsp;·&nbsp; One developer</p>
+                </div>
+            </div>
+            <div class="signal-wave">
+                <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
+                <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
+                <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
+                <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
+                <div class="wave-bar"></div>
+            </div>
+        </div>
+
+        <!-- ══════════════ STATS RIBBON ══════════════ -->
+        <div class="stats-ribbon">
+            <div class="stat-item">
+                <span class="stat-num" id="plat-count">0</span>
+                <span class="stat-label">Platforms</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+                <span class="stat-num">&#8734;</span>
+                <span class="stat-label">Connections</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+                <span class="stat-num">24/7</span>
+                <span class="stat-label">Reachable</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+                <span class="stat-num">1</span>
+                <span class="stat-label">Developer</span>
+            </div>
+        </div>
+
+        <!-- ══════════════ SOCIAL LINKS GRID ══════════════ -->
+        <div class="links-grid">
+
+            <!-- ① LinkedIn — FEATURED -->
+            <a href="https://www.linkedin.com/in/laxmi-narayan-verma-b91634379" target="_blank" class="s-card featured linkedin">
+                <div class="card-inner">
+                    <div class="card-icon-wrap" style="flex-shrink:0">
+                        <div class="card-icon-bg" style="background:linear-gradient(135deg,#0077b5,#00a0dc)"></div>
+                        <div class="card-icon-svg" style="background:linear-gradient(135deg,#0077b5,#00a0dc)">
+                            <div class="ping-ring" style="color:#0077b5"></div>
+                            <svg fill="white" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                        </div>
+                    </div>
+                    <div class="card-info">
+                        <div class="card-platform">Professional Network</div>
+                        <div class="card-name">LinkedIn</div>
+                        <div class="card-desc">Connecting with professionals, showcasing experience and building my career network.</div>
+                        <div class="card-arrow">
+                            <span class="arrow-btn">VIEW PROFILE <span class="arrow-icon"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M7 17L17 7M17 7H7M17 7v10"/></svg></span></span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+            <!-- ② GitHub -->
+            <a href="https://github.com/lakshminarayanverma91-bot/" target="_blank" class="s-card github">
+                <div class="card-inner">
+                    <div class="card-icon-wrap">
+                        <div class="card-icon-bg" style="background:linear-gradient(135deg,#6e5494,#8b5cf6)"></div>
+                        <div class="card-icon-svg" style="background:linear-gradient(135deg,#21262d,#30363d)">
+                            <div class="ping-ring" style="color:#6e5494"></div>
+                            <svg fill="white" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                        </div>
+                    </div>
+                    <div class="card-platform">Code Repository</div>
+                    <div class="card-name">GitHub</div>
+                    <div class="card-handle">lakshminarayanverma91-bot</div>
+                    <div class="card-arrow">
+                        <span class="arrow-btn">REPOSITORIES <span class="arrow-icon"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M7 17L17 7M17 7H7M17 7v10"/></svg></span></span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- ③ Email -->
+            <a href="mailto:laxmi.251235@andc.du.ac.in" class="s-card email">
+                <div class="card-inner">
+                    <div class="card-icon-wrap">
+                        <div class="card-icon-bg" style="background:linear-gradient(135deg,#667eea,#f093fb)"></div>
+                        <div class="card-icon-svg" style="background:linear-gradient(135deg,#667eea,#764ba2)">
+                            <div class="ping-ring" style="color:#667eea"></div>
+                            <svg fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                        </div>
+                    </div>
+                    <div class="card-platform">Direct Message</div>
+                    <div class="card-name">Email</div>
+                    <div class="card-handle">laxmi.251235@andc.du.ac.in</div>
+                    <div class="card-arrow">
+                        <span class="arrow-btn">SEND MAIL <span class="arrow-icon"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M7 17L17 7M17 7H7M17 7v10"/></svg></span></span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- ④ X / Twitter -->
+            <a href="https://x.com/LaxmiNarayan569" target="_blank" class="s-card twitter">
+                <div class="card-inner">
+                    <div class="card-icon-wrap">
+                        <div class="card-icon-bg" style="background:linear-gradient(135deg,#1da1f2,#00c6ff)"></div>
+                        <div class="card-icon-svg" style="background:#000">
+                            <div class="ping-ring" style="color:#1da1f2"></div>
+                            <svg fill="white" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.259 5.63 5.905-5.63zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                        </div>
+                    </div>
+                    <div class="card-platform">Micro-blogging</div>
+                    <div class="card-name">X / Twitter</div>
+                    <div class="card-handle">LaxmiNarayan569</div>
+                    <div class="card-arrow">
+                        <span class="arrow-btn">FOLLOW <span class="arrow-icon"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M7 17L17 7M17 7H7M17 7v10"/></svg></span></span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- ⑤ Instagram -->
+            <a href="https://www.instagram.com/lnv.569/" target="_blank" class="s-card instagram">
+                <div class="card-inner">
+                    <div class="card-icon-wrap">
+                        <div class="card-icon-bg" style="background:linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888)"></div>
+                        <div class="card-icon-svg" style="background:linear-gradient(135deg,#f09433,#bc1888)">
+                            <div class="ping-ring" style="color:#f09433"></div>
+                            <svg fill="white" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                        </div>
+                    </div>
+                    <div class="card-platform">Visual Stories</div>
+                    <div class="card-name">Instagram</div>
+                    <div class="card-handle">lnv.569</div>
+                    <div class="card-arrow">
+                        <span class="arrow-btn">FOLLOW <span class="arrow-icon"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M7 17L17 7M17 7H7M17 7v10"/></svg></span></span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- ⑥ LeetCode — FEATURED -->
+            <a href="https://leetcode.com/" target="_blank" class="s-card featured leetcode">
+                <div class="card-inner">
+                    <div class="card-icon-wrap" style="flex-shrink:0">
+                        <div class="card-icon-bg" style="background:linear-gradient(135deg,#ffa116,#f7941d)"></div>
+                        <div class="card-icon-svg" style="background:linear-gradient(135deg,#1a1a2e,#16213e)">
+                            <div class="ping-ring" style="color:#ffa116"></div>
+                            <svg viewBox="0 0 24 24" fill="none"><path d="M13.483 0a1.374 1.374 0 0 0-.961.438L7.116 6.226l-3.854 4.126a5.266 5.266 0 0 0-1.209 2.104 5.35 5.35 0 0 0-.125.513 5.527 5.527 0 0 0 .062 2.362 5.83 5.83 0 0 0 .349 1.017 5.938 5.938 0 0 0 1.271 1.818l4.277 4.193.039.038c2.248 2.165 5.852 2.133 8.063-.074l2.396-2.392c.54-.54.54-1.414.003-1.955a1.378 1.378 0 0 0-1.951-.003l-2.396 2.392a3.021 3.021 0 0 1-4.205.038l-.02-.019-4.276-4.193c-.652-.64-.972-1.469-.948-2.263a2.68 2.68 0 0 1 .066-.523 2.545 2.545 0 0 1 .619-1.164L9.13 8.114c1.058-1.134 3.204-1.27 4.43-.278l3.501 2.831c.593.48 1.461.387 1.94-.207a1.384 1.384 0 0 0-.207-1.943l-3.5-2.831c-.8-.647-1.766-1.045-2.774-1.202l2.015-2.158A1.384 1.384 0 0 0 13.483 0zm-2.866 12.815a1.38 1.38 0 0 0-1.38 1.382 1.38 1.38 0 0 0 1.38 1.382H20.79a1.38 1.38 0 0 0 1.38-1.382 1.38 1.38 0 0 0-1.38-1.382z" fill="#ffa116"/></svg>
+                        </div>
+                    </div>
+                    <div class="card-info">
+                        <div class="card-platform">Competitive Coding</div>
+                        <div class="card-name">LeetCode</div>
+                        <div class="card-desc">Sharpening problem-solving skills through daily coding challenges and algorithmic practice.</div>
+                        <div class="card-arrow">
+                            <span class="arrow-btn">VIEW SOLUTIONS <span class="arrow-icon"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M7 17L17 7M17 7H7M17 7v10"/></svg></span></span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+            <!-- ⑦ WhatsApp -->
+            <a href="https://wa.me/919511173424" target="_blank" class="s-card whatsapp">
+                <div class="card-inner">
+                    <div class="card-icon-wrap">
+                        <div class="card-icon-bg" style="background:linear-gradient(135deg,#25d366,#128c7e)"></div>
+                        <div class="card-icon-svg" style="background:linear-gradient(135deg,#25d366,#128c7e)">
+                            <div class="ping-ring" style="color:#25d366"></div>
+                            <svg fill="white" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+                        </div>
+                    </div>
+                    <div class="card-platform">Instant Message</div>
+                    <div class="card-name">WhatsApp</div>
+                    <div class="card-handle">9511173424</div>
+                    <div class="card-arrow">
+                        <span class="arrow-btn">MESSAGE <span class="arrow-icon"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M7 17L17 7M17 7H7M17 7v10"/></svg></span></span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- ⑧ Facebook — FEATURED -->
+            <a href="https://www.facebook.com/lakshminarayan.verma.568" target="_blank" class="s-card featured facebook">
+                <div class="card-inner">
+                    <div class="card-icon-wrap" style="flex-shrink:0">
+                        <div class="card-icon-bg" style="background:linear-gradient(135deg,#1877f2,#42a5f5)"></div>
+                        <div class="card-icon-svg" style="background:linear-gradient(135deg,#1877f2,#0d47a1)">
+                            <div class="ping-ring" style="color:#1877f2"></div>
+                            <svg fill="white" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                        </div>
+                    </div>
+                    <div class="card-info">
+                        <div class="card-platform">Social Media</div>
+                        <div class="card-name">Facebook</div>
+                        <div class="card-desc">Stay connected through updates, thoughts, and community engagement on the world's largest social network.</div>
+                        <div class="card-arrow">
+                            <span class="arrow-btn">VIEW PROFILE <span class="arrow-icon"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M7 17L17 7M17 7H7M17 7v10"/></svg></span></span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+            <!-- ⑨ Telegram -->
+            <a href="https://t.me/lnv569/" target="_blank" class="s-card telegram">
+                <div class="card-inner">
+                    <div class="card-icon-wrap">
+                        <div class="card-icon-bg" style="background:linear-gradient(135deg,#26a5e4,#0088cc)"></div>
+                        <div class="card-icon-svg" style="background:linear-gradient(135deg,#26a5e4,#0088cc)">
+                            <div class="ping-ring" style="color:#26a5e4"></div>
+                            <svg fill="white" viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+                        </div>
+                    </div>
+                    <div class="card-platform">Secure Messaging</div>
+                    <div class="card-name">Telegram</div>
+                    <div class="card-handle">Add your @username</div>
+                    <div class="card-arrow">
+                        <span class="arrow-btn">MESSAGE <span class="arrow-icon"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M7 17L17 7M17 7H7M17 7v10"/></svg></span></span>
+                    </div>
+                </div>
+            </a>
+
+            <!-- ⑩ Blogspot — FEATURED -->
+            <a href="https://lakshminarayanverma91.blogspot.com/" target="_blank" class="s-card featured blogspot">
+                <div class="card-inner">
+                    <div class="card-icon-wrap" style="flex-shrink:0">
+                        <div class="card-icon-bg" style="background:linear-gradient(135deg,#ff8c00,#f57c00)"></div>
+                        <div class="card-icon-svg" style="background:linear-gradient(135deg,#ff6d00,#e65100)">
+                            <div class="ping-ring" style="color:#ff8c00"></div>
+                            <svg fill="white" viewBox="0 0 24 24"><path d="M21.976 24H2.026C.9 24 0 23.1 0 21.976V2.026C0 .9.9 0 2.026 0h19.95C23.1 0 24 .9 24 2.026v19.95C24 23.1 23.1 24 21.976 24zM10.9 6.545H8.727c-1.2 0-2.182.982-2.182 2.182v6.546c0 1.2.982 2.182 2.182 2.182h6.546c1.2 0 2.182-.982 2.182-2.182v-3.273c0-.6-.491-1.09-1.09-1.09h-.546c-.164 0-.327-.164-.327-.328v-1.855c0-1.2-.982-2.182-2.182-2.182H10.9zm-.546 3.818c0-.327.218-.545.545-.545h1.637c.327 0 .545.218.545.545s-.218.546-.545.546H10.9c-.327 0-.545-.219-.545-.546zm4.364 3.273c0 .327-.218.546-.546.546H10.9c-.327 0-.545-.219-.545-.546 0-.327.218-.545.545-.545h3.273c.328 0 .546.218.546.545z"/></svg>
+                        </div>
+                    </div>
+                    <div class="card-info">
+                        <div class="card-platform">Blog &amp; Writing</div>
+                        <div class="card-name">Blogspot</div>
+                        <div class="card-desc">Sharing thoughts, technical insights, and personal experiences through long-form writing and blog posts.</div>
+                        <div class="card-arrow">
+                            <span class="arrow-btn">READ BLOG <span class="arrow-icon"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M7 17L17 7M17 7H7M17 7v10"/></svg></span></span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+        </div><!-- /links-grid -->
+
+        <!-- ══════════════ QUOTE ══════════════ -->
+        <div class="quote-strip">
+            <p class="quote-text">
+                "The best way to <em>connect</em> with the world<br>is to build things that <em>matter</em>."
+            </p>
+        </div>
+
+    </main>
+
+    <!-- ── Back to Top ── -->
+    <div class="back-to-top">
+        <a href="#" class="btt-btn">
+            <div class="btt-circle">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7"/>
+                </svg>
+            </div>
+            BACK TO TOP
+        </a>
+    </div>
+
+    <!-- ── Wave Divider ── -->
+    <div class="footer-wave-wrap">
+        <svg viewBox="0 0 1440 60" preserveAspectRatio="none" height="60">
+            <defs>
+                <linearGradient id="waveGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%"   stop-color="rgba(124,58,237,0)" />
+                    <stop offset="25%"  stop-color="rgba(124,58,237,0.25)" />
+                    <stop offset="50%"  stop-color="rgba(240,147,251,0.25)" />
+                    <stop offset="75%"  stop-color="rgba(79,172,254,0.2)" />
+                    <stop offset="100%" stop-color="rgba(79,172,254,0)" />
+                </linearGradient>
+            </defs>
+            <path d="M0,30 C180,60 360,0 540,30 C720,60 900,0 1080,30 C1260,60 1440,20 1440,30 L1440,60 L0,60 Z" fill="url(#waveGrad)" opacity="0.5"/>
+            <path d="M0,40 C240,10 480,55 720,35 C960,15 1200,50 1440,40 L1440,60 L0,60 Z" fill="rgba(5,3,15,0.98)"/>
+        </svg>
+    </div>
+
+    <!-- ── Full Footer ── -->
+    <footer>
+        <div class="footer-inner">
+
+            <!-- Top Row: Brand · Divider · Nav -->
+            <div class="footer-top">
+
+                <!-- Left: Brand -->
+                <div class="footer-left">
+                    <div class="footer-logo-mark">LNV</div>
+                    <div class="footer-tagline">// Laxmi Narayan Verma</div>
+                    <p class="footer-desc">
+                        Computer Science student at University of Delhi, passionate about crafting elegant solutions through code and connecting across every platform.
+                    </p>
+                    <!-- Location badge -->
+                    <div style="display:flex;align-items:center;gap:8px;margin-top:4px;">
+                        <svg width="14" height="14" fill="none" stroke="rgba(167,139,250,0.6)" viewBox="0 0 24 24" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                        </svg>
+                        <span style="font-family:'Space Mono',monospace;font-size:0.65rem;letter-spacing:2px;color:rgba(167,139,250,0.5);">DELHI, INDIA</span>
+                    </div>
+                </div>
+
+                <!-- Center: Animated Gem Divider -->
+                <div class="footer-center-divider">
+                    <div class="fcd-line"></div>
+                    <div class="fcd-gem"></div>
+                    <div class="fcd-line"></div>
+                </div>
+
+                <!-- Right: Nav Links -->
+                <div class="footer-right">
+                    <div class="footer-nav-group">
+                        <div class="footer-nav-label">Navigate</div>
+                        <a href="index.html" class="footer-nav-link">Portfolio Home</a>
+                        <a href="index.html#about" class="footer-nav-link">About Me</a>
+                        <a href="index.html#skills" class="footer-nav-link">Skills</a>
+                        <a href="index.html#experience" class="footer-nav-link">Experience</a>
+                        <a href="index.html#education" class="footer-nav-link">Education</a>
+                        <a href="index.html#contact" class="footer-nav-link">Contact</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Divider -->
+            <div class="footer-hr"></div>
+
+            <!-- Bottom Bar -->
+            <div class="footer-bottom">
+                <div class="footer-copyright">
+                    &copy; 2026 &nbsp;<span>Laxmi Narayan Verma</span>&nbsp; &mdash; All rights reserved
+                </div>
+                <div class="footer-status">
+                    <div class="footer-status-dot"></div>
+                    Available for opportunities
+                </div>
+                <div class="footer-made">
+                    Built with <span>&#9829;</span> &amp; code
+                </div>
+            </div>
+
+        </div><!-- /footer-inner -->
+    </footer>
+
+    <script>
+        /* ══ CURSOR GLOW ══ */
+        const glow = document.getElementById('cursor-glow');
+        let mx = 0, my = 0, gx = 0, gy = 0;
+        document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+        (function tick() {
+            gx += (mx - gx) * 0.08; gy += (my - gy) * 0.08;
+            glow.style.left = gx + 'px'; glow.style.top = gy + 'px';
+            requestAnimationFrame(tick);
+        })();
+
+        /* ══ CONSTELLATION CANVAS ══ */
+        const canvas = document.getElementById('constellation');
+        const ctx = canvas.getContext('2d');
+        let W, H, nodes = [];
+
+        function resize() {
+            W = canvas.width  = window.innerWidth;
+            H = canvas.height = window.innerHeight;
+        }
+        resize();
+        window.addEventListener('resize', resize);
+
+        for (let i = 0; i < 60; i++) {
+            nodes.push({
+                x: Math.random() * window.innerWidth,
+                y: Math.random() * window.innerHeight,
+                vx: (Math.random() - 0.5) * 0.4,
+                vy: (Math.random() - 0.5) * 0.4,
+                r:  Math.random() * 2 + 1
+            });
+        }
+
+        function drawConstellation() {
+            ctx.clearRect(0, 0, W, H);
+            for (let i = 0; i < nodes.length; i++) {
+                for (let j = i + 1; j < nodes.length; j++) {
+                    const dx   = nodes[i].x - nodes[j].x;
+                    const dy   = nodes[i].y - nodes[j].y;
+                    const dist = Math.sqrt(dx*dx + dy*dy);
+                    if (dist < 150) {
+                        ctx.beginPath();
+                        ctx.strokeStyle = `rgba(124,58,237,${0.12 * (1 - dist/150)})`;
+                        ctx.lineWidth = 1;
+                        ctx.moveTo(nodes[i].x, nodes[i].y);
+                        ctx.lineTo(nodes[j].x, nodes[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+            nodes.forEach(n => {
+                const grad = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, n.r * 3);
+                grad.addColorStop(0, 'rgba(167,139,250,0.8)');
+                grad.addColorStop(1, 'transparent');
+                ctx.beginPath(); ctx.fillStyle = grad;
+                ctx.arc(n.x, n.y, n.r * 3, 0, Math.PI * 2); ctx.fill();
+                n.x += n.vx; n.y += n.vy;
+                if (n.x < 0 || n.x > W) n.vx *= -1;
+                if (n.y < 0 || n.y > H) n.vy *= -1;
+            });
+            requestAnimationFrame(drawConstellation);
+        }
+        drawConstellation();
+
+        /* ══ COUNTER ANIMATION ══ */
+        function animateCount(el, target, duration) {
+            let start = 0;
+            const step = target / (duration / 16);
+            const timer = setInterval(() => {
+                start += step;
+                if (start >= target) { el.textContent = target; clearInterval(timer); return; }
+                el.textContent = Math.floor(start);
+            }, 16);
+        }
+
+        const counterObs = new IntersectionObserver(entries => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    animateCount(document.getElementById('plat-count'), 10, 1000);
+                    counterObs.disconnect();
+                }
+            });
+        });
+        counterObs.observe(document.getElementById('plat-count'));
+
+        /* ══ SCROLL REVEAL ══ */
+        const revealObs = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity   = '1';
+                    entry.target.style.transform = 'translateY(0) scale(1)';
+                }
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.s-card').forEach(el => revealObs.observe(el));
+
+        /* ══ PAGE FADE IN ══ */
+        window.addEventListener('load', () => {
+            document.body.style.opacity = '0';
+            setTimeout(() => {
+                document.body.style.transition = 'opacity 0.8s ease';
+                document.body.style.opacity    = '1';
+            }, 50);
+        });
+    </script>
+</body>
+</html>
