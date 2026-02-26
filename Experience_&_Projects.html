@@ -487,7 +487,17 @@
         
         .fade-in-up {
             animation: fadeInUp 1s ease-out forwards;
-            opacity: 0;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(60px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .delay-1 { animation-delay: 0.1s; }
@@ -629,15 +639,76 @@
             transform: scale(1.05);
             box-shadow: 0 20px 40px rgba(124, 58, 237, 0.6);
         }
+
+        /* ===================================
+           NETWORK CANVAS ANIMATION
+           =================================== */
+        #networkCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        @media (max-width: 768px) {
+
+            .grid-background {
+                background-size: 100px 100px;
+            }
+            .grid-background::before {
+                content: "";
+                position: absolute;
+                inset: 0;
+                background: inherit;
+                opacity: 0.2;
+                z-index: 0;
+            }
+
+            .floating {
+                display: none;
+            }
+
+            .neon-border {
+                animation: none;
+            }
+
+            .glow-text {
+                text-shadow: 
+                    0 0 12px rgba(168, 85, 247, 0.8),
+                    0 0 25px rgba(168, 85, 247, 0.6);
+            }
+        }
+
+        @media (max-width: 768px) {
+
+            h1, h2, h3 {
+                opacity: 1 !important;
+            }
+
+            .text-gray-300 {
+                color: #ffffff !important;
+            }
+
+            .stat-counter {
+                opacity: 1 !important;
+            }
+
+        }
     </style>
 </head>
 <body class="relative">
+    <!-- Network Animation Canvas -->
+    <canvas id="networkCanvas" class="md:opacity-100000 opacity-100"></canvas>
+
     <!-- Mouse Follow Glow -->
     <div class="mouse-glow" id="mouseGlow"></div>
     
     <!-- Animated Particles Background -->
     <div class="particles" id="particles"></div>
-    
+
     <!-- Navigation -->
     <nav class="fixed w-full top-0 z-50 nav-blur">
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
@@ -661,13 +732,20 @@
 
     <!-- Hero Section -->
     <section class="relative min-h-[50vh] flex items-center justify-center overflow-hidden grid-background pt-32 pb-16">
-        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-black/50 to-black"></div>
+        <div class="absolute inset-0 z-0 
+            bg-gradient-to-b 
+            from-transparent 
+            via-black/10 
+            to-black/30 
+            md:via-black/50 
+            md:to-black">
+        </div>
         
         <!-- Floating Decorative Elements -->
         <div class="absolute top-20 left-10 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl floating"></div>
         <div class="absolute bottom-20 right-10 w-96 h-96 bg-pink-500/10 rounded-full blur-3xl floating" style="animation-delay: 2s;"></div>
         
-        <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 text-center">
+        <div class="relative z-20 max-w-7xl mx-auto px-6 lg:px-8 text-center">
             <div class="inline-block mb-6 px-6 py-2 glass rounded-full border border-purple-500/50 fade-in-up">
                 <span class="text-purple-400 font-semibold">💼 Portfolio Showcase</span>
             </div>
@@ -1275,48 +1353,155 @@
     </footer>
 
     <script>
-        // Mobile Menu Toggle
-        function toggleMobileMenu() {
-            const menu = document.getElementById('mobileMenu');
-            menu.classList.toggle('hidden');
-        }
+        /* ========================================
+           NETWORK ANIMATION
+        ======================================== */
+        const canvas = document.getElementById('networkCanvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        
+        const nodes = [];
+        const isMobile = window.innerWidth < 768;
 
-        // Mouse Follow Glow Effect
-        const mouseGlow = document.getElementById('mouseGlow');
-        let mouseX = 0, mouseY = 0;
-        let glowX = 0, glowY = 0;
-
-        document.addEventListener('mousemove', (e) => {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
-        });
-
-        function animateGlow() {
-            glowX += (mouseX - glowX) * 0.1;
-            glowY += (mouseY - glowY) * 0.1;
+        const nodeCount = isMobile ? 30 : 80;
+        const maxDistance = isMobile ? 100 : 150;
+        
+        class Node {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.vx = (Math.random() - 0.5) * 0.5;
+                this.vy = (Math.random() - 0.5) * 0.5;
+                this.radius = Math.random() * 2 + 1;
+                this.opacity = Math.random() * 0.5 + 0.3;
+            }
             
-            mouseGlow.style.left = glowX + 'px';
-            mouseGlow.style.top = glowY + 'px';
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                
+                if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+            }
             
-            requestAnimationFrame(animateGlow);
-        }
-        animateGlow();
-
-        // Create Floating Particles
-        function createParticles() {
-            const particlesContainer = document.getElementById('particles');
-            const particleCount = 50;
-
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.animationDelay = Math.random() * 20 + 's';
-                particle.style.animationDuration = (Math.random() * 10 + 15) + 's';
-                particlesContainer.appendChild(particle);
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                const nodeOpacity = isMobile ? this.opacity * 0.4 : this.opacity + 0.3;
+                ctx.fillStyle = `rgba(167, 139, 250, ${nodeOpacity})`;
+                ctx.fill();
             }
         }
-        createParticles();
+        
+        function initNodes() {
+            for (let i = 0; i < nodeCount; i++) {
+                nodes.push(new Node());
+            }
+        }
+        
+        function drawConnections() {
+            for (let i = 0; i < nodes.length; i++) {
+                for (let j = i + 1; j < nodes.length; j++) {
+                    const dx = nodes[i].x - nodes[j].x;
+                    const dy = nodes[i].y - nodes[j].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    
+                    if (distance < maxDistance) {
+                        const baseOpacity = isMobile ? 0.15 : 0.8;
+                        const opacity = (1 - distance / maxDistance) * baseOpacity;
+
+                        ctx.beginPath();
+                        ctx.moveTo(nodes[i].x, nodes[i].y);
+                        ctx.lineTo(nodes[j].x, nodes[j].y);
+
+                        ctx.strokeStyle = `rgba(139, 92, 246, ${opacity})`;
+                        ctx.lineWidth = 1.5;
+
+                        if (isMobile) {
+                            ctx.shadowBlur = 0;
+                        } else {
+                            ctx.shadowBlur = 15;
+                            ctx.shadowColor = "rgba(139, 92, 246, 0.9)";
+                        }
+
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+        
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            nodes.forEach(node => {
+                node.update();
+                node.draw();
+            });
+            
+            drawConnections();
+            requestAnimationFrame(animate);
+        }
+        
+        initNodes();
+        animate();
+        
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+        
+        // Mouse interaction with network
+        let mouse = { x: null, y: null };
+        
+        window.addEventListener('mousemove', (e) => {
+            mouse.x = e.x;
+            mouse.y = e.y;
+            
+            nodes.forEach(node => {
+                const dx = mouse.x - node.x;
+                const dy = mouse.y - node.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                
+                if (distance < 100) {
+                    node.x -= dx * 0.01;
+                    node.y -= dy * 0.01;
+                }
+            });
+        });
+        
+        /* ========================================
+           NAVIGATION
+        ======================================== */
+        const nav = document.getElementById('mainNav');
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const closeMobileMenu = document.getElementById('closeMobileMenu');
+        const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+        
+        // Sticky navigation with scroll effect
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                nav.classList.add('bg-black/95', 'shadow-2xl');
+            } else {
+                nav.classList.remove('bg-black/95', 'shadow-2xl');
+            }
+        });
+        
+        // Mobile menu toggle
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.add('active');
+        });
+        
+        closeMobileMenu.addEventListener('click', () => {
+            mobileMenu.classList.remove('active');
+        });
+        
+        mobileNavLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+            });
+        });
 
         // Stats Counter Animation
         function animateCounter(element) {
