@@ -27,7 +27,6 @@
             font-family: 'Playfair Display', serif;
         }
         
-        /* Premium Gradient Backgrounds */
         .premium-gradient {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #4facfe 75%, #00f2fe 100%);
             background-size: 400% 400%;
@@ -40,7 +39,6 @@
             100% { background-position: 0% 50%; }
         }
         
-        /* Animated Grid Background */
         .grid-background {
             background-image: 
                 linear-gradient(rgba(124, 58, 237, 0.1) 1px, transparent 1px),
@@ -54,7 +52,6 @@
             100% { background-position: 50px 50px; }
         }
         
-        /* Floating Particles */
         .particles {
             position: fixed;
             top: 0;
@@ -79,19 +76,14 @@
                 transform: translateY(0) translateX(0);
                 opacity: 0;
             }
-            10% {
-                opacity: 1;
-            }
-            90% {
-                opacity: 1;
-            }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
             100% {
                 transform: translateY(-100vh) translateX(100px);
                 opacity: 0;
             }
         }
         
-        /* Premium Card Hover Effects */
         .premium-card {
             position: relative;
             background: rgba(17, 24, 39, 0.8);
@@ -103,10 +95,7 @@
         .premium-card::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
+            top: 0; left: 0; right: 0; bottom: 0;
             border-radius: inherit;
             padding: 2px;
             background: linear-gradient(135deg, #667eea, #764ba2, #f093fb);
@@ -115,18 +104,16 @@
             mask-composite: exclude;
             opacity: 0;
             transition: opacity 0.5s ease;
+            pointer-events: none;
         }
         
-        .premium-card:hover::before {
-            opacity: 1;
-        }
+        .premium-card:hover::before { opacity: 1; }
         
         .premium-card:hover {
             transform: translateY(-20px) scale(1.02);
             box-shadow: 0 30px 60px rgba(124, 58, 237, 0.4);
         }
         
-        /* Magnetic Button Effect */
         .magnetic-btn {
             position: relative;
             overflow: hidden;
@@ -136,32 +123,23 @@
         .magnetic-btn::before {
             content: '';
             position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
+            top: 50%; left: 50%;
+            width: 0; height: 0;
             border-radius: 50%;
             background: rgba(255, 255, 255, 0.2);
             transform: translate(-50%, -50%);
             transition: width 0.6s, height 0.6s;
+            pointer-events: none;
         }
         
-        .magnetic-btn:hover::before {
-            width: 300px;
-            height: 300px;
-        }
+        .magnetic-btn:hover::before { width: 300px; height: 300px; }
         
         .magnetic-btn:hover {
             transform: scale(1.05);
             box-shadow: 0 20px 40px rgba(124, 58, 237, 0.6);
         }
         
-        /* Text Reveal Animation */
-        .text-reveal {
-            position: relative;
-            overflow: hidden;
-        }
-        
+        .text-reveal { position: relative; overflow: hidden; }
         .text-reveal span {
             display: inline-block;
             opacity: 0;
@@ -170,20 +148,15 @@
         }
         
         @keyframes revealText {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            to { opacity: 1; transform: translateY(0); }
         }
         
-        /* Stagger animation for children */
         .text-reveal span:nth-child(1) { animation-delay: 0.1s; }
         .text-reveal span:nth-child(2) { animation-delay: 0.2s; }
         .text-reveal span:nth-child(3) { animation-delay: 0.3s; }
         .text-reveal span:nth-child(4) { animation-delay: 0.4s; }
         .text-reveal span:nth-child(5) { animation-delay: 0.5s; }
         
-        /* Premium Glow Effect */
         .glow-text {
             text-shadow: 
                 0 0 10px rgba(124, 58, 237, 0.5),
@@ -207,39 +180,42 @@
             }
         }
         
-        /* Smooth Scroll */
-        html {
-            scroll-behavior: smooth;
-        }
+        html { scroll-behavior: smooth; }
         
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 10px;
-        }
-        
-        ::-webkit-scrollbar-track {
-            background: #000;
-        }
-        
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: #000; }
         ::-webkit-scrollbar-thumb {
             background: linear-gradient(135deg, #667eea, #764ba2);
             border-radius: 10px;
         }
-        
         ::-webkit-scrollbar-thumb:hover {
             background: linear-gradient(135deg, #764ba2, #f093fb);
         }
         
-        /* Navigation Blur Effect */
         .nav-blur {
             backdrop-filter: blur(20px) saturate(180%);
             background: rgba(0, 0, 0, 0.8);
             border-bottom: 1px solid rgba(124, 58, 237, 0.2);
         }
         
-        /* ===================================
-           NEW PROJECT CARD ANIMATION
-           =================================== */
+        /* ==========================================
+           FIXED & PROFESSIONAL NETWORK ANIMATION
+        ========================================== */
+        #networkCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 1.5s ease;
+        }
+
+        #networkCanvas.visible {
+            opacity: 1;
+        }
         
         .project-card {
             position: relative;
@@ -255,27 +231,20 @@
         .project-card::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
+            top: 0; left: 0; right: 0; bottom: 0;
             background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1), rgba(240, 147, 251, 0.1));
             opacity: 0;
             transition: opacity 0.6s ease;
             z-index: 0;
+            pointer-events: none;
         }
 
-        .project-card:hover::before {
-            opacity: 1;
-        }
+        .project-card:hover::before { opacity: 1; }
 
         .project-card::after {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
+            top: 0; left: 0; right: 0; bottom: 0;
             border-radius: inherit;
             padding: 2px;
             background: linear-gradient(135deg, #667eea, #764ba2, #f093fb);
@@ -285,17 +254,14 @@
             opacity: 0;
             transition: opacity 0.6s ease;
             z-index: 1;
+            pointer-events: none;
         }
 
-        .project-card:hover::after {
-            opacity: 1;
-        }
+        .project-card:hover::after { opacity: 1; }
 
         .project-card:hover {
             transform: translateY(-15px) scale(1.03);
-            box-shadow: 
-                0 30px 60px rgba(124, 58, 237, 0.4),
-                0 0 100px rgba(124, 58, 237, 0.2);
+            box-shadow: 0 30px 60px rgba(124, 58, 237, 0.4), 0 0 100px rgba(124, 58, 237, 0.2);
         }
 
         .project-content {
@@ -334,11 +300,7 @@
             margin-top: 1.5rem;
         }
 
-        .project-features {
-            list-style: none;
-            padding: 0;
-            margin: 1rem 0;
-        }
+        .project-features { list-style: none; padding: 0; margin: 1rem 0; }
 
         .project-features li {
             padding: 0.5rem 0;
@@ -348,11 +310,7 @@
             transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
         }
 
-        .project-card:hover .project-features li {
-            transform: translateX(0);
-            opacity: 1;
-        }
-
+        .project-card:hover .project-features li { transform: translateX(0); opacity: 1; }
         .project-card:hover .project-features li:nth-child(1) { transition-delay: 0.1s; }
         .project-card:hover .project-features li:nth-child(2) { transition-delay: 0.2s; }
         .project-card:hover .project-features li:nth-child(3) { transition-delay: 0.3s; }
@@ -360,27 +318,17 @@
 
         .project-shine {
             position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(
-                45deg,
-                transparent,
-                rgba(255, 255, 255, 0.1),
-                transparent
-            );
+            top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
             transform: rotate(45deg);
             transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
             pointer-events: none;
             z-index: 3;
         }
 
-        .project-card:hover .project-shine {
-            left: 100%;
-        }
+        .project-card:hover .project-shine { left: 100%; }
 
-        /* View Project Button */
         .view-project-btn {
             display: inline-flex;
             align-items: center;
@@ -404,16 +352,9 @@
             box-shadow: 0 10px 20px rgba(124, 58, 237, 0.4);
         }
 
-        .view-project-btn svg {
-            transition: transform 0.3s ease;
-        }
-
-        .view-project-btn:hover svg {
-            transform: translateX(5px);
-        }
-
+        .view-project-btn svg { transition: transform 0.3s ease; }
+        .view-project-btn:hover svg { transform: translateX(5px); }
         
-        /* Typewriter Effect */
         .typewriter {
             overflow: hidden;
             border-right: 3px solid #667eea;
@@ -431,12 +372,6 @@
             50% { border-color: #667eea; }
         }
         
-        /* Parallax Sections */
-        .parallax {
-            transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
-        }
-        
-        /* Skill Bar Animation */
         .skill-bar {
             position: relative;
             height: 8px;
@@ -455,46 +390,32 @@
         }
         
         @keyframes fillBar {
-            from {
-                transform: scaleX(0);
-            }
-            to {
-                transform: scaleX(1);
-            }
+            from { transform: scaleX(0); }
+            to { transform: scaleX(1); }
         }
         
-        /* Ripple Effect */
-        .ripple {
-            position: relative;
-            overflow: hidden;
-        }
+        .ripple { position: relative; overflow: hidden; }
         
         .ripple::after {
             content: '';
             position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
+            top: 50%; left: 50%;
+            width: 0; height: 0;
             border-radius: 50%;
             background: rgba(124, 58, 237, 0.5);
             transform: translate(-50%, -50%);
             transition: width 0.6s, height 0.6s;
+            pointer-events: none;
         }
         
-        .ripple:hover::after {
-            width: 500px;
-            height: 500px;
-        }
+        .ripple:hover::after { width: 500px; height: 500px; }
         
-        /* Glassmorphism */
         .glass {
             background: rgba(17, 24, 39, 0.4);
             backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
         
-        /* Neon Border Animation */
         @keyframes neonBorder {
             0%, 100% {
                 box-shadow: 
@@ -510,98 +431,45 @@
             }
         }
         
-        .neon-border {
-            animation: neonBorder 2s ease-in-out infinite;
-        }
+        .neon-border { animation: neonBorder 2s ease-in-out infinite; }
         
-        /* Floating Animation */
         @keyframes floating {
-            0%, 100% {
-                transform: translateY(0px) rotate(0deg);
-            }
-            25% {
-                transform: translateY(-20px) rotate(2deg);
-            }
-            50% {
-                transform: translateY(-10px) rotate(-2deg);
-            }
-            75% {
-                transform: translateY(-15px) rotate(1deg);
-            }
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            25% { transform: translateY(-20px) rotate(2deg); }
+            50% { transform: translateY(-10px) rotate(-2deg); }
+            75% { transform: translateY(-15px) rotate(1deg); }
         }
         
-        .floating {
-            animation: floating 6s ease-in-out infinite;
-        }
+        .floating { animation: floating 6s ease-in-out infinite; }
         
-        /* Fade In Up */
         @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(60px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(60px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         
-        .fade-in-up {
-            animation: fadeInUp 1s ease-out forwards;
-            opacity: 0;
-        }
+        .fade-in-up { animation: fadeInUp 1s ease-out forwards; opacity: 0; }
         
-        /* Scale In */
         @keyframes scaleIn {
-            from {
-                opacity: 0;
-                transform: scale(0.8);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
         }
         
-        .scale-in {
-            animation: scaleIn 0.8s cubic-bezier(0.23, 1, 0.32, 1) forwards;
-            opacity: 0;
-        }
+        .scale-in { animation: scaleIn 0.8s cubic-bezier(0.23, 1, 0.32, 1) forwards; opacity: 0; }
         
-        /* Slide animations */
         @keyframes slideInLeft {
-            from {
-                opacity: 0;
-                transform: translateX(-100px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
+            from { opacity: 0; transform: translateX(-100px); }
+            to { opacity: 1; transform: translateX(0); }
         }
         
-        .slide-in-left {
-            animation: slideInLeft 1s ease-out forwards;
-            opacity: 0;
-        }
+        .slide-in-left { animation: slideInLeft 1s ease-out forwards; opacity: 0; }
         
         @keyframes slideInRight {
-            from {
-                opacity: 0;
-                transform: translateX(100px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
+            from { opacity: 0; transform: translateX(100px); }
+            to { opacity: 1; transform: translateX(0); }
         }
         
-        .slide-in-right {
-            animation: slideInRight 1s ease-out forwards;
-            opacity: 0;
-        }
+        .slide-in-right { animation: slideInRight 1s ease-out forwards; opacity: 0; }
         
-        /* Stagger delays */
         .delay-1 { animation-delay: 0.1s; }
         .delay-2 { animation-delay: 0.2s; }
         .delay-3 { animation-delay: 0.3s; }
@@ -609,7 +477,6 @@
         .delay-5 { animation-delay: 0.5s; }
         .delay-6 { animation-delay: 0.6s; }
         
-        /* Mouse Follow Effect */
         .mouse-glow {
             position: fixed;
             width: 300px;
@@ -622,30 +489,29 @@
             transition: opacity 0.3s;
         }
 
-        /* Allow clicks through decorative layers */
-        .premium-card::before,
-        .premium-card::after,
-        .project-shine,
-        .ripple::after {
-            pointer-events: none;
-        }
+        .premium-card a { position: relative; z-index: 10; }
 
-        /* Ensure links stay above */
-        .premium-card a {
-            position: relative;
-            z-index: 10;
+        /* Mobile: hide mouse glow on touch devices */
+        @media (hover: none) {
+            .mouse-glow { display: none; }
         }
     </style>
 </head>
 <body class="relative">
-    <!-- Mouse Follow Glow -->
+
+    <!-- ============================================
+         NETWORK CANVAS — FIXED & PROFESSIONAL
+    ============================================ -->
+    <canvas id="networkCanvas"></canvas>
+
+    <!-- Mouse Follow Glow (desktop only) -->
     <div class="mouse-glow" id="mouseGlow"></div>
     
     <!-- Animated Particles Background -->
     <div class="particles" id="particles"></div>
     
     <!-- Navigation -->
-    <nav class="fixed w-full top-0 z-50 nav-blur">
+    <nav class="fixed w-full top-0 z-50 nav-blur" id="mainNav">
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
             <div class="flex justify-between items-center h-20">
                 <div class="text-2xl font-display font-bold">
@@ -681,29 +547,30 @@
                     </a>
                 </div>
                 
-                <button class="md:hidden text-white" onclick="toggleMobileMenu()">
+                <button class="md:hidden text-white p-2" id="mobileMenuToggle" aria-label="Toggle menu">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        <path id="menuIconOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        <path id="menuIconClose" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                     </svg>
                 </button>
             </div>
         </div>
         
         <!-- Mobile Menu -->
-        <div id="mobileMenu" class="hidden md:hidden glass">
+        <div id="mobileMenu" class="hidden md:hidden glass" style="transition: all 0.3s ease;">
             <div class="px-6 py-4 space-y-3">
-                <a href="#home" class="block text-gray-300 hover:text-white transition-colors">Home</a>
-                <a href="#about" class="block text-gray-300 hover:text-white transition-colors">About</a>
-                <a href="#skills" class="block text-gray-300 hover:text-white transition-colors">Skills</a>
-                <a href="#experience" class="block text-gray-300 hover:text-white transition-colors">Experience</a>
-                <a href="#education" class="block text-gray-300 hover:text-white transition-colors">Education</a>
-                <a href="#contact" class="block text-gray-300 hover:text-white transition-colors">Contact</a>
+                <a href="#home" class="block text-gray-300 hover:text-white transition-colors py-2">Home</a>
+                <a href="#about" class="block text-gray-300 hover:text-white transition-colors py-2">About</a>
+                <a href="#skills" class="block text-gray-300 hover:text-white transition-colors py-2">Skills</a>
+                <a href="#experience" class="block text-gray-300 hover:text-white transition-colors py-2">Experience</a>
+                <a href="#education" class="block text-gray-300 hover:text-white transition-colors py-2">Education</a>
+                <a href="#contact" class="block text-gray-300 hover:text-white transition-colors py-2">Contact</a>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section id="home" class="relative min-h-screen flex items-center justify-center overflow-hidden grid-background pt-20">
+    <section id="home" class="relative min-h-screen flex items-center justify-center grid-background pt-20">
         <div class="absolute inset-0 bg-gradient-to-b from-transparent via-black/50 to-black"></div>
         
         <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 text-center py-16">
@@ -718,9 +585,9 @@
                 </div>
             </div>
             
-            <h1 class="text-6xl md:text-8xl font-display font-bold mb-6 fade-in-up">
+            <h1 class="text-6xl md:text-8xl font-display font-bold mb-6 fade-in-up leading-tight md:leading-[1.1]">
                 <span class="block text-white mb-2">Hi, I'm</span>
-                <span class="block bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent glow-text">
+                <span class="block bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent glow-text pb-2">
                     Laxmi Narayan Verma
                 </span>
             </h1>
@@ -750,13 +617,11 @@
             </div>
         </div>
         
-        <!-- Scroll Indicator -->
         <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2">
             <div class="w-6 h-10 border-2 border-purple-500 rounded-full flex justify-center">
                 <div class="w-1 h-3 bg-purple-500 rounded-full mt-2 animate-bounce"></div>
             </div>
         </div>
-
     </section>
 
     <!-- About Section -->
@@ -783,7 +648,6 @@
                         Beyond academics, I'm actively involved in various college societies, contributing to social causes while developing my professional skills.
                     </p>
                     
-                    <!-- Code Window -->
                     <div class="premium-card rounded-2xl overflow-hidden mt-8 floating">
                         <div class="bg-gradient-to-r from-purple-900/50 to-pink-900/50 px-6 py-4 flex items-center gap-2">
                             <div class="w-3 h-3 rounded-full bg-red-500"></div>
@@ -838,7 +702,6 @@
             </div>
             
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Programming Languages -->
                 <div class="premium-card p-10 rounded-3xl fade-in-up">
                     <div class="text-6xl mb-6">💻</div>
                     <h3 class="text-3xl font-display font-bold mb-6 text-white">Programming</h3>
@@ -864,7 +727,6 @@
                     </div>
                 </div>
 
-                <!-- Web Technologies -->
                 <div class="premium-card p-10 rounded-3xl fade-in-up delay-1">
                     <div class="text-6xl mb-6">🌐</div>
                     <h3 class="text-3xl font-display font-bold mb-6 text-white">Web Tech</h3>
@@ -890,7 +752,6 @@
                     </div>
                 </div>
 
-                <!-- Databases -->
                 <div class="premium-card p-10 rounded-3xl fade-in-up delay-2">
                     <div class="text-6xl mb-6">🗄️</div>
                     <h3 class="text-3xl font-display font-bold mb-6 text-white">Databases</h3>
@@ -907,7 +768,6 @@
                     </div>
                 </div>
 
-                <!-- Libraries & Tools -->
                 <div class="premium-card p-10 rounded-3xl fade-in-up delay-3 md:col-span-2 lg:col-span-3">
                     <div class="text-6xl mb-6">🛠️</div>
                     <h3 class="text-3xl font-display font-bold mb-6 text-white">Libraries & Tools</h3>
@@ -936,21 +796,17 @@
                 <div class="w-32 h-1 bg-gradient-to-r from-purple-500 via-pink-500 to-blue-500 mx-auto rounded-full neon-border"></div>
             </div>
             
-            <!-- Projects Grid -->
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
-                <!-- Project 1 -->
                 <div class="project-card fade-in-up">
                     <div class="project-shine"></div>
                     <div class="project-content">
                         <div class="project-icon">📊</div>
                         <h3 class="text-2xl font-display font-bold mb-4 text-white">Weather Data Viz</h3>
                         <p class="text-gray-400 mb-4">Real-time weather data visualization using OpenWeatherMap API</p>
-                        
                         <div class="flex flex-wrap gap-2 mb-4">
                             <span class="px-3 py-1 text-xs glass rounded-full border border-purple-500/50">Python</span>
                             <span class="px-3 py-1 text-xs glass rounded-full border border-blue-500/50">Matplotlib</span>
                         </div>
-
                         <div class="project-details">
                             <h4 class="text-lg font-bold mb-3 text-white">Key Features</h4>
                             <ul class="project-features">
@@ -963,19 +819,16 @@
                     </div>
                 </div>
 
-                <!-- Project 2 -->
                 <div class="project-card fade-in-up delay-1">
                     <div class="project-shine"></div>
                     <div class="project-content">
                         <div class="project-icon">📄</div>
                         <h3 class="text-2xl font-display font-bold mb-4 text-white">PDF Generator</h3>
                         <p class="text-gray-400 mb-4">Automated PDF report generation with data analysis</p>
-                        
                         <div class="flex flex-wrap gap-2 mb-4">
                             <span class="px-3 py-1 text-xs glass rounded-full border border-purple-500/50">Python</span>
                             <span class="px-3 py-1 text-xs glass rounded-full border border-pink-500/50">FPDF</span>
                         </div>
-
                         <div class="project-details">
                             <h4 class="text-lg font-bold mb-3 text-white">Key Features</h4>
                             <ul class="project-features">
@@ -988,19 +841,16 @@
                     </div>
                 </div>
 
-                <!-- Project 3 -->
                 <div class="project-card fade-in-up delay-2">
                     <div class="project-shine"></div>
                     <div class="project-content">
                         <div class="project-icon">🤖</div>
                         <h3 class="text-2xl font-display font-bold mb-4 text-white">NLP Chatbot</h3>
                         <p class="text-gray-400 mb-4">Intelligent chatbot with natural language processing</p>
-                        
                         <div class="flex flex-wrap gap-2 mb-4">
                             <span class="px-3 py-1 text-xs glass rounded-full border border-blue-500/50">Python</span>
                             <span class="px-3 py-1 text-xs glass rounded-full border border-purple-500/50">NLTK</span>
                         </div>
-
                         <div class="project-details">
                             <h4 class="text-lg font-bold mb-3 text-white">Key Features</h4>
                             <ul class="project-features">
@@ -1012,9 +862,8 @@
                         </div>
                     </div>
                 </div>
-        </div>
+            </div>
 
-         <!-- Internships -->
             <div class="space-y-8 mb-20">
                 <div class="premium-card p-10 rounded-3xl fade-in-up">
                     <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
@@ -1047,7 +896,6 @@
                 </div>
             </div>
 
-            <!-- College Societies -->
             <div class="text-center mb-12">
                 <h3 class="text-4xl font-display font-bold mb-6 scale-in">
                     College <span class="bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent">Involvement</span>
@@ -1060,13 +908,11 @@
                     <h4 class="text-2xl font-display font-bold mb-4 text-white">Hindi Parishad</h4>
                     <p class="text-gray-400 leading-relaxed">Promoting Hindi language and cultural initiatives across the country</p>
                 </div>
-                
                 <div class="premium-card p-8 rounded-3xl fade-in-up delay-1 ripple">
                     <div class="text-5xl mb-6">🤝</div>
                     <h4 class="text-2xl font-display font-bold mb-4 text-white">YUVA</h4>
                     <p class="text-gray-400 leading-relaxed">National service activities and social welfare programs</p>
                 </div>
-                
                 <div class="premium-card p-8 rounded-3xl fade-in-up delay-2 ripple">
                     <div class="text-5xl mb-6">💼</div>
                     <h4 class="text-2xl font-display font-bold mb-4 text-white">Placement Cell</h4>
@@ -1078,7 +924,6 @@
                 <a href="Experience_&_Projects.html"
                 class="inline-flex items-center gap-2 px-8 py-3 text-sm tracking-widest text-white font-medium rounded-full glass border border-purple-500/50 hover:border-pink-500/50 transition duration-300 view-project-btn">
                     🚀 EXPLORE MORE
-                    
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
                     </svg>
@@ -1099,7 +944,6 @@
                 <div class="w-32 h-1 bg-gradient-to-r from-purple-500 via-pink-500 to-blue-500 mx-auto rounded-full neon-border"></div>
             </div>
             
-            <!-- Current Education -->
             <div class="mb-20 fade-in-up">
                 <h3 class="text-4xl font-display font-bold text-center mb-12 text-white">
                     Current <span class="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">Education</span>
@@ -1119,7 +963,6 @@
                 </div>
             </div>
 
-            <!-- School Education Timeline -->
             <div>
                 <h3 class="text-4xl font-display font-bold text-center mb-12 text-white">
                     School <span class="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">Education</span>
@@ -1127,9 +970,7 @@
                 <div class="space-y-6 max-w-4xl mx-auto">
                     <div class="premium-card p-8 rounded-2xl fade-in-up ripple">
                         <div class="flex items-start gap-6">
-                            <div class="w-16 h-16 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-white font-bold text-xl flex-shrink-0 shadow-lg neon-border">
-                                12
-                            </div>
+                            <div class="w-16 h-16 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-white font-bold text-xl flex-shrink-0 shadow-lg neon-border">12</div>
                             <div>
                                 <h4 class="text-2xl font-display font-bold mb-2 text-white">Class 9 – Class 12</h4>
                                 <p class="text-xl text-purple-300 font-semibold">Amar Shahid Bhagat Singh Inter College</p>
@@ -1139,9 +980,7 @@
 
                     <div class="premium-card p-8 rounded-2xl fade-in-up delay-1 ripple">
                         <div class="flex items-start gap-6">
-                            <div class="w-16 h-16 rounded-full bg-gradient-to-br from-pink-500 to-blue-500 flex items-center justify-center text-white font-bold text-xl flex-shrink-0 shadow-lg neon-border">
-                                8
-                            </div>
+                            <div class="w-16 h-16 rounded-full bg-gradient-to-br from-pink-500 to-blue-500 flex items-center justify-center text-white font-bold text-xl flex-shrink-0 shadow-lg neon-border">8</div>
                             <div>
                                 <h4 class="text-2xl font-display font-bold mb-2 text-white">Class 5 – Class 8</h4>
                                 <p class="text-xl text-pink-300 font-semibold">Oxford International School</p>
@@ -1151,9 +990,7 @@
 
                     <div class="premium-card p-8 rounded-2xl fade-in-up delay-2 ripple">
                         <div class="flex items-start gap-6">
-                            <div class="w-16 h-16 rounded-full bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center text-white font-bold text-xl flex-shrink-0 shadow-lg neon-border">
-                                4
-                            </div>
+                            <div class="w-16 h-16 rounded-full bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center text-white font-bold text-xl flex-shrink-0 shadow-lg neon-border">4</div>
                             <div>
                                 <h4 class="text-2xl font-display font-bold mb-2 text-white">Nursery – Class 4</h4>
                                 <p class="text-xl text-blue-300 font-semibold">Assam Public School</p>
@@ -1168,8 +1005,6 @@
     <!-- Contact Section -->
     <section id="contact" class="relative py-32 overflow-hidden">
         <div class="absolute inset-0 bg-gradient-to-b from-black via-pink-950/20 to-black"></div>
-        
-        <!-- Floating Decorative Elements -->
         <div class="absolute top-20 left-10 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl floating"></div>
         <div class="absolute bottom-20 right-10 w-96 h-96 bg-pink-500/10 rounded-full blur-3xl floating" style="animation-delay: 2s;"></div>
         
@@ -1185,7 +1020,6 @@
             </div>
             
             <div class="max-w-5xl mx-auto">
-                <!-- Contact Cards -->
                 <div class="grid md:grid-cols-3 gap-8 mb-16">
                     <a href="mailto:lakshminarayanverma91@gmail.com" class="premium-card p-8 rounded-2xl text-center ripple fade-in-up">
                         <div class="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center shadow-lg neon-border floating">
@@ -1221,7 +1055,6 @@
                     </div>
                 </div>
 
-                <!-- Social Links -->
                 <div class="premium-card p-12 rounded-3xl text-center neon-border fade-in-up delay-3">
                     <h3 class="text-3xl font-display font-bold mb-8 text-white">Connect With Me</h3>
                     <div class="flex justify-center gap-8 flex-wrap mb-12">
@@ -1252,19 +1085,18 @@
                             <p class="mt-3 text-sm text-gray-400 group-hover:text-purple-400 transition-colors">Email</p>
                         </a>
                     </div>
-                    <div class="mt-10 mb-20 text-center">
+
+                    <div class="mt-10 mb-6 text-center">
                         <a href="social-links.html"
                         class="inline-flex items-center gap-2 px-8 py-3 text-sm tracking-widest text-white font-medium rounded-full glass border border-purple-500/50 hover:border-pink-500/50 transition duration-300 view-project-btn">
                             🔎 SEE MORE
-                        
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
                             </svg>
                         </a>
                     </div>
 
-                    <!-- CTA -->
-                    <div class="glass p-8 rounded-2xl border-2 border-purple-500/30">
+                    <div class="glass p-8 rounded-2xl border-2 border-purple-500/30 mt-6">
                         <h4 class="text-2xl font-display font-bold mb-4 text-white">Let's Build Something Amazing! 🚀</h4>
                         <p class="text-gray-400 text-lg">
                             Whether you have a project in mind, want to collaborate, or just want to connect, feel free to reach out!
@@ -1290,128 +1122,367 @@
     </footer>
 
     <script>
-        // Mobile Menu Toggle
-        function toggleMobileMenu() {
-            const menu = document.getElementById('mobileMenu');
-            menu.classList.toggle('hidden');
-        }
+    /* ============================================================
+       PROFESSIONAL NETWORK ANIMATION — FULLY FIXED & RESPONSIVE
+    ============================================================ */
+    (function() {
+        const canvas = document.getElementById('networkCanvas');
+        const ctx = canvas.getContext('2d');
 
-        // Close mobile menu on link click
-        document.querySelectorAll('#mobileMenu a').forEach(link => {
-            link.addEventListener('click', () => {
-                document.getElementById('mobileMenu').classList.add('hidden');
-            });
-        });
+        // Detect mobile for performance tuning
+        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+            || window.innerWidth < 768;
 
-        // Mouse Follow Glow Effect
-        const mouseGlow = document.getElementById('mouseGlow');
-        let mouseX = 0, mouseY = 0;
-        let glowX = 0, glowY = 0;
-
-        document.addEventListener('mousemove', (e) => {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
-        });
-
-        function animateGlow() {
-            glowX += (mouseX - glowX) * 0.1;
-            glowY += (mouseY - glowY) * 0.1;
-            
-            mouseGlow.style.left = glowX + 'px';
-            mouseGlow.style.top = glowY + 'px';
-            
-            requestAnimationFrame(animateGlow);
-        }
-        animateGlow();
-
-        // Create Floating Particles
-        function createParticles() {
-            const particlesContainer = document.getElementById('particles');
-            const particleCount = 50;
-
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.animationDelay = Math.random() * 20 + 's';
-                particle.style.animationDuration = (Math.random() * 10 + 15) + 's';
-                particlesContainer.appendChild(particle);
-            }
-        }
-        createParticles();
-
-        // Intersection Observer for Scroll Animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -100px 0px'
+        // Config — fewer nodes on mobile for performance
+        const config = {
+            nodeCount: isMobile ? 40 : 80,
+            maxDistance: isMobile ? 100 : 150,
+            nodeSpeed: isMobile ? 0.3 : 0.5,
+            nodeMinRadius: 1,
+            nodeMaxRadius: isMobile ? 2 : 3,
+            colors: {
+                node: [167, 139, 250],   // purple-400
+                line: [167, 139, 250],
+                pulse: [240, 147, 251]   // pink-400
+            },
+            mouseRepel: !isMobile,       // disable repel on touch
+            mouseRepelRadius: 120,
+            mouseRepelStrength: 0.02
         };
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0) translateX(0) scale(1)';
+        let nodes = [];
+        let mouse = { x: -9999, y: -9999 };
+        let animationId = null;
+        let isVisible = false;
+
+        // Resize canvas to fill window
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        // Node class
+        class Node {
+            constructor() {
+                this.reset(true);
+            }
+
+            reset(initial = false) {
+                this.x = Math.random() * canvas.width;
+                this.y = initial
+                    ? Math.random() * canvas.height
+                    : (Math.random() < 0.5 ? -10 : canvas.height + 10);
+                this.vx = (Math.random() - 0.5) * config.nodeSpeed;
+                this.vy = (Math.random() - 0.5) * config.nodeSpeed;
+                this.radius = Math.random() * (config.nodeMaxRadius - config.nodeMinRadius) + config.nodeMinRadius;
+                this.baseOpacity = Math.random() * 0.4 + 0.3;
+                this.opacity = this.baseOpacity;
+                // Subtle pulse
+                this.pulsePhase = Math.random() * Math.PI * 2;
+                this.pulseSpeed = 0.02 + Math.random() * 0.01;
+            }
+
+            update(dt) {
+                // Pulse opacity
+                this.pulsePhase += this.pulseSpeed;
+                this.opacity = this.baseOpacity + Math.sin(this.pulsePhase) * 0.15;
+
+                // Move
+                this.x += this.vx;
+                this.y += this.vy;
+
+                // Bounce off walls
+                if (this.x < 0) { this.x = 0; this.vx = Math.abs(this.vx); }
+                if (this.x > canvas.width) { this.x = canvas.width; this.vx = -Math.abs(this.vx); }
+                if (this.y < 0) { this.y = 0; this.vy = Math.abs(this.vy); }
+                if (this.y > canvas.height) { this.y = canvas.height; this.vy = -Math.abs(this.vy); }
+
+                // Mouse repulsion (desktop)
+                if (config.mouseRepel) {
+                    const dx = this.x - mouse.x;
+                    const dy = this.y - mouse.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < config.mouseRepelRadius && dist > 0) {
+                        const force = (config.mouseRepelRadius - dist) / config.mouseRepelRadius;
+                        this.x += (dx / dist) * force * config.mouseRepelRadius * config.mouseRepelStrength;
+                        this.y += (dy / dist) * force * config.mouseRepelRadius * config.mouseRepelStrength;
+                    }
+                }
+            }
+
+            draw() {
+                // Outer glow
+                const gradient = ctx.createRadialGradient(
+                    this.x, this.y, 0,
+                    this.x, this.y, this.radius * 3
+                );
+                gradient.addColorStop(0, `rgba(${config.colors.node.join(',')}, ${this.opacity})`);
+                gradient.addColorStop(0.5, `rgba(${config.colors.node.join(',')}, ${this.opacity * 0.4})`);
+                gradient.addColorStop(1, 'rgba(0,0,0,0)');
+
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius * 3, 0, Math.PI * 2);
+                ctx.fillStyle = gradient;
+                ctx.fill();
+
+                // Core dot
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(${config.colors.node.join(',')}, ${Math.min(this.opacity * 1.5, 1)})`;
+                ctx.fill();
+            }
+        }
+
+        // Draw connections between nearby nodes
+        function drawConnections() {
+            for (let i = 0; i < nodes.length; i++) {
+                for (let j = i + 1; j < nodes.length; j++) {
+                    const dx = nodes[i].x - nodes[j].x;
+                    const dy = nodes[i].y - nodes[j].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+
+                    if (dist < config.maxDistance) {
+                        const t = 1 - dist / config.maxDistance;
+                        const alpha = t * t * 0.35; // quadratic falloff for sharper lines
+
+                        // Gradient line from node i to node j
+                        const grad = ctx.createLinearGradient(
+                            nodes[i].x, nodes[i].y,
+                            nodes[j].x, nodes[j].y
+                        );
+                        grad.addColorStop(0, `rgba(${config.colors.node.join(',')}, ${alpha})`);
+                        grad.addColorStop(0.5, `rgba(${config.colors.pulse.join(',')}, ${alpha * 0.7})`);
+                        grad.addColorStop(1, `rgba(${config.colors.node.join(',')}, ${alpha})`);
+
+                        ctx.beginPath();
+                        ctx.moveTo(nodes[i].x, nodes[i].y);
+                        ctx.lineTo(nodes[j].x, nodes[j].y);
+                        ctx.strokeStyle = grad;
+                        ctx.lineWidth = t * 1.5;
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        // Mouse proximity highlight — draw extra bright lines to nearby nodes
+        function drawMouseConnections() {
+            if (!config.mouseRepel) return;
+            const attractRadius = 180;
+
+            nodes.forEach(node => {
+                const dx = node.x - mouse.x;
+                const dy = node.y - mouse.y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+
+                if (dist < attractRadius) {
+                    const alpha = (1 - dist / attractRadius) * 0.6;
+                    ctx.beginPath();
+                    ctx.moveTo(mouse.x, mouse.y);
+                    ctx.lineTo(node.x, node.y);
+                    ctx.strokeStyle = `rgba(240, 147, 251, ${alpha})`; // pink glow
+                    ctx.lineWidth = (1 - dist / attractRadius) * 2;
+                    ctx.stroke();
                 }
             });
-        }, observerOptions);
+        }
 
-        // Observe all animated elements
-        document.querySelectorAll('.fade-in-up, .slide-in-left, .slide-in-right, .scale-in').forEach(el => {
-            observer.observe(el);
-        });
+        // Main animation loop
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        // Parallax Effect on Scroll
-        window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
-            const parallaxElements = document.querySelectorAll('.parallax');
-            
-            parallaxElements.forEach(el => {
-                const speed = el.dataset.speed || 0.5;
-                el.style.transform = `translateY(${scrolled * speed}px)`;
-            });
-        });
+            drawConnections();
+            drawMouseConnections();
+            nodes.forEach(n => { n.update(); n.draw(); });
 
-        // Smooth Scroll for Navigation Links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
+            animationId = requestAnimationFrame(animate);
+        }
 
-        // Add active state to navigation based on scroll position
-        window.addEventListener('scroll', () => {
-            const sections = document.querySelectorAll('section[id]');
-            const scrollY = window.pageYOffset;
+        // Init
+        function init() {
+            resize();
+            nodes = Array.from({ length: config.nodeCount }, () => new Node());
 
-            sections.forEach(section => {
-                const sectionHeight = section.offsetHeight;
-                const sectionTop = section.offsetTop - 100;
-                const sectionId = section.getAttribute('id');
-                const navLink = document.querySelector(`.nav-link[href="#${sectionId}"]`);
-
-                if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
-                    navLink?.classList.add('text-purple-400');
-                } else {
-                    navLink?.classList.remove('text-purple-400');
-                }
-            });
-        });
-
-        // Add loading animation
-        window.addEventListener('load', () => {
-            document.body.style.opacity = '0';
+            // Fade canvas in
             setTimeout(() => {
-                document.body.style.transition = 'opacity 1s ease';
-                document.body.style.opacity = '1';
-            }, 100);
+                canvas.classList.add('visible');
+                isVisible = true;
+            }, 300);
+
+            animate();
+        }
+
+        // Handle resize — debounced
+        let resizeTimer;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(() => {
+                resize();
+                // Reposition nodes that are now outside bounds
+                nodes.forEach(node => {
+                    node.x = Math.min(node.x, canvas.width);
+                    node.y = Math.min(node.y, canvas.height);
+                });
+            }, 150);
         });
+
+        // Mouse tracking — desktop
+        window.addEventListener('mousemove', (e) => {
+            mouse.x = e.clientX;
+            mouse.y = e.clientY;
+        });
+
+        window.addEventListener('mouseleave', () => {
+            mouse.x = -9999;
+            mouse.y = -9999;
+        });
+
+        // Touch tracking — mobile (subtle effect)
+        window.addEventListener('touchmove', (e) => {
+            if (e.touches.length > 0) {
+                mouse.x = e.touches[0].clientX;
+                mouse.y = e.touches[0].clientY;
+            }
+        }, { passive: true });
+
+        window.addEventListener('touchend', () => {
+            mouse.x = -9999;
+            mouse.y = -9999;
+        });
+
+        // Pause animation when tab is hidden (performance)
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                if (animationId) { cancelAnimationFrame(animationId); animationId = null; }
+            } else {
+                if (!animationId) animate();
+            }
+        });
+
+        init();
+    })();
+
+    /* ============================================================
+       MOBILE MENU — FIXED
+    ============================================================ */
+    const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const menuIconOpen = document.getElementById('menuIconOpen');
+    const menuIconClose = document.getElementById('menuIconClose');
+    let menuOpen = false;
+
+    function toggleMobileMenu() {
+        menuOpen = !menuOpen;
+        mobileMenu.classList.toggle('hidden', !menuOpen);
+        menuIconOpen.classList.toggle('hidden', menuOpen);
+        menuIconClose.classList.toggle('hidden', !menuOpen);
+    }
+
+    mobileMenuToggle.addEventListener('click', toggleMobileMenu);
+
+    // Close on link click
+    mobileMenu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+            menuOpen = false;
+            mobileMenu.classList.add('hidden');
+            menuIconOpen.classList.remove('hidden');
+            menuIconClose.classList.add('hidden');
+        });
+    });
+
+    /* ============================================================
+       MOUSE GLOW FOLLOW
+    ============================================================ */
+    const mouseGlow = document.getElementById('mouseGlow');
+    let glowX = 0, glowY = 0, targetX = 0, targetY = 0;
+
+    document.addEventListener('mousemove', (e) => {
+        targetX = e.clientX;
+        targetY = e.clientY;
+    });
+
+    function animateGlow() {
+        glowX += (targetX - glowX) * 0.08;
+        glowY += (targetY - glowY) * 0.08;
+        mouseGlow.style.left = glowX + 'px';
+        mouseGlow.style.top = glowY + 'px';
+        requestAnimationFrame(animateGlow);
+    }
+    animateGlow();
+
+    /* ============================================================
+       PARTICLES
+    ============================================================ */
+    (function createParticles() {
+        const container = document.getElementById('particles');
+        for (let i = 0; i < 40; i++) {
+            const p = document.createElement('div');
+            p.className = 'particle';
+            p.style.left = Math.random() * 100 + '%';
+            p.style.top = Math.random() * 100 + '%';
+            p.style.animationDelay = Math.random() * 20 + 's';
+            p.style.animationDuration = (Math.random() * 10 + 15) + 's';
+            p.style.width = p.style.height = (Math.random() * 3 + 2) + 'px';
+            container.appendChild(p);
+        }
+    })();
+
+    /* ============================================================
+       SCROLL ANIMATIONS
+    ============================================================ */
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0) translateX(0) scale(1)';
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1, rootMargin: '0px 0px -80px 0px' });
+
+    document.querySelectorAll('.fade-in-up, .slide-in-left, .slide-in-right, .scale-in').forEach(el => {
+        observer.observe(el);
+    });
+
+    /* ============================================================
+       ACTIVE NAV LINK
+    ============================================================ */
+    window.addEventListener('scroll', () => {
+        const sections = document.querySelectorAll('section[id]');
+        const scrollY = window.pageYOffset;
+        sections.forEach(section => {
+            const top = section.offsetTop - 120;
+            const bottom = top + section.offsetHeight;
+            const id = section.getAttribute('id');
+            const link = document.querySelector(`.nav-link[href="#${id}"]`);
+            if (link) {
+                link.classList.toggle('text-purple-400', scrollY >= top && scrollY < bottom);
+            }
+        });
+    });
+
+    /* ============================================================
+       SMOOTH SCROLL
+    ============================================================ */
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            const href = this.getAttribute('href');
+            const target = document.querySelector(href);
+            if (target) {
+                e.preventDefault();
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+    });
+
+    /* ============================================================
+       PAGE LOAD FADE-IN
+    ============================================================ */
+    document.body.style.opacity = '0';
+    window.addEventListener('load', () => {
+        document.body.style.transition = 'opacity 0.8s ease';
+        document.body.style.opacity = '1';
+    });
     </script>
 </body>
 </html>
