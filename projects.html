@@ -665,7 +665,7 @@
             <!-- Stats Counter -->
             <div class="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto fade-in-up delay-3">
                 <div class="stat-card glass p-6 rounded-2xl border border-purple-500/30">
-                    <div class="stat-counter" data-target="8">0</div>
+                    <div class="stat-counter" data-target="9">0</div>
                     <p class="text-gray-400 mt-2">Total Projects</p>
                 </div>
                 <div class="stat-card glass p-6 rounded-2xl border border-pink-500/30">
@@ -673,7 +673,7 @@
                     <p class="text-gray-400 mt-2">Web Projects</p>
                 </div>
                 <div class="stat-card glass p-6 rounded-2xl border border-blue-500/30">
-                    <div class="stat-counter" data-target="18">0</div>
+                    <div class="stat-counter" data-target="20">0</div>
                     <p class="text-gray-400 mt-2">Technologies</p>
                 </div>
                 <div class="stat-card glass p-6 rounded-2xl border border-purple-500/30">
@@ -700,7 +700,8 @@
             </div>
 
             <!-- Filter and Layout Controls -->
-            <div class="flex flex-col md:flex-row justify-between items-center gap-6 mb-8">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6 mb-8">
+                <div class="hidden md:block w-32"></div>
                 <!-- Filter Buttons -->
                 <div class="flex flex-wrap justify-center gap-4 fade-in-up delay-1">
                     <button class="filter-btn glass active" data-filter="all">
@@ -718,6 +719,10 @@
                     <button class="filter-btn glass" data-filter="ai">
                         <span class="relative z-10">AI/ML</span>
                     </button>
+                    <button class="filter-btn glass" data-filter="cpu">
+                        <span class="relative z-10">CPU Simulator</span>
+                    </button>
+                    
                 </div>
 
                 <!-- Grid Layout Toggle -->
@@ -854,7 +859,7 @@
                                 <li>👤 User-friendly interface</li>
                                 <li>🔄 Continuous learning</li>
                             </ul>
-                            <a href="#" target="_blank" class="view-project-btn">
+                            <a href="https://github.com/lakshminarayanverma91-bot/chatbot" target="_blank" class="view-project-btn">
                                 View on GitHub
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
@@ -864,7 +869,44 @@
                     </div>
                 </div>
 
-                <!-- Project 4: Portfolio Website -->
+                <!-- Project 4: Spam Email Detector -->
+                <div class="project-card fade-in-up delay-3" data-category="python ai">
+                    <div class="project-shine"></div>
+                    <div class="project-content">
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="project-icon">📧</div>
+                            <span class="category-badge">AI/ML</span>
+                        </div>
+                        <h3 class="text-2xl font-display font-bold mb-4 text-white">Spam Email Detector</h3>
+                        <p class="text-gray-400 mb-4">
+                            Machine learning based spam detection system that classifies emails as Spam or Ham using NLP techniques
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 text-xs glass rounded-full border border-blue-500/50">Python</span>
+                            <span class="px-3 py-1 text-xs glass rounded-full border border-purple-500/50">Scikit-learn</span>
+                            <span class="px-3 py-1 text-xs glass rounded-full border border-pink-500/50">NLTK</span>
+                            <span class="px-3 py-1 text-xs glass rounded-full border border-green-500/50">Machine Learning</span>
+                        </div>
+                        <div class="project-details">
+                            <h4 class="text-lg font-bold mb-3 text-white">Key Features</h4>
+                            <ul class="project-features">
+                                <li>✓ Email text preprocessing</li>
+                                <li>✓ TF-IDF vectorization</li>
+                                <li>✓ Naive Bayes classification</li>
+                                <li>✓ Real-time spam prediction</li>
+                                <li>✓ Accuracy evaluation with confusion matrix</li>
+                            </ul>
+                            <a href="https://github.com/lakshminarayanverma91-bot/spam-email-detector" target="_blank" class="view-project-btn">
+                                View on GitHub
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 5: Portfolio Website -->
                 <div class="project-card fade-in-up delay-3" data-category="web">
                     <div class="project-shine"></div>
                     <div class="project-content">
@@ -906,7 +948,7 @@
                     </div>
                 </div>
 
-                <!-- Project 5: E-Commerce Website -->
+                <!-- Project 6: E-Commerce Website -->
                 <div class="project-card fade-in-up delay-4" data-category="web">
                     <div class="project-shine"></div>
                     <div class="project-content">
@@ -948,7 +990,7 @@
                     </div>
                 </div>
 
-                <!-- Project 6: Crime Prevention Portal -->
+                <!-- Project 7: Crime Prevention Portal -->
                 <div class="project-card fade-in-up delay-2" data-category="web security civic-tech">
                     <div class="project-shine"></div>
                     <div class="project-content">
@@ -993,7 +1035,7 @@
                     </div>
                 </div>
 
-                <!-- Project 7: The Angaar Batch -->
+                <!-- Project 8: The Angaar Batch -->
                 <div class="project-card fade-in-up delay-2" data-category="web development education">
                     <div class="project-shine"></div>
                     <div class="project-content">
@@ -1040,8 +1082,8 @@
                     </div>
                 </div>
 
-                <!-- Project 8: CPU Sim Simulator -->
-                <div class="project-card fade-in-up delay-2" data-category="computer-architecture simulation">
+                <!-- Project 9: CPU Sim Simulator -->
+                <div class="project-card fade-in-up delay-2" data-category="cpu sim">
                     <div class="project-shine"></div>
                     <div class="project-content">
                         <div class="flex justify-between items-start mb-4">
