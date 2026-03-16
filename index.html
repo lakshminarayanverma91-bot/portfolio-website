@@ -8,11 +8,12 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- EmailJS SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        /* FIX: body starts hidden in CSS to prevent flash-of-content */
         body {
             font-family: 'Inter', sans-serif;
             background: #000;
@@ -25,7 +26,6 @@
 
         .font-display { font-family: 'Playfair Display', serif; }
 
-        /* Animated grid background */
         .grid-background {
             background-image:
                 linear-gradient(rgba(124,58,237,0.1) 1px, transparent 1px),
@@ -38,7 +38,6 @@
             100% { background-position: 50px 50px; }
         }
 
-        /* Floating particles */
         .particles {
             position: fixed; top: 0; left: 0;
             width: 100%; height: 100%;
@@ -49,7 +48,6 @@
             background: radial-gradient(circle, rgba(124,58,237,0.8), transparent);
             border-radius: 50%;
             opacity: 0;
-            /* FIX: renamed to avoid collision with .floating's @keyframes floating */
             animation: floatParticle linear infinite;
         }
         @keyframes floatParticle {
@@ -59,7 +57,6 @@
             100% { transform: translateY(-110vh) translateX(var(--drift, 80px)); opacity: 0; }
         }
 
-        /* Mouse glow */
         .mouse-glow {
             position: fixed;
             width: 300px; height: 300px;
@@ -69,19 +66,16 @@
             z-index: 9999;
             transform: translate(-50%, -50%);
             opacity: 0;
-            /* No position transition — rAF lerp handles smooth follow */
             will-change: left, top;
         }
         @media (hover: none) { .mouse-glow { display: none; } }
 
-        /* Nav */
         .nav-blur {
             backdrop-filter: blur(20px) saturate(180%);
             background: rgba(0,0,0,0.8);
             border-bottom: 1px solid rgba(124,58,237,0.2);
         }
 
-        /* Glow text */
         .glow-text { animation: glowPulse 3s ease-in-out infinite; }
         @keyframes glowPulse {
             0%, 100% {
@@ -92,7 +86,6 @@
             }
         }
 
-        /* Neon border */
         @keyframes neonBorder {
             0%, 100% {
                 box-shadow: 0 0 5px rgba(124,58,237,.5), 0 0 10px rgba(124,58,237,.3), inset 0 0 5px rgba(124,58,237,.2);
@@ -103,14 +96,12 @@
         }
         .neon-border { animation: neonBorder 2s ease-in-out infinite; }
 
-        /* Glass */
         .glass {
             background: rgba(17,24,39,0.4);
             backdrop-filter: blur(20px);
             border: 1px solid rgba(255,255,255,0.1);
         }
 
-        /* Floating */
         @keyframes floating {
             0%, 100% { transform: translateY(0px) rotate(0deg); }
             25%       { transform: translateY(-20px) rotate(2deg); }
@@ -119,11 +110,6 @@
         }
         .floating { animation: floating 6s ease-in-out infinite; }
 
-        /* =============================================
-           SCROLL ANIMATIONS — transition-based
-           (NOT keyframe-based, so they only fire when
-           IntersectionObserver adds .visible class)
-        ============================================= */
         .fade-in-up {
             opacity: 0;
             transform: translateY(60px);
@@ -152,7 +138,6 @@
         }
         .slide-in-right.visible { opacity: 1; transform: translateX(0); }
 
-        /* Stagger delays — applied to base so transition-delay fires when .visible is added */
         .delay-1 { transition-delay: 0.1s; }
         .delay-2 { transition-delay: 0.2s; }
         .delay-3 { transition-delay: 0.3s; }
@@ -160,10 +145,6 @@
         .delay-5 { transition-delay: 0.5s; }
         .delay-6 { transition-delay: 0.6s; }
 
-        /* =============================================
-           TYPEWRITER — hero-section only, fires on load
-           (correct behavior — hero is immediately visible)
-        ============================================= */
         .typewriter {
             overflow: hidden;
             border-right: 3px solid #667eea;
@@ -180,11 +161,6 @@
             50%      { border-color: #667eea; }
         }
 
-        /* =============================================
-           SKILL BARS — scroll-triggered via JS
-           Start at width: 0, transition to data-width
-           when .animate class is added by IntersectionObserver
-        ============================================= */
         .skill-bar {
             position: relative;
             height: 8px;
@@ -195,19 +171,15 @@
         .skill-progress {
             position: absolute;
             height: 100%;
-            width: 0;           /* FIX: start hidden */
+            width: 0;
             background: linear-gradient(90deg, #667eea, #764ba2, #f093fb);
             border-radius: 10px;
             transition: width 1.4s cubic-bezier(0.23, 1, 0.32, 1);
         }
-        /* When parent card gets .skills-visible, progress bars expand */
         .skills-visible .skill-progress {
             width: var(--skill-width, 0%);
         }
 
-        /* =============================================
-           PREMIUM CARD
-        ============================================= */
         .premium-card {
             position: relative;
             background: rgba(17,24,39,0.8);
@@ -235,7 +207,6 @@
         }
         .premium-card a { position: relative; z-index: 10; }
 
-        /* Ripple */
         .ripple { position: relative; overflow: hidden; }
         .ripple::after {
             content: '';
@@ -249,7 +220,6 @@
         }
         .ripple:hover::after { width: 500px; height: 500px; }
 
-        /* Magnetic button */
         .magnetic-btn {
             position: relative;
             overflow: hidden;
@@ -268,9 +238,6 @@
         .magnetic-btn:hover::before { width: 300px; height: 300px; }
         .magnetic-btn:hover { transform: scale(1.05); box-shadow: 0 20px 40px rgba(124,58,237,0.6); }
 
-        /* =============================================
-           PROJECT CARDS
-        ============================================= */
         .project-card {
             position: relative;
             background: rgba(17,24,39,0.8);
@@ -326,9 +293,6 @@
         .project-card:hover .project-features li:nth-child(3) { transition-delay: 0.3s; }
         .project-card:hover .project-features li:nth-child(4) { transition-delay: 0.4s; }
 
-        /* FIX: project-shine — was using rotate(45deg) + left percentage which
-           caused it to appear as a visible diagonal stripe. Changed to a skewed
-           strip that sweeps left-to-right on hover. */
         .project-shine {
             position: absolute;
             top: -50%; left: -150%;
@@ -340,7 +304,6 @@
         }
         .project-card:hover .project-shine { left: 160%; }
 
-        /* View project btn */
         .view-project-btn {
             display: inline-flex; align-items: center; gap: 0.5rem;
             padding: 0.75rem 1.5rem;
@@ -357,14 +320,12 @@
         .view-project-btn svg { transition: transform 0.3s ease; }
         .view-project-btn:hover svg { transform: translateX(5px); }
 
-        /* Scrollbar */
         html { scroll-behavior: smooth; }
         ::-webkit-scrollbar { width: 10px; }
         ::-webkit-scrollbar-track { background: #000; }
         ::-webkit-scrollbar-thumb { background: linear-gradient(135deg, #667eea, #764ba2); border-radius: 10px; }
         ::-webkit-scrollbar-thumb:hover { background: linear-gradient(135deg, #764ba2, #f093fb); }
 
-        /* Network canvas */
         #networkCanvas {
             position: fixed; top: 0; left: 0;
             width: 100%; height: 100%;
@@ -373,7 +334,6 @@
         }
         #networkCanvas.visible { opacity: 1; }
 
-        /* Premium gradient (used on bg elements) */
         .premium-gradient {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #4facfe 75%, #00f2fe 100%);
             background-size: 400% 400%;
@@ -383,6 +343,253 @@
             0%   { background-position: 0% 50%; }
             50%  { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
+        }
+
+        /* =============================================
+           SAY HI SECTION — Custom Styles
+        ============================================= */
+
+        /* Floating label input wrapper */
+        .say-hi-field {
+            position: relative;
+            margin-bottom: 1.75rem;
+        }
+
+        .say-hi-input, .say-hi-textarea {
+            width: 100%;
+            background: rgba(17, 24, 39, 0.6);
+            border: 1px solid rgba(124, 58, 237, 0.3);
+            border-radius: 1rem;
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            backdrop-filter: blur(10px);
+        }
+        .say-hi-input { padding: 1.25rem 1.25rem 0.75rem; }
+        .say-hi-textarea { padding: 1.5rem 1.25rem 0.75rem; resize: none; min-height: 140px; }
+
+        .say-hi-input:focus, .say-hi-textarea:focus {
+            border-color: rgba(124, 58, 237, 0.8);
+            box-shadow:
+                0 0 0 3px rgba(124, 58, 237, 0.15),
+                0 0 30px rgba(124, 58, 237, 0.2),
+                inset 0 0 20px rgba(124, 58, 237, 0.05);
+            background: rgba(17, 24, 39, 0.85);
+        }
+
+        .say-hi-input::placeholder, .say-hi-textarea::placeholder { color: transparent; }
+
+        /* Floating labels */
+        .say-hi-label {
+            position: absolute;
+            left: 1.25rem;
+            top: 1.1rem;
+            color: #6b7280;
+            font-size: 0.95rem;
+            pointer-events: none;
+            transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+            transform-origin: left top;
+        }
+        .say-hi-label.textarea-label { top: 1.35rem; }
+
+        /* Float up when input has value or is focused */
+        .say-hi-input:focus ~ .say-hi-label,
+        .say-hi-input:not(:placeholder-shown) ~ .say-hi-label,
+        .say-hi-textarea:focus ~ .say-hi-label,
+        .say-hi-textarea:not(:placeholder-shown) ~ .say-hi-label {
+            top: 0.45rem;
+            font-size: 0.7rem;
+            color: #a78bfa;
+            letter-spacing: 0.05em;
+        }
+
+        /* Input icon */
+        .say-hi-icon {
+            position: absolute;
+            right: 1.25rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #4b5563;
+            transition: color 0.3s ease;
+            pointer-events: none;
+        }
+        .say-hi-input:focus ~ .say-hi-icon { color: #a78bfa; }
+
+        /* Char counter */
+        .char-counter {
+            position: absolute;
+            bottom: -1.35rem;
+            right: 0.25rem;
+            font-size: 0.7rem;
+            color: #4b5563;
+            transition: color 0.3s ease;
+        }
+        .char-counter.warn { color: #f59e0b; }
+        .char-counter.limit { color: #ef4444; }
+
+        /* Send button */
+        .say-hi-send-btn {
+            position: relative;
+            width: 100%;
+            padding: 1.1rem 2rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            background-size: 200% 200%;
+            border: none;
+            border-radius: 9999px;
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            font-weight: 700;
+            font-size: 1rem;
+            letter-spacing: 0.05em;
+            cursor: pointer;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            animation: btnGradient 4s ease infinite;
+        }
+        @keyframes btnGradient {
+            0%   { background-position: 0% 50%; }
+            50%  { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .say-hi-send-btn:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 20px 50px rgba(124, 58, 237, 0.6), 0 0 80px rgba(240, 147, 251, 0.3);
+        }
+        .say-hi-send-btn:active { transform: scale(0.98); }
+        .say-hi-send-btn:disabled { opacity: 0.7; cursor: not-allowed; transform: none; }
+
+        /* Shimmer on button */
+        .say-hi-send-btn::after {
+            content: '';
+            position: absolute;
+            top: -50%; left: -100%;
+            width: 60%; height: 200%;
+            background: linear-gradient(105deg, transparent 30%, rgba(255,255,255,0.25) 50%, transparent 70%);
+            transform: skewX(-20deg);
+            transition: left 0.7s ease;
+        }
+        .say-hi-send-btn:hover::after { left: 160%; }
+
+        /* Spinner inside button */
+        .btn-spinner {
+            display: none;
+            width: 20px; height: 20px;
+            border: 2px solid rgba(255,255,255,0.4);
+            border-top-color: #fff;
+            border-radius: 50%;
+            animation: spin 0.7s linear infinite;
+            margin: 0 auto;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* Success / Error state panels */
+        .say-hi-status {
+            border-radius: 1rem;
+            padding: 1.5rem 2rem;
+            display: none;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            backdrop-filter: blur(10px);
+            animation: statusIn 0.5s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+        }
+        @keyframes statusIn {
+            from { opacity: 0; transform: translateY(20px) scale(0.95); }
+            to   { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        .say-hi-status.success {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.4);
+        }
+        .say-hi-status.error {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.4);
+        }
+        .say-hi-status.visible { display: flex; }
+
+        /* Orbiting decoration elements */
+        .orbit-ring {
+            position: absolute;
+            border-radius: 50%;
+            border: 1px solid rgba(124,58,237,0.15);
+            animation: orbitSpin linear infinite;
+            pointer-events: none;
+        }
+        @keyframes orbitSpin {
+            from { transform: rotate(0deg); }
+            to   { transform: rotate(360deg); }
+        }
+
+        /* Decorative data stream lines */
+        .data-line {
+            position: absolute;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(124,58,237,0.6), transparent);
+            animation: dataStream 3s ease-in-out infinite;
+            pointer-events: none;
+        }
+        @keyframes dataStream {
+            0%   { opacity: 0; transform: scaleX(0); }
+            50%  { opacity: 1; transform: scaleX(1); }
+            100% { opacity: 0; transform: scaleX(0); }
+        }
+
+        /* Floating envelope emoji on success */
+        @keyframes flyUp {
+            0%   { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-120px) rotate(15deg); opacity: 0; }
+        }
+        .fly-emoji {
+            display: inline-block;
+            animation: flyUp 1.2s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+        }
+
+        /* Side info cards in Say Hi */
+        .sayhi-info-card {
+            position: relative;
+            background: rgba(17,24,39,0.5);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(124,58,237,0.2);
+            border-radius: 1.25rem;
+            padding: 1.5rem;
+            transition: all 0.4s cubic-bezier(0.23,1,0.32,1);
+            overflow: hidden;
+        }
+        .sayhi-info-card::before {
+            content: '';
+            position: absolute; inset: 0;
+            border-radius: inherit; padding: 1px;
+            background: linear-gradient(135deg, #667eea, #f093fb);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor; mask-composite: exclude;
+            opacity: 0; transition: opacity 0.4s ease;
+        }
+        .sayhi-info-card:hover::before { opacity: 1; }
+        .sayhi-info-card:hover {
+            transform: translateX(6px);
+            box-shadow: 0 10px 30px rgba(124,58,237,0.25);
+        }
+
+        /* Pulse dot */
+        .pulse-dot {
+            width: 10px; height: 10px;
+            border-radius: 50%;
+            background: #10b981;
+            position: relative;
+            flex-shrink: 0;
+        }
+        .pulse-dot::after {
+            content: '';
+            position: absolute; inset: -4px;
+            border-radius: 50%;
+            background: rgba(16,185,129,0.35);
+            animation: pulseDot 1.8s ease-in-out infinite;
+        }
+        @keyframes pulseDot {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50%       { transform: scale(2); opacity: 0; }
         }
     </style>
 </head>
@@ -417,6 +624,10 @@
                         Experience
                         <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-purple-500 to-pink-500 group-hover:w-full transition-all duration-300"></span>
                     </a>
+                    <a href="#say-hi" class="nav-link relative text-gray-300 hover:text-white transition-colors group">
+                        Say Hi 👋
+                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-purple-500 to-pink-500 group-hover:w-full transition-all duration-300"></span>
+                    </a>
                     <a href="social-links.html" class="magnetic-btn px-6 py-2 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full font-semibold text-white text-sm">
                         Contact
                     </a>
@@ -438,6 +649,7 @@
                 <a href="#about"      class="block text-gray-300 hover:text-white transition-colors py-2">About</a>
                 <a href="certificates.html"     class="block text-gray-300 hover:text-white transition-colors py-2">Certificates</a>
                 <a href="Experience_&_Projects.html" class="block text-gray-300 hover:text-white transition-colors py-2">Experience</a>
+                <a href="#say-hi"     class="block text-gray-300 hover:text-white transition-colors py-2">Say Hi 👋</a>
                 <a href="social-links.html"    class="block text-gray-300 hover:text-white transition-colors py-2">Contact</a>
             </div>
         </div>
@@ -448,7 +660,6 @@
         <div class="absolute inset-0 bg-gradient-to-b from-transparent via-black/50 to-black"></div>
 
         <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 text-center py-16">
-            <!-- Profile Photo -->
             <div class="mb-12 floating">
                 <div class="w-40 h-40 mx-auto rounded-full bg-gradient-to-br from-purple-500 via-pink-500 to-blue-500 p-1 neon-border">
                     <div class="w-full h-full rounded-full bg-black flex items-center justify-center overflow-hidden">
@@ -461,7 +672,6 @@
                 </div>
             </div>
 
-            <!-- Heading — uses fade-in-up; hero is always in viewport so it triggers immediately -->
             <h1 class="text-6xl md:text-8xl font-display font-bold mb-6 fade-in-up leading-tight md:leading-[1.1]">
                 <span class="block text-white mb-2">Hi, I'm</span>
                 <span class="block bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent glow-text pb-2">
@@ -470,7 +680,6 @@
             </h1>
 
             <div class="mb-8 fade-in-up delay-2">
-                <!-- FIX: typewriter needs display:inline-block to constrain width correctly -->
                 <p class="text-xl md:text-2xl text-gray-400 inline-block typewriter">
                     &lt;Aspiring Software Developer/&gt;
                 </p>
@@ -489,13 +698,12 @@
                         Explore My Work
                     </span>
                 </a>
-                <a href="#contact" class="magnetic-btn relative px-10 py-4 glass rounded-full font-semibold text-white border-2 border-purple-500/50 hover:border-purple-500 transition-all duration-300">
-                    <span class="relative z-10">Get In Touch</span>
+                <a href="#say-hi" class="magnetic-btn relative px-10 py-4 glass rounded-full font-semibold text-white border-2 border-purple-500/50 hover:border-purple-500 transition-all duration-300">
+                    <span class="relative z-10">Say Hi 👋</span>
                 </a>
             </div>
         </div>
 
-        <!-- Scroll indicator -->
         <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 z-10">
             <div class="w-6 h-10 border-2 border-purple-500 rounded-full flex justify-center">
                 <div class="w-1 h-3 bg-purple-500 rounded-full mt-2 animate-bounce"></div>
@@ -579,7 +787,6 @@
             </div>
 
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Each card has .skill-card so we can trigger bar animation on scroll -->
                 <div class="premium-card p-10 rounded-3xl fade-in-up skill-card">
                     <div class="text-6xl mb-6">💻</div>
                     <h3 class="text-3xl font-display font-bold mb-6 text-white">Programming</h3>
@@ -675,7 +882,6 @@
                 <div class="w-32 h-1 bg-gradient-to-r from-purple-500 via-pink-500 to-blue-500 mx-auto rounded-full neon-border"></div>
             </div>
 
-            <!-- Project Cards -->
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
                 <div class="project-card fade-in-up">
                     <div class="project-shine"></div>
@@ -744,7 +950,6 @@
                 </div>
             </div>
 
-            <!-- Internships -->
             <div class="space-y-8 mb-20">
                 <div class="premium-card p-10 rounded-3xl fade-in-up">
                     <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
@@ -777,7 +982,6 @@
                 </div>
             </div>
 
-            <!-- Societies -->
             <div class="text-center mb-12">
                 <h3 class="text-4xl font-display font-bold mb-6 scale-in">
                     College <span class="bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent">Involvement</span>
@@ -979,6 +1183,225 @@
         </div>
     </section>
 
+    <!-- ======================== SAY HI ======================== -->
+    <section id="say-hi" class="relative py-32 overflow-hidden grid-background">
+        <div class="absolute inset-0 bg-gradient-to-b from-black via-violet-950/25 to-black"></div>
+
+        <!-- Decorative ambient blobs -->
+        <div class="absolute top-10 right-16 w-80 h-80 bg-purple-600/10 rounded-full blur-3xl floating" style="animation-delay:0s;"></div>
+        <div class="absolute bottom-10 left-16 w-72 h-72 bg-pink-600/10 rounded-full blur-3xl floating" style="animation-delay:3s;"></div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-violet-800/5 rounded-full blur-3xl pointer-events-none"></div>
+
+        <!-- Orbiting rings (decorative) -->
+        <div class="orbit-ring absolute top-20 right-20 w-24 h-24" style="animation-duration:12s;"></div>
+        <div class="orbit-ring absolute bottom-24 left-24 w-16 h-16" style="animation-duration:8s; animation-direction:reverse;"></div>
+
+        <!-- Data stream lines -->
+        <div class="data-line" style="width:200px; top:25%; left:5%; animation-delay:0s;"></div>
+        <div class="data-line" style="width:120px; top:65%; right:8%; animation-delay:1.5s;"></div>
+        <div class="data-line" style="width:160px; top:80%; left:30%; animation-delay:3s;"></div>
+
+        <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-8">
+
+            <!-- Heading -->
+            <div class="text-center mb-16">
+                <div class="inline-flex items-center gap-3 px-6 py-2 glass rounded-full border border-purple-500/30 mb-6 scale-in">
+                    <div class="pulse-dot"></div>
+                    <span class="text-sm text-gray-400 font-medium tracking-widest uppercase">Open to connect</span>
+                </div>
+                <h2 class="text-5xl md:text-7xl font-display font-bold mb-6 scale-in">
+                    Say <span class="bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent glow-text">Hi!</span> 👋
+                </h2>
+                <div class="w-32 h-1 bg-gradient-to-r from-purple-500 via-pink-500 to-blue-500 mx-auto rounded-full neon-border mb-6"></div>
+                <p class="text-lg text-gray-400 max-w-xl mx-auto fade-in-up delay-1">
+                    Drop a message — whether it's a collab idea, a quick hello, or just vibes. I read everything! ✨
+                </p>
+            </div>
+
+            <div class="grid lg:grid-cols-5 gap-12 max-w-6xl mx-auto items-start">
+
+                <!-- ── LEFT: Info cards ── -->
+                <div class="lg:col-span-2 space-y-5 slide-in-left">
+
+                    <div class="sayhi-info-card">
+                        <div class="flex items-center gap-4 mb-3">
+                            <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center flex-shrink-0 shadow-lg">
+                                <span class="text-xl">⚡</span>
+                            </div>
+                            <div>
+                                <p class="text-white font-semibold">Fast Response</p>
+                                <p class="text-xs text-gray-500">Usually within 24 hours</p>
+                            </div>
+                        </div>
+                        <p class="text-sm text-gray-400 leading-relaxed">I check my inbox regularly and always reply to genuine messages.</p>
+                    </div>
+
+                    <div class="sayhi-info-card">
+                        <div class="flex items-center gap-4 mb-3">
+                            <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center flex-shrink-0 shadow-lg">
+                                <span class="text-xl">🤝</span>
+                            </div>
+                            <div>
+                                <p class="text-white font-semibold">Open to Collabs</p>
+                                <p class="text-xs text-gray-500">Projects, ideas & more</p>
+                            </div>
+                        </div>
+                        <p class="text-sm text-gray-400 leading-relaxed">Whether it's a side project, internship, or just brainstorming — I'm in!</p>
+                    </div>
+
+                    <div class="sayhi-info-card">
+                        <div class="flex items-center gap-4 mb-3">
+                            <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-pink-600 to-orange-500 flex items-center justify-center flex-shrink-0 shadow-lg">
+                                <span class="text-xl">🛡️</span>
+                            </div>
+                            <div>
+                                <p class="text-white font-semibold">Safe & Private</p>
+                                <p class="text-xs text-gray-500">Your info stays with me</p>
+                            </div>
+                        </div>
+                        <p class="text-sm text-gray-400 leading-relaxed">Your email is only used to reply to you. No spam, ever.</p>
+                    </div>
+
+                    <!-- Direct email pill -->
+                    <a href="mailto:lakshminarayanverma91@gmail.com" class="flex items-center gap-3 px-5 py-4 glass rounded-2xl border border-purple-500/30 hover:border-pink-500/50 transition-all duration-300 hover:scale-[1.02] group">
+                        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center flex-shrink-0">
+                            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                            </svg>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <p class="text-xs text-gray-500 mb-0.5">Or email directly</p>
+                            <p class="text-xs text-purple-400 group-hover:text-pink-400 transition-colors truncate">lakshminarayanverma91@gmail.com</p>
+                        </div>
+                        <svg class="w-4 h-4 text-gray-600 group-hover:text-pink-400 transition-colors flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+                        </svg>
+                    </a>
+                </div>
+
+                <!-- ── RIGHT: Form ── -->
+                <div class="lg:col-span-3 slide-in-right">
+                    <div class="relative premium-card rounded-3xl p-8 md:p-10 overflow-hidden"
+                         style="border-color: rgba(124,58,237,0.3);">
+
+                        <!-- Inner top glow stripe -->
+                        <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-purple-500/60 to-transparent"></div>
+
+                        <!-- Corner accent dots -->
+                        <div class="absolute top-4 right-4 w-2 h-2 rounded-full bg-purple-500/50 animate-pulse"></div>
+                        <div class="absolute top-4 right-8 w-1.5 h-1.5 rounded-full bg-pink-500/40 animate-pulse" style="animation-delay:0.5s;"></div>
+
+                        <div class="mb-8">
+                            <h3 class="text-2xl font-display font-bold text-white mb-1">Send me a message</h3>
+                            <p class="text-sm text-gray-500">Fill it in — I promise I'll write back 🙂</p>
+                        </div>
+
+                        <form id="sayHiForm" novalidate>
+
+                            <!-- Name -->
+                            <div class="say-hi-field">
+                                <input
+                                    type="text"
+                                    id="shi-name"
+                                    name="from_name"
+                                    class="say-hi-input"
+                                    placeholder="Your Name"
+                                    maxlength="80"
+                                    autocomplete="name"
+                                    required>
+                                <label for="shi-name" class="say-hi-label">Your Name *</label>
+                                <svg class="say-hi-icon w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                                </svg>
+                            </div>
+
+                            <!-- Email -->
+                            <div class="say-hi-field">
+                                <input
+                                    type="email"
+                                    id="shi-email"
+                                    name="from_email"
+                                    class="say-hi-input"
+                                    placeholder="Your Email"
+                                    autocomplete="email"
+                                    required>
+                                <label for="shi-email" class="say-hi-label">Your Email * <span class="text-gray-600">(so I can reply!)</span></label>
+                                <svg class="say-hi-icon w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                                </svg>
+                            </div>
+
+                            <!-- Subject -->
+                            <div class="say-hi-field">
+                                <input
+                                    type="text"
+                                    id="shi-subject"
+                                    name="subject"
+                                    class="say-hi-input"
+                                    placeholder="Subject"
+                                    maxlength="120">
+                                <label for="shi-subject" class="say-hi-label">Subject <span class="text-gray-600">(optional)</span></label>
+                                <svg class="say-hi-icon w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/>
+                                </svg>
+                            </div>
+
+                            <!-- Message -->
+                            <div class="say-hi-field" style="margin-bottom: 2.5rem;">
+                                <textarea
+                                    id="shi-message"
+                                    name="message"
+                                    class="say-hi-textarea"
+                                    placeholder="Your Message"
+                                    maxlength="1000"
+                                    required></textarea>
+                                <label for="shi-message" class="say-hi-label textarea-label">Your Message * <span class="text-gray-600">(be as detailed as you want!)</span></label>
+                                <span class="char-counter" id="charCount">0 / 1000</span>
+                            </div>
+
+                            <!-- Send Button -->
+                            <button type="submit" class="say-hi-send-btn" id="sayHiSendBtn">
+                                <span id="btnText" class="flex items-center justify-center gap-3">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
+                                    </svg>
+                                    Send Message
+                                </span>
+                                <div class="btn-spinner" id="btnSpinner"></div>
+                            </button>
+
+                            <!-- Status Messages -->
+                            <div class="say-hi-status success" id="successMsg">
+                                <div class="text-3xl" id="successEmoji">✉️</div>
+                                <div>
+                                    <p class="font-semibold text-emerald-400 text-lg">Message sent! 🎉</p>
+                                    <p class="text-gray-400 text-sm mt-1">Thanks for reaching out — I'll get back to you soon!</p>
+                                </div>
+                            </div>
+                            <div class="say-hi-status error" id="errorMsg">
+                                <div class="text-3xl">⚠️</div>
+                                <div>
+                                    <p class="font-semibold text-red-400 text-lg">Oops, something went wrong!</p>
+                                    <p class="text-gray-400 text-sm mt-1" id="errorDetail">Please try again or email me directly.</p>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+
+                    <!-- Setup hint — visible only when EmailJS is not configured -->
+                    <div id="emailjsSetupHint" class="mt-4 p-4 rounded-2xl border border-yellow-500/30 bg-yellow-500/5 hidden">
+                        <p class="text-yellow-400 text-sm font-semibold mb-1">⚙️ EmailJS not configured yet</p>
+                        <p class="text-gray-500 text-xs leading-relaxed">
+                            To enable real email delivery: (1) Sign up free at <span class="text-yellow-400">emailjs.com</span>, (2) Connect your Gmail, (3) Create a template with variables <code class="text-purple-300">from_name, from_email, subject, message</code>, then replace the three placeholder values in the script below with your actual <span class="text-yellow-400">Public Key, Service ID, Template ID</span>.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
     <!-- Footer -->
     <footer class="relative py-12 border-t border-purple-500/20">
         <div class="max-w-7xl mx-auto px-6 lg:px-8 text-center">
@@ -992,6 +1415,34 @@
     </footer>
 
     <script>
+    /* ============================================================
+       EMAILJS CONFIGURATION
+       ─────────────────────────────────────────────────────────────
+       Steps to activate real email sending:
+       1. Go to https://www.emailjs.com and create a FREE account
+       2. Add Email Service → connect Gmail
+       3. Create Email Template with these variables:
+             {{from_name}}   → sender's name
+             {{from_email}}  → sender's email (for Reply-To)
+             {{subject}}     → subject line
+             {{message}}     → the message body
+       4. Replace the three values below with your real IDs:
+    ============================================================ */
+    const EMAILJS_PUBLIC_KEY  = 'YOUR_PUBLIC_KEY';   // e.g. 'abcDEF123xyz'
+    const EMAILJS_SERVICE_ID  = 'YOUR_SERVICE_ID';   // e.g. 'service_xxxxxxx'
+    const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID';  // e.g. 'template_xxxxxxx'
+
+    const emailjsConfigured =
+        EMAILJS_PUBLIC_KEY  !== 'YOUR_PUBLIC_KEY' &&
+        EMAILJS_SERVICE_ID  !== 'YOUR_SERVICE_ID' &&
+        EMAILJS_TEMPLATE_ID !== 'YOUR_TEMPLATE_ID';
+
+    if (emailjsConfigured) {
+        emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+    } else {
+        document.getElementById('emailjsSetupHint').classList.remove('hidden');
+    }
+
     /* ============================================================
        1. PAGE LOAD FADE
     ============================================================ */
@@ -1042,7 +1493,6 @@
                 this.x += this.vx; this.y += this.vy;
                 if (this.x < 0 || this.x > canvas.width)  this.vx *= -1;
                 if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
-                // Mouse repulsion (desktop only)
                 if (!isMobile) {
                     const dx = this.x - mouse.x, dy = this.y - mouse.y;
                     const d = Math.sqrt(dx*dx+dy*dy);
@@ -1054,13 +1504,11 @@
                 }
             }
             draw() {
-                // Glow
                 const g = ctx.createRadialGradient(this.x,this.y,0,this.x,this.y,this.radius*3);
                 g.addColorStop(0, `rgba(${config.nodeColor},${this.opacity})`);
                 g.addColorStop(1, 'transparent');
                 ctx.beginPath(); ctx.arc(this.x,this.y,this.radius*3,0,Math.PI*2);
                 ctx.fillStyle = g; ctx.fill();
-                // Core
                 ctx.beginPath(); ctx.arc(this.x,this.y,this.radius,0,Math.PI*2);
                 ctx.fillStyle = `rgba(${config.nodeColor},${Math.min(this.opacity*1.6,1)})`; ctx.fill();
             }
@@ -1138,7 +1586,7 @@
     })();
 
     /* ============================================================
-       3. MOUSE GLOW — smooth rAF lerp
+       3. MOUSE GLOW
     ============================================================ */
     const mouseGlow = document.getElementById('mouseGlow');
     let gx = window.innerWidth/2, gy = window.innerHeight/2;
@@ -1159,7 +1607,7 @@
     })();
 
     /* ============================================================
-       4. PARTICLES — start from bottom, use CSS custom prop --drift
+       4. PARTICLES
     ============================================================ */
     (function() {
         const container = document.getElementById('particles');
@@ -1179,29 +1627,20 @@
 
     /* ============================================================
        5. SCROLL ANIMATIONS
-       FIX: Replaces the broken IntersectionObserver that used
-       inline style overrides to fight running CSS @keyframes.
-       Now uses transition-based .visible class approach.
     ============================================================ */
     const scrollObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (!entry.isIntersecting) return;
-
             entry.target.classList.add('visible');
-
-            // FIX: Skill bars — add .skills-visible to trigger CSS var transitions
             if (entry.target.classList.contains('skill-card')) {
                 entry.target.classList.add('skills-visible');
             }
-
             scrollObserver.unobserve(entry.target);
         });
     }, { threshold: 0.12, rootMargin: '0px 0px -80px 0px' });
 
     document.querySelectorAll('.fade-in-up, .scale-in, .slide-in-left, .slide-in-right')
             .forEach(el => scrollObserver.observe(el));
-
-    // Skill cards also need to be observed (they're already .fade-in-up but double-check)
     document.querySelectorAll('.skill-card').forEach(el => scrollObserver.observe(el));
 
     /* ============================================================
@@ -1235,7 +1674,6 @@
             const lnk = document.querySelector(`.nav-link[href="#${id}"]`);
             if (lnk) lnk.classList.toggle('text-purple-400', sy >= top && sy < bot);
         });
-        // Sticky nav background on scroll
         const nav = document.getElementById('mainNav');
         if (sy > 100) {
             nav.style.background = 'rgba(0,0,0,0.95)';
@@ -1247,7 +1685,7 @@
     }, { passive: true });
 
     /* ============================================================
-       8. SMOOTH SCROLL — guard against empty hashes
+       8. SMOOTH SCROLL
     ============================================================ */
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
@@ -1258,6 +1696,126 @@
             if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
         });
     });
+
+    /* ============================================================
+       9. SAY HI FORM — character counter + EmailJS submit
+    ============================================================ */
+    const EMAILJS_SERVICE_ID = "service_n5kc2ph";
+    const EMAILJS_TEMPLATE_ID = "template_0n1nd49";
+
+    emailjs.init({
+    publicKey: "CCehL3a54rag7YS_8"
+    });
+
+    const emailjsConfigured = true;
+    const sayHiForm   = document.getElementById('sayHiForm');
+    const charCount   = document.getElementById('charCount');
+    const shiMessage  = document.getElementById('shi-message');
+    const sendBtn     = document.getElementById('sayHiSendBtn');
+    const btnText     = document.getElementById('btnText');
+    const btnSpinner  = document.getElementById('btnSpinner');
+    const successMsg  = document.getElementById('successMsg');
+    const errorMsg    = document.getElementById('errorMsg');
+    const errorDetail = document.getElementById('errorDetail');
+    const successEmoji = document.getElementById('successEmoji');
+
+    // Character counter
+    shiMessage.addEventListener('input', () => {
+        const len = shiMessage.value.length;
+        const max = parseInt(shiMessage.getAttribute('maxlength'));
+        charCount.textContent = `${len} / ${max}`;
+        charCount.classList.toggle('warn', len >= max * 0.8);
+        charCount.classList.toggle('limit', len >= max);
+    });
+
+    // Form submit
+    sayHiForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        // Hide old status
+        successMsg.classList.remove('visible');
+        successMsg.style.display = 'none';
+        errorMsg.classList.remove('visible');
+        errorMsg.style.display = 'none';
+
+        // Basic validation
+        const name    = document.getElementById('shi-name').value.trim();
+        const email   = document.getElementById('shi-email').value.trim();
+        const message = shiMessage.value.trim();
+
+        if (!name || !email || !message) {
+            showError('Please fill in your name, email, and message.');
+            return;
+        }
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+            showError('Please enter a valid email address.');
+            return;
+        }
+
+        // Loading state
+        setLoading(true);
+
+        if (!emailjsConfigured) {
+            // ── FALLBACK: open mailto if EmailJS not configured ──
+            await new Promise(r => setTimeout(r, 800)); // brief fake loading
+            const subject = encodeURIComponent(
+                document.getElementById('shi-subject').value.trim() || `Hi from ${name}!`
+            );
+            const body = encodeURIComponent(
+                `Name: ${name}\nEmail: ${email}\n\n${message}`
+            );
+            window.location.href = `mailto:lakshminarayanverma91@gmail.com?subject=${subject}&body=${body}`;
+            setLoading(false);
+            showSuccess();
+            sayHiForm.reset();
+            charCount.textContent = '0 / 1000';
+            return;
+        }
+
+        // ── EmailJS send ──
+        try {
+            const templateParams = {
+                from_name:  name,
+                from_email: email,
+                subject:    document.getElementById('shi-subject').value.trim() || `Hi from ${name}!`,
+                message:    message,
+                to_email:   'lakshminarayanverma91@gmail.com'
+            };
+
+            await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams);
+
+            setLoading(false);
+            showSuccess();
+            sayHiForm.reset();
+            charCount.textContent = '0 / 1000';
+
+        } catch (err) {
+            console.error('EmailJS error:', err);
+            setLoading(false);
+            showError(err.text || 'Delivery failed. Please email me directly.');
+        }
+    });
+
+    function setLoading(on) {
+        sendBtn.disabled = on;
+        btnText.style.display = on ? 'none' : 'flex';
+        btnSpinner.style.display = on ? 'block' : 'none';
+    }
+
+    function showSuccess() {
+        successMsg.style.display = 'flex';
+        successMsg.classList.add('visible');
+        // Animate envelope
+        successEmoji.classList.remove('fly-emoji');
+        void successEmoji.offsetWidth; // reflow
+        successEmoji.classList.add('fly-emoji');
+    }
+
+    function showError(detail) {
+        errorDetail.textContent = detail || 'Please try again.';
+        errorMsg.style.display = 'flex';
+        errorMsg.classList.add('visible');
+    }
     </script>
 </body>
 </html>
