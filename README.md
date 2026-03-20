@@ -9,7 +9,7 @@ This project is my personal portfolio website created to showcase my projects, s
 You can view my portfolio here:
 
 👉 **Live Demo:**
-https://myptfoliowebsite.netlify.app/
+https://mydeveloperpotfolio.netlify.app/
 
 ---
 
