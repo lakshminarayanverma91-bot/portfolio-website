@@ -153,6 +153,7 @@
             border-radius: inherit; padding: 1.5px;
             background: var(--grad);
             -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
             -webkit-mask-composite: xor; mask-composite: exclude;
             opacity: 0; transition: opacity .4s;
         }
@@ -205,6 +206,7 @@
             position: absolute; inset: 0; border-radius: inherit; padding: 1.5px;
             background: var(--grad);
             -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
             -webkit-mask-composite: xor; mask-composite: exclude;
             opacity: 0; transition: opacity .4s;
         }
@@ -218,7 +220,14 @@
             width: 100%; height: 100%; object-fit: cover;
             transition: transform .8s cubic-bezier(.23,1,.32,1);
         }
+        .cert-image-wrap img.cert-fit-contain {
+            object-fit: contain;
+            object-position: center;
+            background: rgba(0,0,0,.35);
+            padding: .35rem;
+        }
         .cert-wrapper:hover .cert-image-wrap img { transform: scale(1.08); }
+        .cert-wrapper:hover .cert-image-wrap img.cert-fit-contain { transform: scale(1.02); }
 
         .cert-placeholder {
             width: 100%; height: 100%;
@@ -231,6 +240,12 @@
             animation: floating 5s ease-in-out infinite;
         }
         .cert-placeholder-text { font-size: .75rem; letter-spacing: .2em; color: #6b7280; text-transform: uppercase; }
+        .cert-brand-logo {
+            width: 5rem;
+            height: 5rem;
+            object-fit: contain;
+            filter: drop-shadow(0 0 14px rgba(124,58,237,.45));
+        }
 
         .cert-shine {
             position: absolute; top: -50%; left: -150%;
@@ -301,6 +316,7 @@
             content: ''; position: absolute; inset: 0; border-radius: inherit; padding: 2px;
             background: linear-gradient(135deg, #667eea, #764ba2, #f093fb, #4facfe);
             -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
             -webkit-mask-composite: xor; mask-composite: exclude;
             opacity: .6;
         }
@@ -430,6 +446,7 @@
             content: ''; position: absolute; inset: 0; border-radius: inherit; padding: 2px;
             background: var(--grad);
             -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
             -webkit-mask-composite: xor; mask-composite: exclude;
             opacity: 0; transition: opacity .5s; pointer-events: none;
         }
@@ -503,11 +520,11 @@
         </p>
         <div class="flex flex-wrap justify-center gap-6 fade-in-up delay-3">
             <div class="stat-card px-8 py-5 text-center min-w-[130px]">
-                <div class="text-3xl font-display font-black bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent"><span class="counter" data-target="4">0</span></div>
+                <div class="text-3xl font-display font-black bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent"><span class="counter" data-target="8">0</span></div>
                 <div class="text-xs text-gray-500 mt-1 uppercase tracking-widest">Certificates</div>
             </div>
             <div class="stat-card px-8 py-5 text-center min-w-[130px]">
-                <div class="text-3xl font-display font-black bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent"><span class="counter" data-target="2">0</span>+</div>
+                <div class="text-3xl font-display font-black bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent"><span class="counter" data-target="3">0</span>+</div>
                 <div class="text-xs text-gray-500 mt-1 uppercase tracking-widest">Domains</div>
             </div>
             <div class="stat-card px-8 py-5 text-center min-w-[130px]">
@@ -608,7 +625,7 @@
         <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8" id="certGrid">
 
             <!-- Card 1 -->
-            <div class="cert-item fade-in-up" data-category="dev">
+            <div class="cert-item fade-in-up">
                 <div class="cert-wrapper">
                     <div class="cert-card">
                         <div class="cert-front">
@@ -643,17 +660,52 @@
             </div>
 
             <!-- Card 2 -->
-            <div class="cert-item fade-in-up delay-1" data-category="misc">
+            <div class="cert-item fade-in-up">
                 <div class="cert-wrapper">
                     <div class="cert-card">
                         <div class="cert-front">
                             <div class="cert-shine"></div>
                             <div class="cert-image-wrap">
-                                <img src="" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                <img class="cert-fit-contain" src="https://res.cloudinary.com/dmzjlfnuz/image/upload/q_auto/f_auto/v1775760228/LOR_LAXMI_NARAYAN_VERMA_CDZ_PVT_LTD_page-0001_efug1u.jpg" alt="Letter of Recommendation"
+                                     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                <div class="cert-placeholder" style="display:none;"><div class="cert-placeholder-icon">🐍</div><div class="cert-placeholder-text">Python Development</div></div>
+                            </div>
+                            <div class="cert-meta">
+                                <div class="cert-title">Letter of Recommendation</div>
+                                <div class="cert-issuer">Cyber Defence Zone</div>
+                                <div class="cert-date">2026</div>
+                            </div>
+                        </div>
+                        <div class="cert-back">
+                            <div class="cert-back-icon">🐍</div>
+                            <div class="cert-back-title">Python Development</div>
+                            <div class="cert-back-issuer">Cyber Defence Zone</div>
+                            <div class="cert-skills-wrap">
+                                <span class="cert-skill-tag">Python</span><span class="cert-skill-tag">APIs</span>
+                                <span class="cert-skill-tag">Matplotlib</span><span class="cert-skill-tag">NLTK</span>
+                                <span class="cert-skill-tag">Scikit-Learn</span>
+                            </div>
+                            <div class="cert-back-desc">Completed 4 real-world Python projects covering API integration, PDF generation, and NLP chatbot development.</div>
+                            <button class="cert-view-btn" onclick="openLightbox(event,'Python Development Intern','Cyber Defence Zone','https://res.cloudinary.com/dmzjlfnuz/image/upload/q_auto/f_auto/v1775760228/LOR_LAXMI_NARAYAN_VERMA_CDZ_PVT_LTD_page-0001_efug1u.jpg','https://res.cloudinary.com/dmzjlfnuz/image/upload/q_auto/f_auto/v1775760228/LOR_LAXMI_NARAYAN_VERMA_CDZ_PVT_LTD_page-0001_efug1u.jpg',['Python','APIs','Matplotlib','NLTK','FPDF'],'Completed four comprehensive Python development projects demonstrating practical skills in real-world application building.')">
+                                View LOR <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="cert-item fade-in-up delay-1">
+                <div class="cert-wrapper">
+                    <div class="cert-card">
+                        <div class="cert-front">
+                            <div class="cert-shine"></div>
+                            <div class="cert-image-wrap">
+                                <img class="cert-fit-contain" src="https://res.cloudinary.com/dmzjlfnuz/image/upload/q_auto/f_auto/v1775760232/Offer_Letter_BookwithUVA_page-0001_ozbpfj.jpg" alt="Offer Letter" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                                 <div class="cert-placeholder" style="display:flex;"><div class="cert-placeholder-icon">💼</div><div class="cert-placeholder-text">Sales Operations</div></div>
                             </div>
                             <div class="cert-meta">
-                                <div class="cert-title">Sales Intern</div>
+                                <div class="cert-title">Offer Letter</div>
                                 <div class="cert-issuer">BookwithUVA</div>
                                 <div class="cert-date">2026</div>
                             </div>
@@ -666,16 +718,16 @@
                                 <span class="cert-skill-tag">Sales Operations</span><span class="cert-skill-tag">Inventory Management</span><span class="cert-skill-tag">Customer Communication</span><span class="cert-skill-tag">Teamwork & Collaboration</span>
                             </div>
                             <div class="cert-back-desc">Gained hands-on experience in sales operations, customer engagement strategies, and business development.</div>
-                            <button class="cert-view-btn" onclick="openLightbox(event,'Sales Internship','BookwithUVA','','',['Sales','CRM','Communication','Business Dev'],'Practical training in sales operations and customer relationship management at a growing travel startup.')">
-                                View Certificate <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                            <button class="cert-view-btn" onclick="openLightbox(event,'Sales Internship','BookwithUVA','https://res.cloudinary.com/dmzjlfnuz/image/upload/q_auto/f_auto/v1775760232/Offer_Letter_BookwithUVA_page-0001_ozbpfj.jpg','https://res.cloudinary.com/dmzjlfnuz/image/upload/q_auto/f_auto/v1775760232/Offer_Letter_BookwithUVA_page-0001_ozbpfj.jpg',['Sales','CRM','Communication','Business Dev'],'Practical training in sales operations and customer relationship management at a growing travel startup.')">
+                                View Offer Letter <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
                             </button>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Card 3 -->
-            <div class="cert-item fade-in-up" data-category="dev">
+            <!-- Card 4 -->
+            <div class="cert-item fade-in-up">
                 <div class="cert-wrapper">
                     <div class="cert-card">
                         <div class="cert-front">
@@ -686,12 +738,14 @@
                                 <div class="cert-placeholder" style="display:none;"><div class="cert-placeholder-icon">⛓️</div><div class="cert-placeholder-text">HeLa Crossroads</div></div>
                             </div>
                             <div class="cert-meta">
+                                <div class="cert-back-title">Certificate of Participation</div>
                                 <div class="cert-issuer">HeLa Crossroads</div>
                                 <div class="cert-date">2025</div>
                             </div>
                         </div>
                         <div class="cert-back">
                             <div class="cert-back-icon">⛓️</div>
+                            <div class="cert-back-title">Certificate of Participation</div>
                             <div class="cert-back-issuer">HeLa Crossroads</div>
                             <div class="cert-skills-wrap">
                                 <span class="cert-skill-tag">Blockchain</span><span class="cert-skill-tag">DApps</span>
@@ -699,7 +753,7 @@
                                 <span class="cert-skill-tag">Ethereum</span>
                             </div>
                             <div class="cert-back-desc">Participated in the HeLa CrossRoadshow Workshop and successfully deployed my first DApp on the blockchain, gaining hands-on experience in Web3 development.</div>
-                            <button class="cert-view-btn" onclick="openLightbox(event,'HeLa Crossroads','','https://res.cloudinary.com/dmzjlfnuz/image/upload/v1773347681/z0tf0awz1nrfysblfg7o.jpg','https://res.cloudinary.com/dmzjlfnuz/image/upload/v1773347681/z0tf0awz1nrfysblfg7o.jpg',['Blockchain','DApps','Web3 Development','Digital Wallet Integration','Ethereum'],'Completed the HeLa CrossRoadshow Workshop, where I learned the fundamentals of Web3 and blockchain and built my first DApp, marking an important step in my journey into decentralized technologies')">
+                            <button class="cert-view-btn mb-2" onclick="openLightbox(event,'Certificate of Participation','HeLa Crossroads','https://res.cloudinary.com/dmzjlfnuz/image/upload/v1773347681/z0tf0awz1nrfysblfg7o.jpg','https://res.cloudinary.com/dmzjlfnuz/image/upload/v1773347681/z0tf0awz1nrfysblfg7o.jpg',['Blockchain','DApps','Web3 Development','Digital Wallet Integration','Ethereum'],'Completed the HeLa CrossRoadshow Workshop, where I learned the fundamentals of Web3 and blockchain and built my first DApp, marking an important step in my journey into decentralized technologies')">
                                 View Certificate <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
                             </button>
                         </div>
@@ -707,8 +761,8 @@
                 </div>
             </div>
 
-            <!-- Card 4 -->
-            <div class="cert-item fade-in-up" data-category="dev">
+            <!-- Card 5 -->
+            <div class="cert-item fade-in-up">
                 <div class="cert-wrapper">
                     <div class="cert-card">
                         <div class="cert-front">
@@ -742,8 +796,8 @@
                 </div>
             </div>
 
-            <!-- Card 5 -->
-            <div class="cert-item fade-in-up" data-category="dev">
+            <!-- Card 6 -->
+            <div class="cert-item fade-in-up">
                 <div class="cert-wrapper">
                     <div class="cert-card">
                         <div class="cert-front">
@@ -775,8 +829,8 @@
                 </div>
             </div>
 
-            <!-- Card 6 -->
-             <div class="cert-item fade-in-up" data-category="dev">
+            <!-- Card 7 -->
+            <div class="cert-item fade-in-up">
                 <div class="cert-wrapper">
                     <div class="cert-card">
                         <div class="cert-front">
@@ -793,14 +847,48 @@
                             </div>
                         </div>
                         <div class="cert-back">
-                            <div class="cert-back-icon">🐍</div>
+                            <div class="cert-back-icon">🔥</div>
                             <div class="cert-back-title">Python Programming</div>
                             <div class="cert-back-issuer">The Angaar Batch</div>
                             <div class="cert-skills-wrap">
-                                <span class="cert-skill-tag">Python(Programming Languuage)</span>
+                                <span class="cert-skill-tag">Python (Programming Languuage)</span>
                             </div>
                             <div class="cert-back-desc">Completed a Python Programming course, building a strong foundation in core concepts, problem-solving, and structured coding, while taking the next step toward full-stack development.</div>
-                            <button class="cert-view-btn" onclick="openLightbox(event,'Python Programming','The Angaar Batch','https://res.cloudinary.com/dmzjlfnuz/image/upload/v1774038839/Python_Programming_Certificate-laxmi_narayan-verma_eeg7s9.png','https://res.cloudinary.com/dmzjlfnuz/image/upload/v1774038839/Python_Programming_Certificate-laxmi_narayan-verma_eeg7s9.png',['Python(Programming Languuage)'],'Completed a Python Programming course, gaining hands-on experience with core concepts and building a strong base for advancing into full-stack development.')">
+                            <button class="cert-view-btn" onclick="openLightbox(event,'Python Programming','The Angaar Batch','https://res.cloudinary.com/dmzjlfnuz/image/upload/v1774038839/Python_Programming_Certificate-laxmi_narayan-verma_eeg7s9.png','https://res.cloudinary.com/dmzjlfnuz/image/upload/v1774038839/Python_Programming_Certificate-laxmi_narayan-verma_eeg7s9.png',['Python (Programming Languuage)'],'Completed a Python Programming course, gaining hands-on experience with core concepts and building a strong base for advancing into full-stack development.')">
+                                View Certificate <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 8 -->
+            <div class="cert-item fade-in-up">
+                <div class="cert-wrapper">
+                    <div class="cert-card">
+                        <div class="cert-front">
+                            <div class="cert-shine"></div>
+                            <div class="cert-image-wrap">
+                                <img class="cert-fit-contain" src="https://media.geeksforgeeks.org/auth-certificates/1775586600/7ee077ac2210c7a7cc6ebcb2a226267f.png" alt="GeeksforGeeks Certificate of Participation"
+                                     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                <div class="cert-placeholder" style="display:none;"><img class="cert-brand-logo" src="https://media.geeksforgeeks.org/gfg-gg-logo.svg" alt="GeeksforGeeks Logo"><div class="cert-placeholder-text">GeeksforGeeks</div></div>
+                            </div>
+                            <div class="cert-meta">
+                                <div class="cert-title">Certificate of Participation</div>
+                                <div class="cert-issuer">Geeks for Geeks</div>
+                                <div class="cert-date">2026</div>
+                            </div>
+                        </div>
+                        <div class="cert-back">
+                            <img class="cert-brand-logo" src="https://media.geeksforgeeks.org/gfg-gg-logo.svg" alt="GeeksforGeeks Logo">
+                            <div class="cert-back-title">Certificate of Participation</div>
+                            <div class="cert-back-issuer">Geeks for Geeks</div>
+                            <div class="cert-skills-wrap">
+                                <span class="cert-skill-tag">Gemini AI</span><span class="cert-skill-tag">Web Apps</span>
+                                <span class="cert-skill-tag">AI Workshop</span><span class="cert-skill-tag">Practical Learning</span>
+                            </div>
+                            <div class="cert-back-desc">Earned this Certificate of Participation after attending the Gemini AI workshop focused on building smarter, AI-assisted web applications.</div>
+                            <button class="cert-view-btn" onclick="openLightbox(event,'Certificate of Participation','Geeks for Geeks','https://media.geeksforgeeks.org/auth-certificates/1775586600/7ee077ac2210c7a7cc6ebcb2a226267f.png','https://media.geeksforgeeks.org/auth-certificates/1775586600/7ee077ac2210c7a7cc6ebcb2a226267f.png',['Gemini AI','Web Apps','AI Workshop','Acharya Narendra Dev College'],'Issued for participation in the Supercharge Your Web Apps with Gemini AI workshop held at Acharya Narendra Dev College, University of Delhi, on 2 April 2026.')">
                                 View Certificate <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
                             </button>
                         </div>
